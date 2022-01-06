@@ -1,9 +1,10 @@
 <template>
 
   <div>
-    <section class="section">
+    <!-- <section class="section">
 
       <div class="columns is-mobile">
+
         <card title="Free" icon="github">
           Open source on <a href="https://github.com/buefy/buefy"> GitHub </a>
         </card>
@@ -20,18 +21,28 @@
         <card title="Lightweight" icon="arrange-bring-to-front">
           No other internal dependency
         </card>
+
       </div>
-    </section>
+    </section> -->
 
     <section class="section">
       <div class="columns is-mobile">
+
         <card title="Debug" icon="">
           <code>
             <pre>
-              {{ config }}
+              {{ config.data }}
             </pre>
           </code>
         </card>
+
+        <card title="test" icon="">
+          <vue-showdown
+            :markdown="config.content"
+            :options="{ emoji: true }"
+          />
+        </card>
+
       </div>
     </section>
   </div>

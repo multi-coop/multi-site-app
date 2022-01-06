@@ -86,6 +86,7 @@ export default {
   plugins: [
     // '~/plugins/globalComponents',
     { src: '~/plugins/axios', mode: 'client' },
+    { src: '~/plugins/showdown.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
