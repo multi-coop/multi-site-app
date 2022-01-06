@@ -12,8 +12,8 @@ export default async function ({
   if (!store.state.navbar) {
 
     const gitInfos = store.state.gitInfos
-    const navbargFile = store.state.config.data.navbar
-    const urlNavbarFile = `${gitInfos.gitRawRoot}${navbargFile}`
+    const navbarFile = store.state.config.data.navbar
+    const urlNavbarFile = `${gitInfos.gitRawRoot}${navbarFile}`
     console.log( '-MW- buildNavbar > urlNavbarFile : ', urlNavbarFile )
 
     await $axios.get(urlNavbarFile)

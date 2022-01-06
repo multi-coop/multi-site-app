@@ -44,6 +44,14 @@
           </code>
         </card>
 
+        <card title="routes obj" icon="">
+          <code>
+            <pre>
+              {{ routes.data }}
+            </pre>
+          </code>
+        </card>
+
         <card title="test" icon="">
           <VueShowdown
             :markdown="config.content"
@@ -73,6 +81,7 @@ export default {
         appTitle: (state) => state.appTitle,
         config: (state) =>  state.config,
         navbar: (state) =>  state.navbar,
+        routes: (state) =>  state.routes,
       }),
     },
 }

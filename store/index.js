@@ -51,5 +51,8 @@ export const actions = {
   },
   async updateNavbar ({commit}, configObject) {
     return await commit('setConfig', {space: 'navbar', obj: configObject})
+  },
+  async updateRoutes ({commit}, configObject) {
+    return await commit('setConfig', {space: 'routes', obj: configObject})
   }
 }

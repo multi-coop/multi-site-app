@@ -62,6 +62,7 @@ export default {
     middleware: [
       'getConfig',
       'buildNavbar',
+      'buildRoutes',
     ]
   },
 
