@@ -1,35 +1,38 @@
-// import parser from 'md-yaml-json'
-// import { processFile as parseToJSON } from 'md-yaml-json'
-
 import matter from 'gray-matter'
 
-export default function ({
+import { extractGitInfos } from '~/utils/utilsGitUrl'
+
+export default async function ({
   store, 
   env, 
-  // context, 
-  // route,
-  // redirect,
   $axios,
-  i18n
 }) {
 
-  if (!store.contentsRepo || ! store.configFile) {
-    store.dispatch('updateContentsRepo', env.CONFIG_APP.configFile)
-    store.dispatch('updateConfigFile', env.CONFIG_APP.contentsRepo)
+  console.log( '-MW- getConfig > ... ' ) 
+
+  if (!store.state.contentsRepo || !store.state.configFile) {
+    store.dispatch('updateContentsRepo', env.CONFIG_APP.contentsRepo)
+    store.dispatch('updateConfigFile', env.CONFIG_APP.configFile)
   }
 
-  if (!store.config) {
+  if (!store.state.config) {
     const urlConfigFile = env.CONFIG_APP.configFile
-    return $axios.get(urlConfigFile)
+    
+    // extract git infos
+    const gitInfos = extractGitInfos(urlConfigFile)
+    console.log( '-MW- getConfig > gitInfos : \n', gitInfos ) 
+    store.dispatch('updateGitInfos', gitInfos)
+    
+    await $axios.get(urlConfigFile)
       .then( resp => {
+
         // convert string to json object
         const configObject = matter(resp.data)
-        console.log( '...configFromYaml > configObject : \n', configObject ) 
+        console.log( '-MW- getConfig > configObject : \n', configObject ) 
         
         // save to store
-        store.dispatch('updateConfig', configObject)
+        return store.dispatch('updateConfig', configObject)
       })
-  
   
   }
 

@@ -28,7 +28,7 @@
     <section class="section">
       <div class="columns is-mobile">
 
-        <card title="Debug" icon="">
+        <card title="config obj" icon="">
           <code>
             <pre>
               {{ config.data }}
@@ -36,8 +36,16 @@
           </code>
         </card>
 
+        <card title="navbar obj" icon="">
+          <code>
+            <pre>
+              {{ navbar.data }}
+            </pre>
+          </code>
+        </card>
+
         <card title="test" icon="">
-          <vue-showdown
+          <VueShowdown
             :markdown="config.content"
             :options="{ emoji: true }"
           />
@@ -64,6 +72,7 @@ export default {
         log: (state) => state.log,
         appTitle: (state) => state.appTitle,
         config: (state) =>  state.config,
+        navbar: (state) =>  state.navbar,
       }),
     },
 }

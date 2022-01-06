@@ -98,7 +98,7 @@ export class configApp {
     this.port = choosePort(RUN_MODE, env)
     
     // CONFIG
-    this.contentRepo = env.NUXT_ENV_REPO_CONTENTS
+    this.contentsRepo = env.NUXT_ENV_REPO_CONTENTS
     this.configFile = env.NUXT_ENV_SITE_CONFIG
 
     // LOADING

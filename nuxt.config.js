@@ -42,7 +42,7 @@ export default {
   // for build or dev
   // https://nuxtjs.org/faq/host-port/
   server: {
-    port: config.port, // 3000
+    port: config.port, // 4000
     host: config.host // XXX.XX.XX.XX
   },
 
@@ -61,6 +61,7 @@ export default {
     prefetchLinks: false,
     middleware: [
       'getConfig',
+      'buildNavbar',
     ]
   },
 

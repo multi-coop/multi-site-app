@@ -15,7 +15,14 @@ export const state = () => ({
   // CONFIG
   contentsRepo: undefined,
   configFile: undefined,
+
+  gitInfos: undefined,
+
   config: undefined,
+
+  navbar: undefined,
+  footer: undefined,
+  routes: undefined,
 
   crumbsPath: []
 })
@@ -30,13 +37,19 @@ export const mutations = {
 }
 
 export const actions = {
-  updateContentsRepo ({commit}, contentsRepo) {
-    commit('setConfig', {space: 'contentsRepo', obj: contentsRepo})
+  async updateContentsRepo ({commit}, configObject) {
+    return await commit('setConfig', {space: 'contentsRepo', obj: configObject})
   },
-  updateConfigFile ({commit}, configFile) {
-    commit('setConfig', {space: 'configFile', obj: configFile})
+  async updateConfigFile ({commit}, configObject) {
+    return await commit('setConfig', {space: 'configFile', obj: configObject})
   },
-  updateConfig ({commit}, configObject) {
-    commit('setConfig', {space: 'config', obj: configObject})
+  updateGitInfos ({commit}, gitInfos) {
+    commit('setConfig', {space: 'gitInfos', obj: gitInfos})
+  },
+  async updateConfig ({commit}, configObject) {
+    await commit('setConfig', {space: 'config', obj: configObject})
+  },
+  async updateNavbar ({commit}, configObject) {
+    return await commit('setConfig', {space: 'navbar', obj: configObject})
   }
 }
