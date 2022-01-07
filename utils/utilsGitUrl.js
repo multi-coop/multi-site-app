@@ -22,7 +22,7 @@ export const convertToRawUrl = ( url, gitInfos ) => {
 export const extractGitInfos = (str) => {
 
   console.log( '-U- extractGitInfos > str : ', str ) 
-  let provider, orga, repo, branch, rawRoot
+  let provider, orga, repo, branch, rawRoot, remaining
   let gitRef, trimmed, split, rawUrl
 
   if ( str.startsWith( gitProviders.github.root ) || str.startsWith( gitProviders.github.raw ) ) {
@@ -34,6 +34,7 @@ export const extractGitInfos = (str) => {
     orga = split[0]
     repo = split[1]
     branch = rawUrl ? split[2] : split[3]
+    remaining = rawUrl ? split.splice(3).join('/') : split.splice(4).join('/')
   } 
   else {
     provider = 'gitlab'
@@ -44,6 +45,7 @@ export const extractGitInfos = (str) => {
     orga = split[0]
     repo = split[1]
     branch = split[4]
+    remaining = split.splice(5).join('/')
   }
 
   rawRoot = `${gitRef.raw}${orga}/${repo}`
@@ -58,7 +60,8 @@ export const extractGitInfos = (str) => {
     gitOrga: orga,
     gitRepo: repo,
     gitBranch: branch || 'master',
-    gitRawRoot: rawRoot
+    gitRawRoot: rawRoot,
+    remainingString: remaining,
   }
 }
 

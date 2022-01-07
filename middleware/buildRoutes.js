@@ -19,11 +19,11 @@ export default async function ({
     await $axios.get(urlRoutesFile)
       .then( resp => {
         // convert string to json object
-        const navbarObject = matter(resp.data)
-        // console.log( '-MW- buildRoutes > navbarObject : ', navbarObject ) 
+        const routesObject = matter(resp.data)
+        // console.log( '-MW- buildRoutes > routesObject : ', routesObject ) 
         
         // save to store
-        store.dispatch('updateRoutes', navbarObject)
+        store.dispatch('updateRoutes', routesObject)
       })
   
   

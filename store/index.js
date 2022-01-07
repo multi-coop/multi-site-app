@@ -37,6 +37,11 @@ export const mutations = {
 }
 
 export const actions = {
+
+  updateLocale ({commit}, locale) {
+    commit('setConfig', {space: 'locale', obj: locale})
+  },
+
   async updateContentsRepo ({commit}, configObject) {
     return await commit('setConfig', {space: 'contentsRepo', obj: configObject})
   },
@@ -54,5 +59,8 @@ export const actions = {
   },
   async updateRoutes ({commit}, configObject) {
     return await commit('setConfig', {space: 'routes', obj: configObject})
-  }
+  },
+  async updateFooter ({commit}, configObject) {
+    return await commit('setConfig', {space: 'footer', obj: configObject})
+  },
 }

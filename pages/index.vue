@@ -36,13 +36,28 @@
           </code>
         </card>
 
-        <card title="navbar obj" icon="">
+
+        <card title="config md content" icon="">
+          <VueShowdown
+            :markdown="config.content"
+            :options="{ emoji: true }"
+          />
+        </card>
+
+
+        <card title="footer obj" icon="">
           <code>
             <pre>
-              {{ navbar.data }}
+              {{ footer.data }}
             </pre>
           </code>
         </card>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="columns is-mobile">
 
         <card title="routes obj" icon="">
           <code>
@@ -52,12 +67,14 @@
           </code>
         </card>
 
-        <card title="test" icon="">
-          <VueShowdown
-            :markdown="config.content"
-            :options="{ emoji: true }"
-          />
+        <card title="navbar obj" icon="">
+          <code>
+            <pre>
+              {{ navbar.data }}
+            </pre>
+          </code>
         </card>
+
 
       </div>
     </section>
@@ -75,14 +92,15 @@ export default {
   components: {
     Card,
   },
-    computed: {
-      ...mapState({
-        log: (state) => state.log,
-        appTitle: (state) => state.appTitle,
-        config: (state) =>  state.config,
-        navbar: (state) =>  state.navbar,
-        routes: (state) =>  state.routes,
-      }),
-    },
+  computed: {
+    ...mapState({
+      log: (state) => state.log,
+      appTitle: (state) => state.appTitle,
+      config: (state) =>  state.config,
+      navbar: (state) =>  state.navbar,
+      routes: (state) =>  state.routes,
+      footer: (state) =>  state.footer,
+    }),
+  },
 }
 </script>

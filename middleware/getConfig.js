@@ -22,8 +22,10 @@ export default async function ({
     const gitInfos = extractGitInfos(urlConfigFile)
     console.log( '-MW- getConfig > gitInfos : \n', gitInfos ) 
     store.dispatch('updateGitInfos', gitInfos)
+
+    const urlConfigFileRaw = `${gitInfos.gitRawRoot}${gitInfos.remainingString}`
     
-    await $axios.get(urlConfigFile)
+    await $axios.get(urlConfigFileRaw)
       .then( resp => {
 
         // convert string to json object
