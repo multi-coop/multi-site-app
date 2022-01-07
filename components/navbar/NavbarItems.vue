@@ -55,7 +55,7 @@
         <div class="buttons">
           <a class="button is-primary">
             <strong>
-              fr
+              {{ locale }}
             </strong>
           </a>
         </div>

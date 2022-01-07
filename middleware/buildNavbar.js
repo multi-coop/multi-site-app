@@ -11,6 +11,9 @@ export default async function ({
 
   if (!store.state.navbar) {
 
+    store.dispatch('updateLocale', store.state.config.data.app_default_locale)
+    store.dispatch('updateLocales', store.state.config.data.app_locales)
+
     const gitInfos = store.state.gitInfos
     const navbarFile = store.state.config.data.navbar
     const urlNavbarFile = `${gitInfos.gitRawRoot}${navbarFile}`

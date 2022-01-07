@@ -41,6 +41,9 @@ export const actions = {
   updateLocale ({commit}, locale) {
     commit('setConfig', {space: 'locale', obj: locale})
   },
+  updateLocales ({commit}, locales) {
+    commit('setConfig', {space: 'locales', obj: locales})
+  },
 
   async updateContentsRepo ({commit}, configObject) {
     return await commit('setConfig', {space: 'contentsRepo', obj: configObject})
