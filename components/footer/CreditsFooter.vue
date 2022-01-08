@@ -1,9 +1,29 @@
 <template>
 
-  <footer class="footer">
+  <footer class="footer is-size-7	py-3">
     <div class="content has-text-centered">
       <p>
-        Credits
+        {{ tr('credits') }}
+        <br>
+        ---
+        <a
+          target="_blank"
+          :href="source"
+          >
+          {{ tr('sourceCode') }}
+        </a>
+        - 
+        {{ tr('projetBy') }} © 
+        <a 
+          target="_blank"
+          :href="multiUrl"
+          class="has-text-weight-semibold"
+          >
+          Multi
+        </a>
+        - 
+        {{ years }} 
+        ---
       </p>
     </div>
   </footer>
@@ -16,10 +36,37 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'CreditsFooter',
+  data() {
+    return {
+      multiUrl: 'https://multi.coop',
+      source: 'https://github.com/co-demos/multi-site-app',
+      years: '2021-2022',
+      dict: {
+        credits: {
+          fr: 'Crédits',
+          en: 'Credits'
+        },
+        projetBy: {
+          fr: 'Un projet par',
+          en: 'a project by',
+        },
+        sourceCode: {
+          fr: 'Code source',
+          en: 'Source code'
+        }
+      }
+    }
+  },
   computed: {
     ...mapState({
       log: (state) => state.log,
+      locale: (state) => state.locale
     }),
   },
+  methods: {
+    tr(key) {
+      return this.dict[key][this.locale]
+    }
+  }
 }
 </script>

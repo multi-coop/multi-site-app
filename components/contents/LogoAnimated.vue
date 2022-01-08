@@ -1,6 +1,22 @@
 <template>
   <div>
 
+    <!-- DEBUG -->
+    <div 
+      v-if="debug"
+      class="level"
+      >
+      <div class="columns">
+        <div class="column" v-if="sectionData">
+          sectionData: <br><code>
+            <pre>
+              {{ sectionData.data }}
+            </pre>
+          </code>
+        </div>
+      </div>
+    </div>
+
     <VueShowdown
       :markdown="sectionData.content"
       :options="{ emoji: true }"
@@ -12,12 +28,13 @@
 
 <script>
 
-import { mapState } from 'vuex' 
+import { mapState, mapGetters } from 'vuex' 
 
 export default {
   name: 'LogoAnimated',
   props: [
-    'sectionData'
+    'sectionData',
+    'debug'
   ],
   data() {
     return {
@@ -27,6 +44,9 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+    }),
+    ...mapGetters({
+      rawRoot : 'getGitRawRoot',
     }),
   },
 

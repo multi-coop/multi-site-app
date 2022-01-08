@@ -14,6 +14,7 @@
 
         <ContentsSkeleton 
           :section="section"
+          :debug="true"
         />
 
       </div>

@@ -68,7 +68,6 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       navbar: (state) =>  state.navbar,
-      gitInfos: (state) =>  state.gitInfos,
     }),
   },
 }

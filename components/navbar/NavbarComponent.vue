@@ -8,7 +8,7 @@
       <template #brand>
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <img
-            :src="`${gitInfos.gitRawRoot}${navbar.data['logo-left']}`"
+            :src="`${rawRoot}${navbar.data['logo-left']}`"
           >
         </b-navbar-item>
       
@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex' 
+
+import { mapState, mapGetters } from 'vuex' 
 
 export default {
   name: 'NavbarComponent',
@@ -55,6 +56,9 @@ export default {
       locale: (state) => state.locale,
       navbar: (state) =>  state.navbar,
       gitInfos: (state) =>  state.gitInfos,
+    }),
+    ...mapGetters({
+      rawRoot : 'getGitRawRoot',
     }),
   },
 }

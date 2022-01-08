@@ -6,7 +6,7 @@
 
     <!-- menu left -->
     <section class="main-content columns">
-      <aside class="column is-2 section">
+      <!-- <aside class="column is-2 section">
         <p class="menu-label is-hidden-touch">
           General
         </p>
@@ -17,7 +17,7 @@
             </NuxtLink>
           </li>
         </ul>
-      </aside>
+      </aside> -->
 
       <div class="container column is-10">
         <Nuxt />
@@ -44,18 +44,18 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' },
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' },
-        },
-      ],
+      // items: [
+      //   {
+      //     title: 'Home',
+      //     icon: 'home',
+      //     to: { name: 'index' },
+      //   },
+      //   {
+      //     title: 'Inspire',
+      //     icon: 'lightbulb',
+      //     to: { name: 'inspire' },
+      //   },
+      // ],
     }
   },
   computed: {

@@ -32,7 +32,11 @@ export const state = () => ({
 export const getters = {
   getCurrentRouteConfig: (state) => (currentPath) => {
     return state.routes.data.routes.find( route => route.url === currentPath)
-  } 
+  },
+  getGitRawRoot: (state) => {
+    const root = state.gitInfos &&  state.gitInfos.gitRawRoot
+    return root
+  }
 }
 
 export const mutations = {

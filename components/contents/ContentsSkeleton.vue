@@ -1,35 +1,42 @@
 <template>
   <div class="mb-5">
 
-    <div class="level">
-      <code>
-        <pre>
-          {{ section }}
-        </pre>
-      </code>
+
+    <!-- DEBUG -->
+    <div 
+      v-if="debug"
+      class="level"
+      >
+
+      <div class="columns">
+        <div class="column">
+          section: <br><code>
+            <pre>
+              {{ section }}
+            </pre>
+          </code>
+        </div>
+      </div>
+
     </div>
 
-    <!-- <div class="level">
-      <code>
-        <pre>
-          {{ sectionData }}
-        </pre>
-      </code>
-    </div> -->
 
     <LogoAnimated
       v-if="section.component === 'LogoAnimated' && sectionData"
       :sectionData="sectionData"
+      :debug="false"
     />
 
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
       :sectionData="sectionData"
+      :debug="true"
     />
 
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
       :sectionData="sectionData"
+      :debug="false"
     />
 
   <hr>
@@ -40,12 +47,13 @@
 <script>
 import matter from 'gray-matter'
 
-import { mapState } from 'vuex' 
+import { mapState, mapGetters } from 'vuex' 
 
 export default {
   name: 'ContentsSkeleton',
   props: [
-    'section'
+    'section',
+    'debug'
   ],
   components: {
     LogoAnimated: () => import(/* webpackChunkName: "LogoAnimated" */ '~/components/contents/LogoAnimated.vue'),
@@ -66,8 +74,11 @@ export default {
       locale: (state) => state.locale,
       gitInfos: (state) =>  state.gitInfos,
     }),
+    ...mapGetters({
+      rawRoot : 'getGitRawRoot',
+    }),
     convertUrl() {
-      return `${this.gitInfos.gitRawRoot}${this.section.files[this.locale]}`
+      return `${this.rawRoot}${this.section.files[this.locale]}`
     },
   },
   methods: {
