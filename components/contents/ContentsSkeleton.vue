@@ -9,18 +9,27 @@
       </code>
     </div>
 
-    <div class="level">
+    <!-- <div class="level">
       <code>
         <pre>
           {{ sectionData }}
         </pre>
       </code>
-    </div>
+    </div> -->
 
-    <VueShowdown
-      v-if="sectionData"
-      :markdown="sectionData.content"
-      :options="{ emoji: true }"
+    <LogoAnimated
+      v-if="section.component === 'LogoAnimated' && sectionData"
+      :sectionData="sectionData"
+    />
+
+    <TextComponent
+      v-if="section.component === 'TextComponent' && sectionData"
+      :sectionData="sectionData"
+    />
+
+    <DataGrid
+      v-if="section.component === 'DataGrid' && sectionData"
+      :sectionData="sectionData"
     />
 
   <hr>
@@ -38,6 +47,11 @@ export default {
   props: [
     'section'
   ],
+  components: {
+    LogoAnimated: () => import(/* webpackChunkName: "LogoAnimated" */ '~/components/contents/LogoAnimated.vue'),
+    TextComponent: () => import(/* webpackChunkName: "TextComponent" */ '~/components/contents/TextComponent.vue'),
+    DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
+  },
   async mounted() {
     await this.getFileData()
   },
