@@ -1,7 +1,7 @@
 <template>
 
-  <footer class="footer is-size-7 pt-4 pb-6">
-    <div class="columns">
+  <footer class="footer is-size-7 pt-5 pb-3">
+    <div class="columns px-6">
 
       <div 
         v-for="col in footer.data.columns"
@@ -19,16 +19,41 @@
           </pre>
         </code> -->
 
-        <p>
+        <div
+          v-if="col.options && col.options.includes('in-line')"
+          >
+          <a 
+            v-for="link in col.links"
+            :key="link.url"
+            :href="link.url"
+            target="_blank"
+            class="px-2"
+            >
+            <b-icon
+              v-if="link.icon"
+              :icon="link.icon"
+            />
+          </a>
+        </div>
+        
+        <p v-else>
           <ul>
             <li
               v-for="link in col.links"
               :key="link.url"
               >
-              <a 
-                :href="link.url"
+              <nuxt-link 
+                v-if="link.url.startsWith('/')"
+                :to="{ path: link.url }"
                 >
-                {{ link.label[locale]}}
+                {{ link.label[locale] }}
+              </nuxt-link>
+              <a 
+                v-else
+                :href="link.url"
+                target="_blank"
+                >
+                {{ link.label[locale] }}
               </a>
             </li>
           </ul>

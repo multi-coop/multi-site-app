@@ -6,7 +6,10 @@
       >
 
       <template #brand>
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">
+        <b-navbar-item 
+          tag="router-link" 
+          :to="{ path: '/' }"
+          >
           <img
             :src="`${rawRoot}${navbar.data['logo-left']}`"
           >

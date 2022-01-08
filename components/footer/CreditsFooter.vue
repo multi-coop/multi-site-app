@@ -2,9 +2,10 @@
 
   <footer class="footer is-size-7	py-3">
     <div class="content has-text-centered">
-      <p>
+      <p class="has-text-weight-semibold pb-2 mb-0">
         {{ tr('credits') }}
-        <br>
+      </p>
+      <p>
         ---
         <a
           target="_blank"

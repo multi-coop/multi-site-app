@@ -1,7 +1,6 @@
 <template>
   <div class="mb-5">
 
-
     <!-- DEBUG -->
     <div 
       v-if="debug"
@@ -30,16 +29,15 @@
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
       :sectionData="sectionData"
-      :debug="true"
+      :debug="false"
     />
 
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
       :sectionData="sectionData"
-      :debug="false"
+      :debug="true"
     />
 
-  <hr>
   </div>
 </template>
 

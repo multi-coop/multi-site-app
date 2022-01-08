@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="mb-6">
 
     <section 
       class="section"
@@ -11,13 +11,12 @@
         v-for="section in currentRoute.sections"
         :key="section.name"
         >
-
         <ContentsSkeleton 
           :section="section"
-          :debug="true"
+          :debug="false"
         />
-
       </div>
+
     </section>
 
     <section 
@@ -83,17 +82,25 @@
 
 <script>
 
-import { mapState } from 'vuex' 
+import { mapState, mapGetters } from 'vuex' 
 
 import Card from '~/components/Card'
 
 export default {
   name: 'IndexPage',
+  head () { 
+    return {
+      title: this.config.data.app_name,
+      link: [
+        { rel: 'icon', href: this.iconUrl, sizes: '32x32' },
+      ],
+    }
+  },
   components: {
     Card,
     ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
   },
-  data() {
+  data () {
     return {
       debug: false,
     }
@@ -109,7 +116,14 @@ export default {
       locale: (state) => state.locale,
       currentRoute: (state) =>  state.currentRoute,
     }),
-  },
+    ...mapGetters({
+      rawRoot : 'getGitRawRoot',
+    }),
+    iconUrl() {
+      return `${this.rawRoot}${this.config.data.app_icon}`
+    }
+
+  }
 
 
 }

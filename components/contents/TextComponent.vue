@@ -1,26 +1,37 @@
+
 <template>
   <div>
 
     <!-- DEBUG -->
     <div 
       v-if="debug"
-      class="level"
+      class="block"
       >
-      <div class="columns">
-        <div class="column" v-if="sectionData">
-          sectionData: <br><code>
+
+      <div class="columns" v-if="sectionData">
+        <div class="column">
+          sectionData.data: <br><code>
             <pre>
               {{ sectionData.data }}
+            </pre>
+          </code>
+        </div>
+        <div class="column">
+          sectionData.content: <br><code>
+            <pre>
+              {{ sectionData.content }}
             </pre>
           </code>
         </div>
       </div>
     </div>
 
-    <VueShowdown
-      :markdown="sectionData.content"
-      :options="{ emoji: true, flavor: 'allOn' }"
-    />
+    <div class="">
+      <VueShowdown
+        :markdown="sectionData.content"
+        :options="{ emoji: true, flavor: 'original' }"
+      />
+    </div>
 
   </div>
 </template>

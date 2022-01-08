@@ -19,7 +19,7 @@
         </ul>
       </aside> -->
 
-      <div class="container column is-10">
+      <div class="container column is-10 my-6">
         <Nuxt />
       </div>
 
