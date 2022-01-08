@@ -1,6 +1,25 @@
 <template>
 
   <div>
+
+    <section 
+      class="section"
+      v-if="currentRoute"
+      >
+
+      <div class="container mb-4"
+        v-for="section in currentRoute.sections"
+        :key="section.name"
+        >
+
+        <ContentsSkeleton 
+          :section="section"
+        />
+
+      </div>
+
+    </section>
+
     <!-- <section class="section">
 
       <div class="columns is-mobile">
@@ -91,6 +110,7 @@ export default {
   name: 'IndexPage',
   components: {
     Card,
+    ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
   },
   computed: {
     ...mapState({
@@ -100,7 +120,11 @@ export default {
       navbar: (state) =>  state.navbar,
       routes: (state) =>  state.routes,
       footer: (state) =>  state.footer,
+      locale: (state) => state.locale,
+      currentRoute: (state) =>  state.currentRoute,
     }),
   },
+
+
 }
 </script>

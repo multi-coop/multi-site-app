@@ -24,10 +24,15 @@ export const state = () => ({
   footer: undefined,
   routes: undefined,
 
+  // NAV
+  currentRoute: undefined,
   crumbsPath: []
 })
 
 export const getters = {
+  getCurrentRouteConfig: (state) => (currentPath) => {
+    return state.routes.data.routes.find( route => route.url === currentPath)
+  } 
 }
 
 export const mutations = {
@@ -65,5 +70,9 @@ export const actions = {
   },
   async updateFooter ({commit}, configObject) {
     return await commit('setConfig', {space: 'footer', obj: configObject})
+  },
+
+  async updateCurrentRoute ({commit}, route) {
+    return await commit('setConfig', {space: 'currentRoute', obj: route})
   },
 }

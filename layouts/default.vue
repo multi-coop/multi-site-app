@@ -25,6 +25,10 @@
 
     </section>
 
+    <!-- footers -->
+    <FooterComponent/>
+    <CreditsFooter/>
+
   </div>
 </template>
 
@@ -35,6 +39,8 @@ export default {
   name: 'DefaultLayout',
   components: {
     NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
+    FooterComponent: () => import(/* webpackChunkName: "FooterComponent" */ '~/components/footer/FooterComponent.vue'),
+    CreditsFooter: () => import(/* webpackChunkName: "CreditsFooter" */ '~/components/footer/CreditsFooter.vue'),
   },
   data() {
     return {

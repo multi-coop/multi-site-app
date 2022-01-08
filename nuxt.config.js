@@ -64,6 +64,7 @@ export default {
       'buildNavbar',
       'buildFooter',
       'buildRoutes',
+      'getRouteConfig'
     ]
   },
 

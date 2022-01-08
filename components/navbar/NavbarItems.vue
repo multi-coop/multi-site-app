@@ -12,13 +12,14 @@
         tag="router-link"
         :to="{ path: item.link }"
         >
-        {{ item.name }}
+        {{ item.label[locale] }}
       </b-navbar-item>
 
       <b-navbar-dropdown 
         v-if="item.component === 'dropdownLink'"
-        hoverable
-        :label="item.name"
+        :label="item.label[locale]"
+        :arrowless="item.options.includes('arrowless')"
+        :hoverable="item.options.includes('hoverable')"
         >
 
         <b-navbar-item 
@@ -27,41 +28,25 @@
           tag="router-link"
           :to="{ path: subItem.link }"
           >
-          {{ subItem.name }}
+          {{ subItem.label[locale] }}
         </b-navbar-item>
 
       </b-navbar-dropdown>
 
       <b-navbar-item 
         tag="div"
-        v-if="item.component === 'buttonLink'"
-        >
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>
-              Sign up
-            </strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
-        </div>
-      </b-navbar-item>
-
-      <b-navbar-item 
-        tag="div"
         v-if="item.component === 'switchLocaleDropdown'"
         >
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>
-              {{ locale }}
-            </strong>
-          </a>
-        </div>
+        <b-button
+          type="is-primary"
+          :rounded="item.options.includes('rounded')"
+          size="is-small"
+          >
+          <strong class="is-uppercase">
+            {{ locale }}
+          </strong>
+        </b-button>
       </b-navbar-item>
-
-
 
     </div>
 

@@ -2,6 +2,7 @@
     
     <b-navbar
       class=""
+      :fixed-top="navbar.data['fixed-top']"
       >
 
       <template #brand>
