@@ -10,7 +10,7 @@ export const gitProviders = {
   gitlab: {
     root: 'https://gitlab.com/',
     raw: 'https://gitlab.com/',
-    fix: '-/raw/'
+    fix: '/-/raw/'
     // root: 'https://gitlab.com/jailbreak/jailbreak.paris/ -/blob/ master/package.json'
     // raw:  'https://gitlab.com/jailbreak/jailbreak.paris/ -/raw/  master/package.json',
   }
