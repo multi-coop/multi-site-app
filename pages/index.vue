@@ -3,13 +3,14 @@
   <div class="mb-6">
 
     <section 
-      class="section"
       v-if="currentRoute"
+      class="section"
       >
 
-      <div class="container mb-4"
+      <div 
         v-for="section in currentRoute.sections"
         :key="section.name"
+        class="container mb-4"
         >
         <ContentsSkeleton 
           :section="section"
@@ -88,14 +89,6 @@ import Card from '~/components/Card'
 
 export default {
   name: 'IndexPage',
-  head () { 
-    return {
-      title: this.config.data.app_name,
-      link: [
-        { rel: 'icon', href: this.iconUrl, sizes: '32x32' },
-      ],
-    }
-  },
   components: {
     Card,
     ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
@@ -103,6 +96,14 @@ export default {
   data () {
     return {
       debug: false,
+    }
+  },
+  head () { 
+    return {
+      title: this.config.data.app_name,
+      link: [
+        { rel: 'icon', href: this.iconUrl, sizes: '32x32' },
+      ],
     }
   },
   computed: {

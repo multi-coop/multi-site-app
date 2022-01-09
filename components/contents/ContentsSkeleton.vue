@@ -35,7 +35,7 @@
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
       :sectionData="sectionData"
-      :debug="true"
+      :debug="false"
     />
 
   </div>

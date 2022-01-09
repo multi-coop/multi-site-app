@@ -26,7 +26,10 @@ export const state = () => ({
 
   // NAV
   currentRoute: undefined,
-  crumbsPath: []
+  crumbsPath: [],
+
+  // FILTERS
+  filters: {}
 })
 
 export const getters = {
