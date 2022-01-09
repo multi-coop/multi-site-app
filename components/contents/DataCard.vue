@@ -45,7 +45,7 @@
       
       <!-- COvER -->
       <div 
-        v-if="imagesKey"
+        v-if="imagesList"
         class="card-image"
         >
         <b-image
@@ -80,7 +80,7 @@
               :type="`is-${tagKey.color}`"
               class="has-text-weight-bold"
               >
-              {{ tag }}
+              {{ trimString(tag, 25) }}
             </b-tag>
           </b-taglist>
         </div>
@@ -262,7 +262,7 @@ export default {
     imagesList() {
       let imagesArray
       const dataImages = this.data[ this.imagesKey ]
-      console.log('-C- DataCard > imagesList > dataImages :', dataImages)
+      // console.log('-C- DataCard > imagesList > dataImages :', dataImages)
       if (typeof dataImages === 'string' ) {
         imagesArray = [ dataImages ]
       } else {
@@ -290,6 +290,10 @@ export default {
     },
     hasKey(str) {
       return Object.keys(this.data).includes(str)
+    },
+    trimString(str, max) {
+      const strTrimmed = str.length >= max ? `${str.slice(0, max)}...` : str
+      return strTrimmed
     }
   }
 
