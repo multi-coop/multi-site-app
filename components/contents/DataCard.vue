@@ -38,11 +38,12 @@
 
       <header class="card-header has-text-centered">
         <h3 class="card-header-title">
-          {{ data.name }}
+          {{ data[titleKey] }}
         </h3>
       </header>
 
       <div 
+        v-if="coverKey"
         class="card-image"
         >
         <b-image
@@ -236,6 +237,9 @@ export default {
         resume: `${content[0]}</p>`,
         readMore: content.splice(1).join('') 
       }
+    },
+    titleKey() {
+      return this.options['title-key'] || 'name'
     },
     coverKey() {
       return this.options['cover-key']

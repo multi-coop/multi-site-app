@@ -47,7 +47,7 @@
     <!-- CARDS -->
     <div
       v-if="sectionData"
-      class="columns is-multiline is-mobile is-centered is-4"
+      class="columns is-multiline is-mobile is-centered is-8"
       >
       <div 
         v-for="(cardFile, idx) in sectionData.data.items"

@@ -2,7 +2,7 @@
   <div class="block">
 
     <b-field 
-      :label="`DataCardsFilter - by ${ label }`"
+      :label="`Filter by ${ label }`"
       >
 
       <!-- https://buefy.org/documentation/taginput#autocomplete -->
