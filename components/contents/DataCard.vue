@@ -36,25 +36,34 @@
 
     <div class="card">
 
+      <!-- TITLE -->
       <header class="card-header has-text-centered">
         <h3 class="card-header-title">
           {{ data[titleKey] }}
         </h3>
       </header>
-
+      
+      <!-- COvER -->
       <div 
-        v-if="coverKey"
+        v-if="imagesKey"
         class="card-image"
         >
         <b-image
-          :src='convertUrl(data[coverKey])'
+          :src='convertUrl(imagesList[0])'
           :alt='data.name'
-          :ratio="coverRatio"
+          :ratio="imagesRatio"
         />
       </div>
       
+      <!-- CONTENT -->
       <div class="card-content">
-        
+
+
+        <!-- {{ imagesKey }} <br> -->
+        <!-- {{ data[ imagesKey ] }} <br> -->
+        <!-- {{ imagesList }} -->
+
+        <!-- TAGS -->
         <div 
           v-if="options['tags-keys']"
           class="content"
@@ -76,6 +85,7 @@
           </b-taglist>
         </div>
 
+        <!-- TEXT -->
         <div class="content">
 
           <div 
@@ -125,7 +135,7 @@
 
       </div>
 
-
+      <!-- FOOTER -->
       <footer
         v-if="options && options['has-socials']"
         class="card-footer"
@@ -171,6 +181,7 @@
 
     </div>
 
+
     <!-- MODAL -->
     <b-modal 
       v-model="showModal" 
@@ -206,6 +217,7 @@ export default {
   ],
   data() {
     return {
+      images: undefined,
       tags: [],
       data: {},
       content: '',
@@ -241,11 +253,22 @@ export default {
     titleKey() {
       return this.options['title-key'] || 'name'
     },
-    coverKey() {
-      return this.options['cover-key']
+    imagesKey() {
+      return this.options['images-key']
     },
-    coverRatio() {
-      return this.options['cover-ratio'] || '4by4'
+    imagesRatio() {
+      return this.options['images-ratio'] || '4by4'
+    },
+    imagesList() {
+      let imagesArray
+      const dataImages = this.data[ this.imagesKey ]
+      console.log('-C- DataCard > imagesList > dataImages :', dataImages)
+      if (typeof dataImages === 'string' ) {
+        imagesArray = [ dataImages ]
+      } else {
+        imagesArray = dataImages
+      }
+      return imagesArray
     }
   },
   async mounted() {
