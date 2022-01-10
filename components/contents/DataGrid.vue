@@ -55,7 +55,7 @@
         <DataCardsFilter
           :label="filter.name"
           :tags="usableTags.find( e => e.key === filter.name)"
-          :debug="true"
+          :debug="false"
         />
       </div>
     </div>
