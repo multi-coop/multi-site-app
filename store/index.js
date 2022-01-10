@@ -33,6 +33,12 @@ export const state = () => ({
 })
 
 export const getters = {
+  getShowdownOptions: (state) => {
+    return {
+      emojis: state.config.data.app_md_emojis || true,
+      flavor: state.config.data.app_md_flavor || 'allOn'
+    }
+  },
   getCurrentRouteConfig: (state) => (currentPath) => {
     return state.routes.data.routes.find( route => route.url === currentPath)
   },
@@ -50,6 +56,10 @@ export const mutations = {
 
 export const actions = {
 
+  async updateConfig ({commit}, configObject) {
+    await commit('setConfig', {space: 'config', obj: configObject})
+  },
+
   updateLocale ({commit}, locale) {
     commit('setConfig', {space: 'locale', obj: locale})
   },
@@ -66,9 +76,7 @@ export const actions = {
   updateGitInfos ({commit}, gitInfos) {
     commit('setConfig', {space: 'gitInfos', obj: gitInfos})
   },
-  async updateConfig ({commit}, configObject) {
-    await commit('setConfig', {space: 'config', obj: configObject})
-  },
+
   async updateNavbar ({commit}, configObject) {
     return await commit('setConfig', {space: 'navbar', obj: configObject})
   },

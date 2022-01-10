@@ -4,14 +4,23 @@
     <!-- DEBUG -->
     <div 
       v-if="debug"
-      class="level"
+      class="content"
       >
-
+      <h1>
+        ContentsSkeleton - {{ sectionIndex }}
+      </h1>
       <div class="columns">
         <div class="column">
           section: <br><code>
             <pre>
               {{ section }}
+            </pre>
+          </code>
+        </div>
+        <div class="column">
+          sectionOptions: <br><code>
+            <pre>
+              {{ sectionOptions }}
             </pre>
           </code>
         </div>
@@ -22,19 +31,25 @@
 
     <LogoAnimated
       v-if="section.component === 'LogoAnimated' && sectionData"
+      :sectionIndex="sectionIndex"
       :sectionData="sectionData"
+      :sectionOptions="sectionOptions"
       :debug="false"
     />
 
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
+      :sectionIndex="sectionIndex"
       :sectionData="sectionData"
+      :sectionOptions="sectionOptions"
       :debug="false"
     />
 
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
+      :sectionIndex="sectionIndex"
       :sectionData="sectionData"
+      :sectionOptions="sectionOptions"
       :debug="false"
     />
 
@@ -52,6 +67,7 @@ export default {
   name: 'ContentsSkeleton',
   props: [
     'section',
+    'sectionIndex',
     'debug'
   ],
   components: {
@@ -79,6 +95,9 @@ export default {
     convertUrl() {
       return `${this.rawRoot}${this.section.files[this.locale]}`
     },
+    sectionOptions() {
+      return this.section.options
+    }
   },
   methods: {
     async getFileData() {

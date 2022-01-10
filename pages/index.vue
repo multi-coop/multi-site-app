@@ -2,24 +2,27 @@
 
   <div class="mb-6">
 
+    <!-- CONTENTS SECTION -->
     <section 
       v-if="currentRoute"
       class="section"
       >
 
       <div 
-        v-for="section in currentRoute.sections"
-        :key="section.name"
+        v-for="(section, idx) in currentRoute.sections"
+        :key="`${idx}-${section.name}`"
         class="container mb-4"
         >
         <ContentsSkeleton 
           :section="section"
+          :sectionIndex="idx"
           :debug="false"
         />
       </div>
 
     </section>
 
+    <!-- DEBUG -->
     <section 
       v-show="debug"
       class="section"
@@ -53,6 +56,7 @@
       </div>
     </section>
 
+    <!-- DEBUG -->
     <section 
       v-show="debug"
       class="section"
