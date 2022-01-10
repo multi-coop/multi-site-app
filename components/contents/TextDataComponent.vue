@@ -83,7 +83,7 @@
       <!-- SEPARATORS -->
       <hr
         v-else-if="isSeparator(dataContent)"
-        class="my-4"
+        class="my-6"
       />
 
       <!-- LABELS : VALUES -->
