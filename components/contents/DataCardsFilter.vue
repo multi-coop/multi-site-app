@@ -24,8 +24,8 @@
         <pre 
           style="max-height: 400px"
           >
-          <b>tags:</b>
-          {{ tags }}
+          <b>filteredTags:</b>
+          {{ filteredTags }}
         </pre>
       </p>
       <p>
@@ -83,8 +83,12 @@ export default {
   },
   methods: {
     getFilteredTags(text) {
+      console.log('-C- DataCardsFilter > getFilteredTags > text :', text)
       this.filteredTags = this.tags.tags.filter((t) => {
-        return t.name === text
+        return t.name
+          .toString()
+          .toLowerCase()
+          .includes(text.toLowerCase())
       })
     }
   }
