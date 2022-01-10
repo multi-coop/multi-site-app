@@ -96,6 +96,8 @@ export default {
     { src: '~/plugins/axiosPlugin', mode: 'client' },
     // { src: '~/plugins/axios', mode: 'client' },
 
+    { src: '~/plugins/translatePlugin', mode: 'client' },
+
     // '~/plugins/globalComponents',
     { src: '~/plugins/showdown.js', mode: 'client' },
   ],
@@ -118,10 +120,11 @@ export default {
     // https://go.nuxtjs.dev/axios
     // '@nuxtjs/axios',
 
-    ['nuxt-i18n', {
-      strategy: 'no_prefix',
-      defaultLocale: 'en'
-    }],
+    // ['nuxt-i18n', {
+    //   strategy: 'no_prefix',
+    //   defaultLocale: 'en'
+    // }],
+
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

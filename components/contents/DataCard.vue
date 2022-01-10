@@ -117,10 +117,10 @@
                 @click="showMore = !showMore"
                 >
                 <span v-if="!showMore">
-                  {{ defaultDict.readmore[locale] }}
+                  {{ $translate('readmore', defaultDict, locale) }}
                 </span>
                 <span v-if="showMore">
-                  {{ defaultDict.readless[locale] }}
+                  {{ $translate('readless', defaultDict, locale) }}
                 </span>
               </b-button>
             </p>
@@ -247,9 +247,12 @@ export default {
       rawRoot : 'getGitRawRoot',
     }),
     contentSplit() {
-      const content = this.content.split('</p>')
+      // console.log('-C- DataCard > contentSplit > this.content :', this.content)
+      const contentTrimmed = this.content.startsWith('\n') ? this.content.substring(1) : this.content
+      const content = contentTrimmed.split('\n')
+      // const content = this.content.split('</p>')
       return {
-        resume: `${content[0]}</p>`,
+        resume: content[0],
         readMore: content.splice(1).join('') 
       }
     },

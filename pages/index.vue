@@ -57,7 +57,7 @@
       v-show="debug"
       class="section"
       >
-      <div class="columns is-mobile">
+      <div class="columns is-desktop">
 
         <card title="routes obj" icon="">
           <code>
@@ -78,6 +78,7 @@
 
       </div>
     </section>
+
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="block">
 
     <b-field 
-      :label="`Filter by ${ label }`"
+      :label="`${ $translate('filterBy', dict, locale) } : ${ label }`"
       >
 
       <!-- https://buefy.org/documentation/taginput#autocomplete -->
@@ -52,7 +52,13 @@ export default {
       isSelectOnly: false,
       tagsArray: [],
       allowNew: false,
-      openOnFocus: true
+      openOnFocus: true,
+      dict: {
+        filterBy: {
+          fr: 'Filtrer par',
+          en: 'Filter by',
+        },
+      }
     }
   },
   computed: {

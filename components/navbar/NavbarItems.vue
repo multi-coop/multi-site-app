@@ -12,12 +12,14 @@
         tag="router-link"
         :to="{ path: item.link }"
         >
-        {{ item.label[locale] }}
+        {{ $translate('label', item, locale) }}
       </b-navbar-item>
+
+
 
       <b-navbar-dropdown 
         v-if="item.component === 'dropdownLink'"
-        :label="item.label[locale]"
+        :label="$translate('label', item, locale)"
         :arrowless="item.options.includes('arrowless')"
         :hoverable="item.options.includes('hoverable')"
         >
@@ -28,10 +30,13 @@
           tag="router-link"
           :to="{ path: subItem.link }"
           >
-          {{ subItem.label[locale] }}
+          {{ $translate('label', subItem, locale) }}
         </b-navbar-item>
 
       </b-navbar-dropdown>
+
+
+
 
       <b-navbar-item 
         tag="div"

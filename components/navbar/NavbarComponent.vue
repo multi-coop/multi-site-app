@@ -6,6 +6,7 @@
       :fixed-top="navbar.data['fixed-top']"
       >
 
+      <!-- BRAND -->
       <template #brand>
         <b-navbar-item 
           tag="router-link" 
@@ -15,31 +16,27 @@
             :src="`${rawRoot}${navbar.data['logo-left']}`"
           >
         </b-navbar-item>
-      
       </template>
-
+      
+      <!-- NAV LEFT OR CENTER -->
       <template 
         v-if="navbar.data['buttons-left']"
         #start
         >
-
         <NavbarItems
           :items="navbar.data['buttons-left']"
         />
-
       </template>
 
+      <!-- NAV RIGHT -->
       <template 
         v-if="navbar.data['buttons-right']"
         #end
         >
-        
         <NavbarItems
           :items="navbar.data['buttons-right']"
         />
-
       </template>
-
 
     </b-navbar>
 
@@ -62,7 +59,7 @@ export default {
       gitInfos: (state) =>  state.gitInfos,
     }),
     ...mapGetters({
-      rawRoot : 'getGitRawRoot',
+      rawRoot: 'getGitRawRoot',
     }),
   },
 }

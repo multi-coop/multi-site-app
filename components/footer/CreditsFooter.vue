@@ -3,7 +3,7 @@
   <footer class="footer is-size-7	py-3">
     <div class="content has-text-centered">
       <p class="has-text-weight-semibold pb-2 mb-0">
-        {{ tr('credits') }}
+        {{ $translate('credits', dict, locale) }}
       </p>
       <p>
         ---
@@ -11,10 +11,11 @@
           target="_blank"
           :href="source"
           >
-          {{ tr('sourceCode') }}
+          {{ $translate('sourceCode', dict, locale) }}
         </a>
         - 
-        {{ tr('projetBy') }} © 
+        {{ $translate('projetBy', dict, locale) }} 
+        © 
         <a 
           target="_blank"
           :href="multiUrl"
@@ -64,10 +65,5 @@ export default {
       locale: (state) => state.locale
     }),
   },
-  methods: {
-    tr(key) {
-      return this.dict[key][this.locale]
-    }
-  }
 }
 </script>
