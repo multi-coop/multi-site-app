@@ -35,6 +35,7 @@
         >
         <NavbarItems
           :items="navbar.data['buttons-right']"
+          :isRight="true"
         />
       </template>
 

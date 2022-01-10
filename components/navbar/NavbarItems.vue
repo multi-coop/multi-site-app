@@ -7,51 +7,54 @@
       :key="item.name"
       >
 
-      <b-navbar-item 
-        v-if="item.component === 'simpleLink'"
-        tag="router-link"
-        :to="{ path: item.link }"
-        >
-        {{ $translate('label', item, locale) }}
-      </b-navbar-item>
-
-
-
-      <b-navbar-dropdown 
-        v-if="item.component === 'dropdownLink'"
-        :label="$translate('label', item, locale)"
-        :arrowless="item.options.includes('arrowless')"
-        :hoverable="item.options.includes('hoverable')"
-        >
+      <div v-if="!item.disabled"> 
 
         <b-navbar-item 
-          v-for="subItem in item.submenu"
-          :key="subItem.name"
+          v-if="item.component === 'simpleLink'"
           tag="router-link"
-          :to="{ path: subItem.link }"
+          :to="{ path: item.link }"
           >
-          {{ $translate('label', subItem, locale) }}
+          {{ $translate('label', item, locale) }}
         </b-navbar-item>
 
-      </b-navbar-dropdown>
 
 
-
-
-      <b-navbar-item 
-        tag="div"
-        v-if="item.component === 'switchLocaleDropdown'"
-        >
-        <b-button
-          type="is-primary"
-          :rounded="item.options.includes('rounded')"
-          size="is-small"
+        <b-navbar-dropdown 
+          v-if="item.component === 'dropdownLink'"
+          :label="$translate('label', item, locale)"
+          :arrowless="item.options.includes('arrowless')"
+          :hoverable="item.options.includes('hoverable')"
+          :right="isRight"
           >
-          <strong class="is-uppercase">
-            {{ locale }}
-          </strong>
-        </b-button>
-      </b-navbar-item>
+
+          <b-navbar-item 
+            v-for="subItem in item.submenu"
+            :key="subItem.name"
+            tag="router-link"
+            :to="{ path: subItem.link }"
+            >
+            {{ $translate('label', subItem, locale) }}
+          </b-navbar-item>
+
+        </b-navbar-dropdown>
+
+
+        <b-navbar-item 
+          tag="div"
+          v-if="item.component === 'switchLocaleDropdown'"
+          >
+          <b-button
+            type="is-primary"
+            :rounded="item.options.includes('rounded')"
+            size="is-small"
+            >
+            <strong class="is-uppercase">
+              {{ locale }}
+            </strong>
+          </b-button>
+        </b-navbar-item>
+
+      </div>
 
     </div>
 
@@ -66,7 +69,8 @@ import { mapState } from 'vuex'
 export default {
   name: 'NavbarItems',
   props: [
-    'items'
+    'items',
+    'isRight'
   ],
   computed: {
     ...mapState({
