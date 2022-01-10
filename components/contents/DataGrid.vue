@@ -49,20 +49,23 @@
       v-if="sectionData"
       class="columns is-multiline is-mobile is-centered is-8"
       >
-      <div 
+      <!-- <div 
         v-for="(cardFile, idx) in sectionData.data.items"
         :key="`${cardFile.file}-${idx}`"
         :class="`column is-${colSize}`"
-        >
+        > -->
         <DataCard
+          v-for="(cardFile, idx) in sectionData.data.items"
+          :key="`${cardFile.file}-${idx}`"
           :file="cardFile.file"
           :selected="selected"
           :options="options"
+          :colSize="colSize"
           :dict="sectionData.data.dict"
           :index="idx"
           :debug="false"
         />
-      </div>
+      <!-- </div> -->
     </div>
 
   </div>

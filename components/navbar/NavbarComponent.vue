@@ -2,6 +2,7 @@
     
     <b-navbar
       class=""
+      :centered="navbar.data['buttons-left-centered']"
       :fixed-top="navbar.data['fixed-top']"
       >
 

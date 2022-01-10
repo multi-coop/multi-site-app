@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    :class="`column is-${showMore ? 'full' : colSize}`"
+    >
 
     <!-- DEBUG -->
     <div 
@@ -45,7 +47,7 @@
       
       <!-- COvER -->
       <div 
-        v-if="imagesList"
+        v-if="imagesList && !showMore"
         class="card-image"
         >
         <b-image
@@ -211,6 +213,7 @@ export default {
     'file',
     'options',
     'dict',
+    'colSize',
     'selected',
     'index',
     'debug',
