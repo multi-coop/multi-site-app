@@ -64,6 +64,9 @@ export const actions = {
   updateLocale ({commit}, locale) {
     commit('setConfig', {space: 'locale', obj: locale})
   },
+  updateLocaleFallback ({commit}, locale) {
+    commit('setConfig', {space: 'localeFallback', obj: locale})
+  },
   updateLocales ({commit}, locales) {
     commit('setConfig', {space: 'locales', obj: locales})
   },

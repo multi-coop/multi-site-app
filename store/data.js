@@ -22,7 +22,7 @@ export const getters = {
 
 export const mutations = {
   setAvailableTagsKeys (state, tagsKeys) {
-    console.log('-S-data-M > setAvailableTagsKeys > tagsKeys :', tagsKeys)
+    // console.log('-S-data-M > setAvailableTagsKeys > tagsKeys :', tagsKeys)
     const existingKeys = state.tagsAvailable.map( t => t.key )
     tagsKeys.forEach( tagKey => {
       if ( !existingKeys.includes(tagKey) ) {
@@ -31,11 +31,11 @@ export const mutations = {
     })
   },
   setAvailableTags (state, { key, tags }) {
-    console.log('-S-data-M > setAvailableTags > key :', key)
-    console.log('-S-data-M > setAvailableTags > tags :', tags)
+    // console.log('-S-data-M > setAvailableTags > key :', key)
+    // console.log('-S-data-M > setAvailableTags > tags :', tags)
     
     const tagsList = state.tagsAvailable.find( obj => obj.key === key ) 
-    console.log('-S-data-M > setAvailableTags > tagsList :', tagsList)
+    // console.log('-S-data-M > setAvailableTags > tagsList :', tagsList)
     
     const tagsNames = tagsList.tags.map( t => t.name)
     for ( const tag of tags) {
@@ -57,11 +57,11 @@ export const mutations = {
 
 export const actions = {
   setAvailableTagsKeys ({commit}, tagsKeys) {
-    console.log('-S-data-A > setAvailableTagsKeys > tagsKeys :', tagsKeys)
+    // console.log('-S-data-A > setAvailableTagsKeys > tagsKeys :', tagsKeys)
     commit('setAvailableTagsKeys', tagsKeys )
   },
   setAvailableTags ({commit}, tagsObj) {
-    console.log('\n-S-data-A > setAvailableTagsKeys > tagsObj :', tagsObj)
+    // console.log('\n-S-data-A > setAvailableTagsKeys > tagsObj :', tagsObj)
     tagsObj.forEach( tagObj => {
       commit('setAvailableTags', tagObj )
     })

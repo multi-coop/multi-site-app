@@ -54,6 +54,7 @@
         >
         <DataCardsFilter
           :label="filter.name"
+          :itemDict="itemDict"
           :tags="usableTags.find( e => e.key === filter.name)"
           :debug="false"
         />
@@ -118,6 +119,9 @@ export default {
     }),
     options() {
       return this.sectionData.data.options 
+    },
+    itemDict() {
+      return this.sectionData.data.dict 
     },
     colSize() {
       return this.options['columns-size'] || 'one-third'

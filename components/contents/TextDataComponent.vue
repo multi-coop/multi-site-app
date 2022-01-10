@@ -70,14 +70,14 @@
       <h1
         v-if="isTitle(dataContent)"
         >
-        {{ $translate(dataContent, dataDict, locale) }}
+        {{ $translate(dataContent, dataDict) }}
       </h1>
 
       <!-- SUBTITLES -->
       <h3
         v-else-if="isSubtitle(dataContent)"
         >
-        {{ $translate(dataContent, dataDict, locale) }}
+        {{ $translate(dataContent, dataDict) }}
       </h3>
 
       <!-- SEPARATORS -->
@@ -91,7 +91,7 @@
         <span
           :class="`${labelsClasses}`"
           >
-          {{ $translate( formatContent(dataContent).key, dataDict, locale ) }} : 
+          {{ $translate( formatContent(dataContent).key, dataDict ) }} : 
         </span>
         {{ formatContent(dataContent).value }}
       </p>
@@ -125,7 +125,6 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -154,9 +153,9 @@ export default {
   },
   methods: {
     isTitle(dataContent) {
-      console.log('-C- TextDataComponent > isTitle > dataContent : ', dataContent)
+      // console.log('-C- TextDataComponent > isTitle > dataContent : ', dataContent)
       const titles = this.sectionDataOptions.titles
-      console.log('-C- TextDataComponent > isTitle > titles : ', titles)
+      // console.log('-C- TextDataComponent > isTitle > titles : ', titles)
       const check = titles && titles.includes(dataContent)
       return check
     },

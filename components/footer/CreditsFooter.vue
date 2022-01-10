@@ -3,7 +3,7 @@
   <footer class="footer is-size-7	py-3">
     <div class="content has-text-centered">
       <p class="has-text-weight-semibold pb-2 mb-0">
-        {{ $translate('credits', dict, locale) }}
+        {{ $translate('credits', dict) }}
       </p>
       <p>
         ---
@@ -11,10 +11,10 @@
           target="_blank"
           :href="source"
           >
-          {{ $translate('sourceCode', dict, locale) }}
+          {{ $translate('sourceCode', dict) }}
         </a>
         - 
-        {{ $translate('projetBy', dict, locale) }} 
+        {{ $translate('projetBy', dict) }} 
         © 
         <a 
           target="_blank"
@@ -62,7 +62,6 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale
     }),
   },
 }

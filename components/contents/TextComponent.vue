@@ -151,7 +151,7 @@ export default {
           })
       }
 
-      console.log('-C- TextComponent > contentSplit > contentsArray :', contentsArray)
+      // console.log('-C- TextComponent > contentSplit > contentsArray :', contentsArray)
       return contentsArray
     },
     columnsSize() {

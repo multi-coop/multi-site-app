@@ -2,7 +2,7 @@
   <div class="block">
 
     <b-field 
-      :label="`${ $translate('filterBy', dict, locale) } : ${ label }`"
+      :label="`${ $translate('filterBy', dict) } : ${ $translate(label, itemDict) }`"
       >
 
       <!-- https://buefy.org/documentation/taginput#autocomplete -->
@@ -51,6 +51,7 @@ export default {
   name: 'DataCardsFilter',
   props: [
     'label',
+    'itemDict',
     'tags',
     'debug',
   ],
@@ -75,7 +76,6 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',

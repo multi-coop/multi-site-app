@@ -10,7 +10,7 @@
         >
         
         <p class="has-text-weight-semibold mb-3">
-          {{ $translate('label', col, locale) }}
+          {{ $translate('label', col) }}
         </p>
 
         <!-- <code class="has-text-left">
@@ -46,14 +46,14 @@
                 v-if="link.url.startsWith('/')"
                 :to="{ path: link.url }"
                 >
-                {{ $translate('label', link, locale) }}
+                {{ $translate('label', link) }}
               </nuxt-link>
               <a 
                 v-else
                 :href="link.url"
                 target="_blank"
                 >
-                {{ $translate('label', link, locale) }}
+                {{ $translate('label', link) }}
               </a>
             </li>
           </ul>
@@ -74,7 +74,6 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale,
       footer: (state) => state.footer
     }),
   },

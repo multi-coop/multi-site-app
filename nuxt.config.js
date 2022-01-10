@@ -94,7 +94,6 @@ export default {
   plugins: [
 
     { src: '~/plugins/axiosPlugin', mode: 'client' },
-    // { src: '~/plugins/axios', mode: 'client' },
 
     { src: '~/plugins/translatePlugin', mode: 'client' },
 
@@ -116,14 +115,6 @@ export default {
 
     // https://go.nuxtjs.dev/buefy
     'nuxt-buefy',
-
-    // https://go.nuxtjs.dev/axios
-    // '@nuxtjs/axios',
-
-    // ['nuxt-i18n', {
-    //   strategy: 'no_prefix',
-    //   defaultLocale: 'en'
-    // }],
 
   ],
 

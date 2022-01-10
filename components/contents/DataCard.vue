@@ -117,10 +117,10 @@
                 @click="showMore = !showMore"
                 >
                 <span v-if="!showMore">
-                  {{ $translate('readmore', defaultDict, locale) }}
+                  {{ $translate('readmore', defaultDict) }}
                 </span>
                 <span v-if="showMore">
-                  {{ $translate('readless', defaultDict, locale) }}
+                  {{ $translate('readless', defaultDict) }}
                 </span>
               </b-button>
             </p>
@@ -240,7 +240,6 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -295,7 +294,7 @@ export default {
         // console.log('-C- DataCard > watch > tagsObj :', tagsObj)
         tagsToAdd.push(tagsObj)
       })
-      console.log('-C- DataCard > watch > tagsToAdd :', tagsToAdd)
+      // console.log('-C- DataCard > watch > tagsToAdd :', tagsToAdd)
       this.$store.dispatch('data/setAvailableTags', tagsToAdd)
     }
   },
