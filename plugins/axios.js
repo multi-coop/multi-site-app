@@ -12,7 +12,7 @@ export default function ({ $axios, store }) {
   })
 
   $axios.onError(error => {
-    console.log('PG-axios > onError > error.response :', error.response)
+    console.log('PG-axios > onError > error :', error)
     // store.dispatch('dialogs/commitIsLoading', false)
     // store.dispatch('dialogs/commitAxiosReponse', {resp: error.response, type: 'error'})
   })

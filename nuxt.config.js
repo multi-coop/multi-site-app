@@ -92,8 +92,11 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+
+    { src: '~/plugins/axiosPlugin', mode: 'client' },
+    // { src: '~/plugins/axios', mode: 'client' },
+
     // '~/plugins/globalComponents',
-    { src: '~/plugins/axios', mode: 'client' },
     { src: '~/plugins/showdown.js', mode: 'client' },
   ],
 
@@ -108,10 +111,12 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+
     // https://go.nuxtjs.dev/buefy
     'nuxt-buefy',
+
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    // '@nuxtjs/axios',
 
     ['nuxt-i18n', {
       strategy: 'no_prefix',
@@ -120,12 +125,12 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
-    // proxyHeaders: false,
-    credentials: false
-  },
+  // axios: {
+  //   // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+  //   baseURL: '/',
+  //   // proxyHeaders: false,
+  //   credentials: false
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
