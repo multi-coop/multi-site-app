@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div class="">
 
     <!-- DEBUG -->
     <div 
@@ -12,26 +12,33 @@
       </h1>
       <div 
         v-if="sectionData"
-        class="columns" 
+        class="columns is-multiline" 
         >
-        <div class="column">
+        <div class="column is-half">
           sectionOptions: <br><code>
             <pre>
               {{ sectionOptions }}
             </pre>
           </code>
         </div>
-        <div class="column">
+        <div class="column is-half">
           sectionData.data: <br><code>
             <pre>
               {{ sectionData.data }}
             </pre>
           </code>
         </div>
-        <div class="column">
+        <div class="column is-half">
           sectionData.content: <br><code>
             <pre>
               {{ sectionData.content }}
+            </pre>
+          </code>
+        </div>
+        <div class="column is-half">
+          contents: <br><code>
+            <pre>
+              {{ contents }}
             </pre>
           </code>
         </div>
@@ -50,13 +57,13 @@
 
       <!-- render with options -->
       <div
-        v-if="sectionOptions && sectionOptions.columns"
-        class="columns is-multiline is-8"
+        v-if="sectionOptions && hasColumnsOptions"
+        class="columns is-multiline is-centered is-tablet is-8"
         >
         <div 
           v-for="(splitContent, index) in contents"
           :key="`text-component-${sectionIndex}-col-${index}`"
-          :class="`column ${columnsSize}`"
+          :class="`column ${columnsSize} mb-6`"
           >
           <VueShowdown
             :markdown="splitContent"
@@ -103,6 +110,9 @@ export default {
       rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
     }),
+    hasColumnsOptions() {
+      return !!this.sectionOptions['columns-divider'] || !!this.sectionOptions['columns-size']
+    },
     content() {
       return this.sectionData.content
     },
