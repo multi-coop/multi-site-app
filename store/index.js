@@ -11,6 +11,7 @@ export const state = () => ({
   // LOCALES FOR i18n
   locale: undefined,
   locales: undefined,
+  localeFallback: undefined,
 
   // CONFIG
   contentsRepo: undefined,

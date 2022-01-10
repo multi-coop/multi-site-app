@@ -35,7 +35,10 @@
             </pre>
           </code>
         </div>
-        <div class="column is-half">
+        <div 
+          v-if="hasOptions"
+          class="column is-half"
+          >
           contents: <br><code>
             <pre>
               {{ contents }}
@@ -55,7 +58,7 @@
         :options="showdownOptions"
       />
 
-      <!-- render with options -->
+      <!-- render columns with options -->
       <div
         v-if="sectionOptions && hasColumnsOptions"
         class="columns is-multiline is-centered is-tablet is-8"
@@ -63,7 +66,7 @@
         <div 
           v-for="(splitContent, index) in contents"
           :key="`text-component-${sectionIndex}-col-${index}`"
-          :class="`column ${columnsSize} mb-6`"
+          :class="`column ${columnsSize} mb-6 px-5`"
           >
           <VueShowdown
             :markdown="splitContent"
@@ -110,8 +113,13 @@ export default {
       rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
     }),
+    hasOptions() {
+      return !!this.sectionOptions
+    },
     hasColumnsOptions() {
-      return !!this.sectionOptions['columns-divider'] || !!this.sectionOptions['columns-size']
+      const hasOptions = this.hasOptions
+      const hasColOptions = !!this.sectionOptions['columns-divider'] || !!this.sectionOptions['columns-size']
+      return hasOptions && hasColOptions
     },
     content() {
       return this.sectionData.content

@@ -53,6 +53,13 @@
       :debug="false"
     />
 
+    <TextDataComponent
+      v-if="section.component === 'TextDataComponent' && sectionData"
+      :sectionIndex="sectionIndex"
+      :sectionData="sectionData"
+      :sectionOptions="sectionOptions"
+      :debug="false"
+    />
 
   </div>
 </template>
@@ -73,6 +80,7 @@ export default {
   components: {
     LogoAnimated: () => import(/* webpackChunkName: "LogoAnimated" */ '~/components/contents/LogoAnimated.vue'),
     TextComponent: () => import(/* webpackChunkName: "TextComponent" */ '~/components/contents/TextComponent.vue'),
+    TextDataComponent: () => import(/* webpackChunkName: "TextDataComponent" */ '~/components/contents/TextDataComponent.vue'),
     DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
   },
   async mounted() {
