@@ -7,7 +7,9 @@
       :key="item.name"
       >
 
-      <div v-if="!item.disabled"> 
+      <div style="display: flex"
+        v-if="!item.disabled"
+        > 
 
         <b-navbar-item 
           v-if="item.component === 'simpleLink'"
