@@ -19,13 +19,24 @@
         <!-- placeholder="Add a tag" -->
     </b-field>
 
-    <pre 
-      v-if="debug"
-      style="max-height: 400px"
-      >
-      <b>tagsArray:</b>
-      {{ tagsArray }}
-    </pre>
+    <div v-if="debug">
+      <p>
+        <pre 
+          style="max-height: 400px"
+          >
+          <b>tags:</b>
+          {{ tags }}
+        </pre>
+      </p>
+      <p>
+        <pre 
+          style="max-height: 400px"
+          >
+          <b>tagsArray:</b>
+          {{ tagsArray }}
+        </pre>
+      </p>
+    </div>
 
   </div>
 
@@ -44,11 +55,11 @@ export default {
     'debug',
   ],
   mounted () {
-    this.filteredTags = this.tags
+    this.filteredTags = this.tags && this.tags.tags || []
   },
   data() {
     return {
-      filteredTags: undefined,
+      filteredTags: [],
       isSelectOnly: false,
       tagsArray: [],
       allowNew: false,
@@ -72,7 +83,7 @@ export default {
   },
   methods: {
     getFilteredTags(text) {
-      this.filteredTags = this.tags.filter((t) => {
+      this.filteredTags = this.tags.tags.filter((t) => {
         return t.name === text
       })
     }

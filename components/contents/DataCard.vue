@@ -202,7 +202,7 @@
 
 import matter from 'gray-matter'
 
-import { mapState, mapGetters } from 'vuex' 
+import { mapState, mapGetters, mapActions } from 'vuex' 
 
 export default {
   name: 'DataCard',
@@ -214,7 +214,6 @@ export default {
     'options',
     'dict',
     'colSize',
-    'selected',
     'index',
     'debug',
   ],
@@ -262,6 +261,9 @@ export default {
     imagesKey() {
       return this.options['images-key']
     },
+    tagsKeys() {
+      return this.options['tags-keys'] || []
+    },
     imagesRatio() {
       return this.options['images-ratio'] || '4by4'
     },
@@ -277,22 +279,47 @@ export default {
       return imagesArray
     }
   },
+  watch: {
+    data(next) {
+      const tagsToAdd = []
+      // console.log('-C- DataCard > watch > this.options :', this.options)
+      // console.log('-C- DataCard > watch > this.tagsKeys :', this.tagsKeys)
+      this.tagsKeys.forEach( tagKey => {
+        const tagsArray = next[tagKey.key]
+        const tagsObj = {
+          key: tagKey.key,
+          tags: tagsArray.map( t => {
+            return { name: t }
+          })
+        }
+        // console.log('-C- DataCard > watch > tagsObj :', tagsObj)
+        tagsToAdd.push(tagsObj)
+      })
+      console.log('-C- DataCard > watch > tagsToAdd :', tagsToAdd)
+      this.$store.dispatch('data/setAvailableTags', tagsToAdd)
+    }
+  },
   async mounted() {
     await this.getFileData(this.file)
   },
   methods: {
+    ...mapActions({
+      setAvailableTags: 'data/setAvailableTags'
+    }),
     convertUrl(url) {
       return `${this.rawRoot}${url}`
     },
     async getFileData(url) {
       const urlRaw = this.convertUrl(url)
-      // console.log('-C- DataCard > getFileData > urlRaw :', urlRaw)
+      // console.log('\n-C- DataCard > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
       const fileData = matter(req.data)
       // console.log('-C- DataCard > getFileData > fileData :', fileData)
       this.data = fileData.data
       this.content = fileData.content
+      // console.log('-C- DataCard > getFileData > fileData.data :', fileData.data)
       // console.log('-C- DataCard > getFileData > fileData.content :', fileData.content)
+
     },
     hasKey(str) {
       return Object.keys(this.data).includes(str)
@@ -300,7 +327,9 @@ export default {
     trimString(str, max) {
       const strTrimmed = str.length >= max ? `${str.slice(0, max)}...` : str
       return strTrimmed
-    }
+    },
+
+
   }
 
 }

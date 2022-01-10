@@ -16,7 +16,8 @@ export default function ({
 
   const currentRouteConfig = store.getters.getCurrentRouteConfig(path)
   console.log('-MW- getRouteConfig / currentRouteConfig : ', currentRouteConfig)
-
+  
+  // store.dispatch('data/resetAvailableTags')
   return store.dispatch('updateCurrentRoute', currentRouteConfig)
 
 }

@@ -18,7 +18,28 @@
           </code>
         </div>
       </div>
+
+      <!-- DEBUG TAGS -->
+      <div v-if="tagsAvailable">
+        <!-- <p>
+          tagsAvailable : <br>
+          <code>
+            <pre>
+              {{ tagsAvailable }}
+            </pre>
+          </code>
+        </p> -->
+        <p>
+          usableTags : <br>
+          <code>
+            <pre>
+              {{ usableTags }}
+            </pre>
+          </code>
+        </p>
+      </div>
     </div>
+
 
 
     <!-- FILTERS -->
@@ -31,13 +52,11 @@
         v-for="filter in options.filters.items"
         :key="filter.name"
         >
-
         <DataCardsFilter
           :label="filter.name"
-          :tags="[ {name: 'test'} ]"
+          :tags="usableTags.find( e => e.key === filter.name)"
           :debug="false"
         />
-
       </div>
     </div>
 
@@ -51,7 +70,6 @@
         v-for="(cardFile, idx) in sectionData.data.items"
         :key="`${cardFile.file}-${idx}`"
         :file="cardFile.file"
-        :selected="selected"
         :options="options"
         :colSize="colSize"
         :dict="sectionData.data.dict"
@@ -66,7 +84,7 @@
 
 <script>
 
-import { mapState, mapGetters } from 'vuex' 
+import { mapState, mapGetters, mapActions } from 'vuex' 
 
 export default {
   name: 'DataGrid',
@@ -78,26 +96,47 @@ export default {
     'sectionData',
     'debug',
   ],
+  // beforeDestroy() {
+  //   this.resetAvailableTags()
+  // },
+  created() {
+    this.setAvailableTagsKeys(this.tagsKeys)
+  },
   data() {
     return {
-      selected: []
     }
   },
   computed: {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+      // tagsAvailable: (state) => state.data.tagsAvailable,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
+      tagsAvailable: 'data/getTagsAvailable',
     }),
     options() {
       return this.sectionData.data.options 
     },
     colSize() {
       return this.options['columns-size'] || 'one-third'
+    },
+    tagsKeys() {
+      const tagsKeys = this.options['tags-keys'].map( t => t.key )
+      return tagsKeys
+    },
+    usableTags() {
+      const tags = this.tagsAvailable.filter( obj => this.tagsKeys.includes(obj.key) )
+      return tags
     }
   },
+  methods: {
+    ...mapActions({
+      resetAvailableTags: 'data/resetAvailableTags',
+      setAvailableTagsKeys: 'data/setAvailableTagsKeys'
+    })
+  }
 
 }
 </script>
