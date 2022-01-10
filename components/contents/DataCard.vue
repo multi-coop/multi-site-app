@@ -82,7 +82,7 @@
               :type="`is-${tagKey.color}`"
               class="has-text-weight-bold"
               >
-              {{ trimString(tag, 25) }}
+              {{ trimString( $translate(tag, {}), 25) }}
             </b-tag>
           </b-taglist>
         </div>

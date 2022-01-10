@@ -7,7 +7,8 @@ export const state = () => ({
       key: 'testKey',
       tags: [
         { name: 'test' }
-      ]
+      ],
+      selected: []
     }
   ],
   selected: []
@@ -26,7 +27,7 @@ export const mutations = {
     const existingKeys = state.tagsAvailable.map( t => t.key )
     tagsKeys.forEach( tagKey => {
       if ( !existingKeys.includes(tagKey) ) {
-        state.tagsAvailable.push( { key: tagKey, tags: [] } )
+        state.tagsAvailable.push( { key: tagKey, tags: [], selected: [] } )
       }
     })
   },
