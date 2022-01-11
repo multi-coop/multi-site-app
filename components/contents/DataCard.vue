@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`column is-${colSize}`"
+    :class="`column is-half-tablet is-${colSize}-desktop mb-5`"
     >
     <!-- :class="`column is-${showMore ? 'full' : colSize}`" -->
 
@@ -55,11 +55,11 @@
 
       <!-- TITLE -->
       <header 
-        class="card-header has-text-centered"
+        class="card-header"
         @click="showModal = !showModal"
         >
-        <h2 class="card-header-title">
-          <span class="is-2">{{ data[titleKey] }}</span>
+        <h2 class="card-header-title is-size-5">
+          {{ data[titleKey] }}
         </h2>
       </header>
       

@@ -65,7 +65,7 @@
     <!-- CARDS -->
     <div
       v-if="sectionData"
-      class="columns is-multiline is-tablet is-centered is-8"
+      :class="`columns is-multiline is-centered is-variable ${gapSize}`"
       >
       <DataCard
         v-for="(cardFile, idx) in sectionData.data.items"
@@ -107,6 +107,10 @@ export default {
   },
   data() {
     return {
+      gapDict: {
+        'half': 'is-5',
+        'one-third': 'is-4'
+      }
     }
   },
   computed: {
@@ -127,6 +131,9 @@ export default {
     },
     colSize() {
       return this.options['columns-size'] || 'one-third'
+    },
+    gapSize() {
+      return this.gapDict[this.colSize] || 'is-4'
     },
     tagsKeys() {
       const tagsKeys = this.options['tags-keys'].map( t => t.key )
