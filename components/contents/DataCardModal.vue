@@ -80,19 +80,37 @@
               :options="showdownOptions"
             />
 
-            <!-- {{ dataTexts }} -->
+
             <div
               v-for="(dataText, idx) in dataTexts"
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
               >
+
               <p>
-                {{ dataText.text[locale] }}
+                <h4>
+                  {{ $translate(dataText.key, itemDict) }} :
+                </h4>
+
+                <span v-if="isString(dataText.text[locale])">
+                  <!-- {{ dataText.text[locale] }} -->
+                  <VueShowdown
+                    :markdown="dataText.text[locale]"
+                    :options="showdownOptions"
+                  />
+                </span>
+
+                <ul v-else>
+                  <li 
+                    v-for="(dataTxtli, idxLi) in dataText.text[locale]"
+                    :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
+                    class="pb-1"
+                    >
+                    {{ dataTxtli }}
+                  </li>
+                </ul>
+
               </p>
-              <!-- <VueShowdown
-                :markdown="dataText.text[locale]"
-                :options="showdownOptions"
-              /> -->
-                <!-- :markdown="$translate('text', dataText)" -->
+
             </div>
 
           </div>
@@ -167,6 +185,10 @@ export default {
     hasKey(str) {
       return Object.keys(this.itemData).includes(str)
     },
+    isString(val) {
+      const isStr = typeof val === 'string'
+      return isStr
+    }
   }
 }
 </script>
