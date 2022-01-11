@@ -12,7 +12,7 @@
       </h1>
       <div 
         v-if="sectionData"
-        class="columns is-multiline" 
+        class="columns is-multiline " 
         >
         <div class="column is-half">
           sectionOptions: <br><code>
@@ -61,7 +61,7 @@
       <!-- render columns with options -->
       <div
         v-if="sectionOptions && hasColumnsOptions"
-        class="columns is-multiline is-centered is-tablet is-8"
+        class="columns is-multiline is-centered is-variable is-6"
         >
         <div 
           v-for="(splitContent, index) in contents"

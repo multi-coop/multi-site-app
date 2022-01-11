@@ -80,6 +80,21 @@
               :options="showdownOptions"
             />
 
+            <!-- {{ dataTexts }} -->
+            <div
+              v-for="(dataText, idx) in dataTexts"
+              :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
+              >
+              <p>
+                {{ dataText.text[locale] }}
+              </p>
+              <!-- <VueShowdown
+                :markdown="dataText.text[locale]"
+                :options="showdownOptions"
+              /> -->
+                <!-- :markdown="$translate('text', dataText)" -->
+            </div>
+
           </div>
           
         </div>
@@ -112,6 +127,7 @@ export default {
     'index',
     'itemData',
     'itemContent',
+    'dataTexts',
     'options',
     'itemDict',
     'titleKey',
@@ -130,6 +146,7 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
+      locale: (state) => state.locale,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',

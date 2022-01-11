@@ -137,7 +137,6 @@
 
         </div>
 
-
         <!-- button more -->
         <div 
           class="content"
@@ -191,6 +190,7 @@
         :index="index"
         :itemData="data"
         :itemContent="content"
+        :dataTexts="dataTexts"
         :options="options"
         :itemDict="itemDict"
         :titleKey="titleKey"
@@ -326,6 +326,19 @@ export default {
       const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
       return itemSocials
     },
+    dataTextsKeys() {
+      return this.options['texts-keys']
+    },
+    dataTexts() {
+      const dataTexts = []
+      if (this.dataTextsKeys) {
+        this.dataTextsKeys.forEach( k => {
+          dataTexts.push( { key: k, text: this.data[k] } )
+        })
+      }
+      return dataTexts
+    }
+
   },
   watch: {
     data(next) {
