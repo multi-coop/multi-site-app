@@ -1,3 +1,5 @@
+
+
 <template>
 
   <div class="card">
@@ -10,8 +12,13 @@
         
         <div class="columns">
 
-          <div class="column is-one-third">
-            <!-- IMAGE -->
+          <!-- COLUMN LEFT -->
+          <div 
+            v-if="modalConfigColLeft"
+            class="column is-one-third"
+            >
+
+            <!-- COVER IMAGE -->
             <b-image
               v-if="imagesList"
               :src='convertUrl(imagesList[0])'
@@ -20,6 +27,7 @@
               :rounded="imagesRounded"
               class="mx-0"
             />
+
             <!-- SOCIALS -->
             <nav 
               v-if="options && options['has-socials']"
@@ -51,12 +59,15 @@
 
           </div>
 
-          <div class="column pr-6">
+          <!-- COLUMN LEFT -->
+          <div class="column px-6">
             
+            <!-- TITLE -->
             <h1 class="mt-4 mb-5 pb-1 has-text-centered">
               {{ itemData[titleKey] }}
             </h1>
 
+            <!-- TAGS -->
             <p 
               v-for="(tagKey, idx) in options['tags-keys']"
               :key="`${sectionIndex}-${index}-tag-key-${idx}-${tagKey.key}`"
@@ -73,46 +84,106 @@
               </b-tag>
             </p>
 
-            <br>
 
-            <VueShowdown
-              :markdown="itemContent"
-              :options="showdownOptions"
-            />
+            <!-- MD CONTENTS -->
+            <div class="content mt-6">
 
+              <VueShowdown
+                :markdown="itemContent"
+                :options="showdownOptions"
+              />
 
-            <div
-              v-for="(dataText, idx) in dataTexts"
-              :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
-              >
-
-              <p>
-                <h4>
-                  {{ $translate(dataText.key, itemDict) }} :
-                </h4>
-
-                <span v-if="isString(dataText.text[locale])">
-                  <!-- {{ dataText.text[locale] }} -->
-                  <VueShowdown
-                    :markdown="dataText.text[locale]"
-                    :options="showdownOptions"
-                  />
-                </span>
-
-                <ul v-else>
-                  <li 
-                    v-for="(dataTxtli, idxLi) in dataText.text[locale]"
-                    :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
-                    class="pb-1"
-                    >
-                    {{ dataTxtli }}
-                  </li>
-                </ul>
-
-              </p>
+              <DataTextsMd
+                v-if="defaultDataText"
+                :dataText="defaultDataText"
+                :itemDict="itemDict"
+                :sectionIndex="sectionIndex"
+                :index="index"
+                :idx="'dft'"
+              />
 
             </div>
 
+            <!-- {{ modalConfigColRight.tabs }} -->
+
+            <!-- TABS -->
+            <b-tabs 
+              v-if="modalConfigColRight.tabs"
+              position="is-centered"
+              class="block mt-5"
+              >
+                
+              <!-- GALLERY -->
+              <b-tab-item 
+                v-if="modalConfigColRight['images-gallery'] && modalConfigColRight['tabs'].includes('gallery')"
+                :label="$translate('gallery', dict)"
+                >
+                <div 
+                  class="columns is-centered has-background-grey-light pt-6 px-0 pb-4"
+                  >
+                  <div 
+                    class="column is-9 content"
+                    >
+                    <DataGallery
+                      :imagesListUrls="imagesListUrls"
+                    />
+                  </div>
+                </div>
+              </b-tab-item>
+
+              
+              <!-- CONTENTS -->
+              <b-tab-item 
+                v-if="modalConfigColRight"
+                :label="$translate('infos', dict)"
+                >
+                <div class="content px-4 pb-5">
+                  <!-- MD DATA CONTENTS -->
+                  <div
+                    v-for="(dataText, idx) in dataTexts"
+                    :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
+                    >
+                    <DataTextsMd
+                      :dataText="dataText"
+                      :itemDict="itemDict"
+                      :sectionIndex="sectionIndex"
+                      :index="index"
+                      :idx="idx"
+                    />
+                  </div>
+                </div>
+              </b-tab-item>
+
+
+              <!-- LINKS -->
+              <b-tab-item 
+                v-if="modalConfigColRight['tabs'].includes('links')"
+                :label="$translate('links', dict)"
+                >
+                <div class="content px-4 pb-5">
+                  <!-- MD DATA CONTENTS -->
+                  <div
+                    v-for="(dataLink, idx) in dataLinks"
+                    :key="`${sectionIndex}-${index}-data-text-${idx}-${dataLink.key}`"
+                    >
+                    <DataTextsMd
+                      :dataText="dataLink"
+                      :itemDict="itemDict"
+                      :sectionIndex="sectionIndex"
+                      :index="index"
+                      :idx="idx"
+                      :asLink="true"
+                    />
+                  </div>
+                </div>
+              </b-tab-item>
+
+
+            </b-tabs>
+
+
+            <br>
+            
           </div>
           
         </div>
@@ -120,11 +191,21 @@
       </div>
 
 
-
-      <div class="content">
-
-
-
+      <!-- DEBUG -->
+      <div
+        v-if="debug"
+        class="content"
+        >
+        <div class="columns is-multiline">
+          <div class="column is-half">
+            options: <br>
+            <code>
+              <pre>
+                {{ options }}
+              </pre>
+            </code>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -139,6 +220,10 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'DataCardModal',
+  components: {
+    DataTextsMd: () => import(/* webpackChunkName: "DataTextsMd" */ '~/components/contents/DataTextsMd.vue'),
+    DataGallery: () => import(/* webpackChunkName: "DataGallery" */ '~/components/contents/DataGallery.vue'),
+  },
   props: [
     'modalReady',
     'sectionIndex',
@@ -146,6 +231,7 @@ export default {
     'itemData',
     'itemContent',
     'dataTexts',
+    'dataLinks',
     'options',
     'itemDict',
     'titleKey',
@@ -159,6 +245,20 @@ export default {
   data() {
     return {
       socials: [ 'email', 'twitter', 'linkedin', 'github' ],
+      dict: {
+        gallery: {
+          fr: 'Images',
+          en: 'Images'
+        },
+        infos: {
+          fr: 'Infos',
+          en: 'Infos'
+        },
+        links: {
+          fr: 'Liens',
+          en: 'Links'
+        }
+      }
     }
   },
   computed: {
@@ -177,6 +277,26 @@ export default {
       const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
       return itemSocials
     },
+    modalConfig() {
+      return this.options['card-modal-config']
+    },
+    modalConfigColLeft() {
+      return this.modalConfig && this.modalConfig['column-left']
+    },
+    modalConfigColRight() {
+      return this.modalConfig && this.modalConfig['column-right']
+    },
+    imagesListUrls() {
+      const urlsArray = this.imagesList.map( path => {
+        return { title: path, image: this.convertUrl(path) } 
+      })
+      return urlsArray
+    },
+    defaultDataText() {
+      const hasDefaultDataText = this.modalConfigColRight['default-text']
+      const defaultDataText = hasDefaultDataText && this.dataTexts.find( d => d.key === hasDefaultDataText)
+      return defaultDataText
+    }
   },
   methods: {
     convertUrl(url) {
@@ -188,7 +308,9 @@ export default {
     isString(val) {
       const isStr = typeof val === 'string'
       return isStr
-    }
+    },
   }
 }
 </script>
+
+

@@ -49,8 +49,8 @@
 
 
     <div 
-      class="card"
       v-if="data"
+      class="card"
       >
 
       <!-- TITLE -->
@@ -191,6 +191,7 @@
         :itemData="data"
         :itemContent="content"
         :dataTexts="dataTexts"
+        :dataLinks="dataLinks"
         :options="options"
         :itemDict="itemDict"
         :titleKey="titleKey"
@@ -199,6 +200,7 @@
         :imagesRatio="imagesRatio"
         :imagesRounded="imagesRounded"
         :imagesList="imagesList"
+        :debug="false"
         @close="showModal = false"
       />
     </b-modal>
@@ -337,6 +339,18 @@ export default {
         })
       }
       return dataTexts
+    },
+    dataLinksKeys() {
+      return this.options['links-keys']
+    },
+    dataLinks() {
+      const dataLinks = []
+      if (this.dataLinksKeys) {
+        this.dataLinksKeys.forEach( k => {
+          dataLinks.push( { key: k, text: this.data[k] } )
+        })
+      }
+      return dataLinks
     }
 
   },
