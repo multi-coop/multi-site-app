@@ -95,6 +95,7 @@ export default {
   data() {
     return {
       splittersDict: {
+        break: '\n',
         h1: '# ',
         h2: '## ',
         h3: '### ',
@@ -141,7 +142,6 @@ export default {
         const contentTrimmed = this.content
 
         contentsArray = contentTrimmed
-          // .split(splitter)
           .replace(re, '\n')
           .split( `\n${splitter}` )
           .filter(c => c !== '')

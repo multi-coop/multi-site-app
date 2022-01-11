@@ -70,10 +70,11 @@
       <DataCard
         v-for="(cardFile, idx) in sectionData.data.items"
         :key="`${cardFile.file}-${idx}`"
+        :sectionIndex="sectionIndex"
         :file="cardFile.file"
         :options="options"
         :colSize="colSize"
-        :dict="sectionData.data.dict"
+        :itemDict="sectionData.data.dict"
         :index="idx"
         :debug="false"
       />
@@ -94,6 +95,7 @@ export default {
     DataCard: () => import(/* webpackChunkName: "DataCard" */ '~/components/contents/DataCard.vue'),
   },
   props: [
+    'sectionIndex',
     'sectionData',
     'debug',
   ],

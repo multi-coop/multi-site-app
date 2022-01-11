@@ -1,94 +1,115 @@
 <template>
   <div
-    :class="`column is-${showMore ? 'full' : colSize}`"
+    :class="`column is-${colSize}`"
     >
+    <!-- :class="`column is-${showMore ? 'full' : colSize}`" -->
 
     <!-- DEBUG -->
     <div 
       v-if="debug"
-      class="level"
+      class="columns is-multiline"
       >
-      <div class="columns">
-        <div class="column ">
-          <!-- <p>
-            file: {{ file }}
-          </p> -->
-          <p>
-            content:
-            <br>
-            <code>
-              <pre>
-                {{ content }}
-              </pre>
-            </code>
-          </p>
-          <!-- <p>
-            data:
-            <br>
-            <code>
-              <pre>
-                {{ data }}
-              </pre>
-            </code>
-          </p> -->
-        </div>
+      <div class="column is-half">
+        <p>
+          options:
+          <br>
+          <code>
+            <pre>
+              {{ options }}
+            </pre>
+          </code>
+        </p>
+      </div>
+      <div class="column is-half">
+        <!-- <p>
+          file: {{ file }}
+        </p> -->
+        <!-- <p>
+          content:
+          <br>
+          <code>
+            <pre>
+              {{ content }}
+            </pre>
+          </code>
+        </p> -->
+      </div>
+      <div class="column is-half">
+        <p>
+          data:
+          <br>
+          <code>
+            <pre>
+              {{ data }}
+            </pre>
+          </code>
+        </p>
       </div>
     </div>
 
 
-    <div class="card">
+    <div 
+      class="card"
+      v-if="data"
+      >
 
       <!-- TITLE -->
-      <header class="card-header has-text-centered">
+      <header 
+        class="card-header has-text-centered"
+        @click="showModal = !showModal"
+        >
         <h3 class="card-header-title">
           {{ data[titleKey] }}
         </h3>
       </header>
       
-      <!-- COvER -->
+      <!-- COVER -->
       <div 
-        v-if="imagesList && !showMore"
+        v-if="imagesList"
         class="card-image"
+        @click="showModal = !showModal"
         >
         <b-image
           :src='convertUrl(imagesList[0])'
           :alt='data.name'
           :ratio="imagesRatio"
+          :rounded="imagesRounded"
         />
       </div>
       
       <!-- CONTENT -->
-      <div class="card-content">
-
-
-        <!-- {{ imagesKey }} <br> -->
-        <!-- {{ data[ imagesKey ] }} <br> -->
-        <!-- {{ imagesList }} -->
+      <div 
+        class="card-content"
+        >
 
         <!-- TAGS -->
         <div 
           v-if="options['tags-keys']"
           class="content"
+          @click="showModal = !showModal"
           >
-
           <b-taglist
-            v-for="tagKey in options['tags-keys']"
-            :key="`${index}-tag-key-${tagKey.key}`"
+            v-for="(tagKey, idx) in options['tags-keys']"
+            :key="`${sectionIndex}-${index}-tag-key-${idx}-${tagKey.key}`"
+            class="mb-1"
             >
             <b-tag 
               v-for="tag in data[tagKey.key]"
-              :key="`${index}-${tag}`"
+              :key="`${sectionIndex}-${index}-tag-${idx}-${tag}`"
               rounded
               :type="`is-${tagKey.color}`"
               class="has-text-weight-bold"
               >
-              {{ trimString( $translate(tag, {}), 25) }}
+              {{ trimString( $translate(tag, itemDict), 25) }}
             </b-tag>
           </b-taglist>
         </div>
 
         <!-- TEXT -->
-        <div class="content">
+        <div 
+          class="content"
+          @click="showModal = !showModal"
+          >
 
           <div 
             v-if="options && options['has-readmore']"
@@ -96,43 +117,46 @@
             <!-- resume -->
             <VueShowdown
               :markdown="contentSplit.resume"
-              :options="{ emoji: true }"
+              :options="showdownOptions"
             />
 
             <!-- read more -->
-            <VueShowdown
+            <!-- <VueShowdown
               v-show="showMore"
               :markdown="contentSplit.readMore"
-              :options="{ emoji: true }"
-            />
-
-            <!-- button more -->
-            <p>
-              <b-button 
-                type="is-primary" 
-                size="is-small"
-                class="mt-3"
-                outlined
-                expanded
-                @click="showMore = !showMore"
-                >
-                <span v-if="!showMore">
-                  {{ $translate('readmore', defaultDict) }}
-                </span>
-                <span v-if="showMore">
-                  {{ $translate('readless', defaultDict) }}
-                </span>
-              </b-button>
-            </p>
-
+              :options="showdownOptions"
+            /> -->
           </div>
+
           <div v-else>
             <VueShowdown
               :markdown="content"
-              :options="{ emoji: true }"
+              :options="showdownOptions"
             />
           </div>
 
+        </div>
+
+
+        <!-- button more -->
+        <div 
+          class="content"
+          >
+          <b-button 
+            type="is-primary" 
+            size="is-small"
+            class="mt-3"
+            outlined
+            expanded
+            @click="showMore = !showMore;  showModal = !showModal"
+            >
+            <span v-if="!showMore">
+              {{ $translate('readmore', defaultDict) }}
+            </span>
+            <span v-if="showMore">
+              {{ $translate('readless', defaultDict) }}
+            </span>
+          </b-button>
         </div>
 
       </div>
@@ -143,42 +167,13 @@
         class="card-footer"
         >
         <a
-          v-if="hasKey('email')"
-          :href="`mailto: ${data.email}`" 
+          v-for="social in itemSocials"
+          :key="social"
+          :href="data[social]" 
           class="card-footer-item"
           >
-          <b-icon
-            icon="email"
-          />
+          <b-icon :icon="social"/>
         </a>
-        <a
-          v-if="hasKey('twitter')"
-          :href="data.twitter" 
-          class="card-footer-item"
-          >
-          <b-icon
-            icon="twitter"
-          />
-        </a>
-        <a
-          v-if="hasKey('linkedin')"
-          :href="data.linkedin" 
-          class="card-footer-item"
-          >
-          <b-icon
-            icon="linkedin"
-          />
-        </a>
-        <a
-          v-if="hasKey('github')"
-          :href="data.github" 
-          class="card-footer-item"
-          >
-          <b-icon
-            icon="github"
-          />
-        </a>
-
       </footer>
 
     </div>
@@ -187,10 +182,24 @@
     <!-- MODAL -->
     <b-modal 
       v-model="showModal" 
-      :width="640"
+      :width="'80%'"
       scroll="keep"
       >
       <DataCardModal
+        :modalReady="modalReady"
+        :sectionIndex="sectionIndex"
+        :index="index"
+        :itemData="data"
+        :itemContent="content"
+        :options="options"
+        :itemDict="itemDict"
+        :titleKey="titleKey"
+        :imagesKey="imagesKey"
+        :tagsKeys="tagsKeys"
+        :imagesRatio="imagesRatio"
+        :imagesRounded="imagesRounded"
+        :imagesList="imagesList"
+        @close="showModal = false"
       />
     </b-modal>
 
@@ -210,21 +219,23 @@ export default {
     DataCardModal: () => import(/* webpackChunkName: "DataCardModal" */ '~/components/contents/DataCardModal.vue'),
   },
   props: [
+    'sectionIndex',
     'file',
     'options',
-    'dict',
+    'itemDict',
     'colSize',
     'index',
     'debug',
   ],
   data() {
     return {
-      images: undefined,
-      tags: [],
+      // images: undefined,
       data: {},
       content: '',
       showMore: false,
       showModal: false,
+      modalReady: false,
+      socials: [ 'email', 'twitter', 'linkedin', 'github' ],
       defaultDict: {
         readmore: {
           fr: 'Lire plus',
@@ -234,8 +245,16 @@ export default {
           fr: 'Lire moins',
           en: 'Read less'
         }
-      }
-    }
+      },
+      splittersDict: {
+        break: '\n',
+        h1: '# ',
+        h2: '## ',
+        h3: '### ',
+        h4: '#### ',
+        h5: '##### ',
+        h6: '###### ',
+      }    }
   },
   computed: {
     ...mapState({
@@ -243,15 +262,35 @@ export default {
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
+      showdownOptions: 'getShowdownOptions',
     }),
     contentSplit() {
+      let contentsArray = [ this.content, '' ]
+      const re = /\r\n|\n\r|\n|\r/g
+      const authorizedSplitters = Object.keys(this.splittersDict)
+      const splitterCode = this.options['readmore-divider'] || 'break'
+      const defaultSplitter = this.splittersDict.break
+      
       // console.log('-C- DataCard > contentSplit > this.content :', this.content)
-      const contentTrimmed = this.content.startsWith('\n') ? this.content.substring(1) : this.content
-      const content = contentTrimmed.split('\n')
-      // const content = this.content.split('</p>')
+      
+      if ( authorizedSplitters.includes(splitterCode) ) {
+
+        const splitter = this.splittersDict[splitterCode]
+        const contentTrimmed = this.content.startsWith(defaultSplitter) ? this.content.substring(1) : this.content
+        // contentsArray = this.content
+        contentsArray = contentTrimmed
+          .replace(re, defaultSplitter)
+          .split(splitter)
+          // .filter(c => c !== '')
+          // .map( c => {
+          //   const str = `${splitter}${c}`
+          //   return str
+          // })
+      }
+
       return {
-        resume: content[0],
-        readMore: content.splice(1).join('') 
+        resume: contentsArray[0],
+        readMore: contentsArray[1] ? contentsArray.splice(1).join('') : ''
       }
     },
     titleKey() {
@@ -266,6 +305,9 @@ export default {
     imagesRatio() {
       return this.options['images-ratio'] || '4by4'
     },
+    imagesRounded() {
+      return this.options['images-rounded'] 
+    },
     imagesList() {
       let imagesArray
       const dataImages = this.data[ this.imagesKey ]
@@ -276,7 +318,14 @@ export default {
         imagesArray = dataImages
       }
       return imagesArray
-    }
+    },
+    itemKeys() {
+      return Object.keys(this.data)
+    },
+    itemSocials() {
+      const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
+      return itemSocials
+    },
   },
   watch: {
     data(next) {
@@ -316,12 +365,10 @@ export default {
       // console.log('-C- DataCard > getFileData > fileData :', fileData)
       this.data = fileData.data
       this.content = fileData.content
+      this.modalReady = true
       // console.log('-C- DataCard > getFileData > fileData.data :', fileData.data)
       // console.log('-C- DataCard > getFileData > fileData.content :', fileData.content)
 
-    },
-    hasKey(str) {
-      return Object.keys(this.data).includes(str)
     },
     trimString(str, max) {
       const strTrimmed = str.length >= max ? `${str.slice(0, max)}...` : str
