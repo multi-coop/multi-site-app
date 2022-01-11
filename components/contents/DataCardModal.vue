@@ -53,48 +53,25 @@
 
           <div class="column pr-6">
             
-            <nav class="level mb-2">
-              <div class="level-item has-text-centered">
-                <div class="">
-                  <h1 class="mt-4 mb-5">
-                    {{ itemData[titleKey] }}
-                  </h1>
-                </div>
-              </div>
-              <!-- <div class="level-right">
-                <div class="level-item">
-                  <b-icon
-                    size="is-normal"
-                    icon="close"
-                    @click="$emit('close')"
-                  />
-                </div>
-              </div> -->
-            </nav>
+            <h1 class="mt-4 mb-5 pb-1 has-text-centered">
+              {{ itemData[titleKey] }}
+            </h1>
 
-            <nav 
+            <p 
               v-for="(tagKey, idx) in options['tags-keys']"
               :key="`${sectionIndex}-${index}-tag-key-${idx}-${tagKey.key}`"
-              class="level mb-0"
+              class="mb-1 has-text-centered"
               >
-              <div 
-                class="level-item has-text-centered"
+              <b-tag 
+                v-for="tag in itemData[tagKey.key]"
+                :key="`${sectionIndex}-${index}-tag-${idx}-${tag}`"
+                rounded
+                :type="`is-${tagKey.color}`"
+                class="has-text-weight-bold mx-1"
                 >
-                <b-taglist
-                  class="mb-2 has-text-centered"
-                  >
-                  <b-tag 
-                    v-for="tag in itemData[tagKey.key]"
-                    :key="`${sectionIndex}-${index}-tag-${idx}-${tag}`"
-                    rounded
-                    :type="`is-${tagKey.color}`"
-                    class="has-text-weight-bold"
-                    >
-                    {{ $translate(tag, itemDict) }}
-                  </b-tag>
-                </b-taglist>
-              </div>
-            </nav>
+                {{ $translate(tag, itemDict) }}
+              </b-tag>
+            </p>
 
             <br>
 

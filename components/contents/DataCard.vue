@@ -58,9 +58,9 @@
         class="card-header has-text-centered"
         @click="showModal = !showModal"
         >
-        <h3 class="card-header-title">
-          {{ data[titleKey] }}
-        </h3>
+        <h2 class="card-header-title">
+          <span class="is-2">{{ data[titleKey] }}</span>
+        </h2>
       </header>
       
       <!-- COVER -->
