@@ -27,7 +27,7 @@
 
         <p 
           v-if="!isString(dataText.text[locale])"
-          class="mt-0"
+          class="mt-0 pt-0"
           >
 
           <ul 
@@ -45,23 +45,30 @@
             </li>
           </ul>
 
-          <ul 
-            v-else
+          <span 
+            v-if="asLink"
             class="mt-0 pt-0"
             >
-            <li 
+            <div 
               v-for="(dataTxtLi, idxLi) in dataText.text"
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
-              class="pb-1"
+              class="level mt-0 pt-0 pb-1"
               >
-              <a 
-                :href="dataTxtLi.link"
-                target="_blank"
-                >
-                {{ dataTxtLi[locale] }}
-              </a>
-            </li>
-          </ul>
+              <div class="level-left">
+                <b-icon
+                  icon="open-in-new"
+                  size="is-small"
+                  class="mr-4"
+                />
+                <a 
+                  :href="dataTxtLi.link"
+                  target="_blank"
+                  >
+                  {{ dataTxtLi[locale] }}
+                </a>
+              </div>
+            </div>
+          </span>
 
         </p>
 
