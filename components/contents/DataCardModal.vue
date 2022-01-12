@@ -105,6 +105,8 @@
             </div>
 
             <!-- {{ modalConfigColRight.tabs }} -->
+            <!-- {{ defaultDataText }} <br> -->
+            <!-- {{ dataTexts }} -->
 
             <!-- TABS -->
             <b-tabs 
@@ -140,7 +142,7 @@
                 <div class="content px-4 pb-5">
                   <!-- MD DATA CONTENTS -->
                   <div
-                    v-for="(dataText, idx) in dataTexts"
+                    v-for="(dataText, idx) in otherDataTexts"
                     :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
                     >
                     <DataTextsMd
@@ -296,6 +298,10 @@ export default {
       const hasDefaultDataText = this.modalConfigColRight['default-text']
       const defaultDataText = hasDefaultDataText && this.dataTexts.find( d => d.key === hasDefaultDataText)
       return defaultDataText
+    },
+    otherDataTexts() {
+      const otherTexts = this.defaultDataText ? this.dataTexts.filter( t  => t.key !== this.defaultDataText.key ) : this.DataTexts
+      return otherTexts
     }
   },
   methods: {

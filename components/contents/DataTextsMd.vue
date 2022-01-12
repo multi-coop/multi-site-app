@@ -15,14 +15,20 @@
 
         <!-- {{ dataText }} -->
 
-        <span v-if="isString(dataText.text[locale])">
+        <div 
+          v-if="isString(dataText.text[locale])"
+          class=""
+          >
           <VueShowdown
             :markdown="dataText.text[locale]"
             :options="showdownOptions"
           />
-        </span>
+        </div>
 
-        <div v-if="!isString(dataText.text[locale])">
+        <p 
+          v-if="!isString(dataText.text[locale])"
+          class="mt-0"
+          >
 
           <ul 
             v-if="!asLink"
@@ -57,7 +63,7 @@
             </li>
           </ul>
 
-        </div>
+        </p>
 
       </p>
     </div>
