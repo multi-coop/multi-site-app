@@ -9,7 +9,9 @@
         class="column has-text-centered"
         >
         
-        <p class="has-text-weight-semibold mb-3">
+        <p 
+          class="has-text-weight-semibold mb-2"
+          >
           {{ $translate('label', col) }}
         </p>
 
@@ -41,6 +43,7 @@
             <li
               v-for="link in col.links"
               :key="link.url"
+              class="pb-1 mt-1"
               >
               <nuxt-link 
                 v-if="link.url.startsWith('/')"

@@ -2,12 +2,23 @@
 
   <footer class="footer is-size-7	py-3">
     <div class="content has-text-centered">
+      
       <p class="has-text-weight-semibold pb-2 mb-0">
         {{ $translate('credits', dict) }}
       </p>
+      
       <p>
-        ---
+        
         <a
+          target="_blank"
+          :href="contentsRepo"
+          >
+          {{ $translate('sourceContents', dict) }}
+        </a>
+
+        <br> 
+        
+          <a
           target="_blank"
           :href="source"
           >
@@ -25,7 +36,7 @@
         </a>
         - 
         {{ years }} 
-        ---
+        
       </p>
     </div>
   </footer>
@@ -48,9 +59,17 @@ export default {
           fr: 'Crédits',
           en: 'Credits'
         },
+        codeBy: {
+          fr: 'Codé par',
+          en: 'Coded by'
+        },
         projetBy: {
           fr: 'Un projet par',
           en: 'a project by',
+        },
+        sourceContents: {
+          fr: 'Contenus du site',
+          en: "Website's contents"
         },
         sourceCode: {
           fr: 'Code source',
@@ -62,6 +81,7 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
+      contentsRepo: (state) => state.contentsRepo,
     }),
   },
 }
