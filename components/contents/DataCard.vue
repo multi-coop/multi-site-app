@@ -169,7 +169,7 @@
         <a
           v-for="social in itemSocials"
           :key="social"
-          :href="data[social]" 
+          :href="`${ social === 'email' ? 'mailto:' : '' }${ data[social] }`" 
           class="card-footer-item"
           >
           <b-icon :icon="social"/>
