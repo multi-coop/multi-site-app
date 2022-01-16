@@ -179,10 +179,6 @@
     </div>
 
 
-    <p>
-      isSelectionActivated : <code> {{ isSelectionActivated }} </code>
-    </p>
-
     <!-- MODAL -->
     <b-modal 
       v-model="showModal" 
