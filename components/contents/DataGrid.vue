@@ -38,17 +38,24 @@
           </code>
         </p>
       </div>
-    </div>
+      
+      <p>
+        <b>selectedTags : </b> 
+        <code>
+          {{ selectedTags }}
+        </code>
+      </p>
 
+    </div>
 
 
     <!-- FILTERS -->
     <div 
       v-if="options.filters"
-      class="columns mb-5"
+      class="columns mb-5 is-centered is-multiline"
       >
       <div
-        class="column"
+        class="column is-one-third"
         v-for="filter in options.filters.items"
         :key="filter.name"
         >
@@ -117,11 +124,13 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
-      // tagsAvailable: (state) => state.data.tagsAvailable,
+      tagsAvailable: (state) => state.data.tagsAvailable,
+      selectedTags: (state) => state.data.selectedTags,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
-      tagsAvailable: 'data/getTagsAvailable',
+      // tagsAvailable: 'data/getTagsAvailable',
+      // selectedTags: 'data/getTagsSelected',
     }),
     options() {
       return this.sectionData.data.options 

@@ -8,7 +8,7 @@
       <!-- https://buefy.org/documentation/taginput#autocomplete -->
       <b-taginput
         v-model="tagsArray"
-        :data="filteredTags"
+        :data="orderedFilteredTags"
         autocomplete
         :allow-new="allowNew"
         :open-on-focus="openOnFocus"
@@ -21,18 +21,40 @@
 
     <div v-if="debug">
       <p>
+        <b>tags.key:</b> 
+        <code>
+          {{ tags.key }}
+        </code>
+      </p>
+      <p v-if="false">
         <pre 
           style="max-height: 400px"
           >
-          <b>filteredTags:</b>
+          <b>tags:</b>
+          {{ tags }}
+        </pre>
+      </p>
+      <p v-if="false">
+        <b>filteredTags:</b>
+        <pre 
+          style="max-height: 400px"
+          >
           {{ filteredTags }}
         </pre>
       </p>
       <p>
+        <b>orderedFilteredTags:</b>
         <pre 
           style="max-height: 400px"
           >
-          <b>tagsArray:</b>
+          {{ orderedFilteredTags }}
+        </pre>
+      </p>
+      <p>
+        <b>tagsArray:</b>
+        <pre 
+          style="max-height: 400px"
+          >
           {{ tagsArray }}
         </pre>
       </p>
@@ -45,7 +67,7 @@
 
 <script>
 
-import { mapState, mapGetters } from 'vuex' 
+import { mapState, mapGetters, mapActions } from 'vuex' 
 
 export default {
   name: 'DataCardsFilter',
@@ -55,6 +77,15 @@ export default {
     'tags',
     'debug',
   ],
+  watch: {
+    tagsArray(next) {
+      const tagsKey = this.tags.key
+      // console.log('-C- DataCardsFilter > watch > tagsArray > tagsKey :', tagsKey)
+      // console.log('-C- DataCardsFilter > watch > tagsArray > next :', next)
+      const tagsObj = { key: tagsKey, tags: next  }
+      this.updateSelectedTags( tagsObj )
+    },
+  },
   mounted () {
     this.filteredTags = this.tags && this.tags.tags || []
   },
@@ -80,10 +111,20 @@ export default {
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
+    orderedFilteredTags() {
+      const orderedTags = [ ...this.filteredTags ]
+        .sort( (a,b) => 
+          ( a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0 )
+        )
+      return orderedTags
+    }
   },
   methods: {
+    ...mapActions({
+      updateSelectedTags: 'data/updateSelectedTags'
+    }),
     getFilteredTags(text) {
-      console.log('-C- DataCardsFilter > getFilteredTags > text :', text)
+      // console.log('-C- DataCardsFilter > getFilteredTags > text :', text)
       this.filteredTags = this.tags.tags.filter((t) => {
         return t.name
           .toString()

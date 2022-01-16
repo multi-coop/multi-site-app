@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="canShowCard"
     :class="`column is-half-tablet is-${colSize}-desktop mb-5`"
     >
     <!-- :class="`column is-${showMore ? 'full' : colSize}`" -->
@@ -178,6 +179,10 @@
     </div>
 
 
+    <p>
+      isSelectionActivated : <code> {{ isSelectionActivated }} </code>
+    </p>
+
     <!-- MODAL -->
     <b-modal 
       v-model="showModal" 
@@ -265,6 +270,8 @@ export default {
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
+      isSelectionActivated: 'data/isSelectionActivated',
+      canShowItem: 'data/canShowItem',
     }),
     contentSplit() {
       let contentsArray = [ this.content, '' ]
@@ -351,6 +358,16 @@ export default {
         })
       }
       return dataLinks
+    },
+
+    canShowCard() {
+      const selectionActivated = this.isSelectionActivated
+      const tagsKeys = this.tagsKeys.map( k => k.key )
+      if ( selectionActivated ) {
+        return this.canShowItem( tagsKeys, this.data)
+      } else {
+        return true
+      }
     }
 
   },
