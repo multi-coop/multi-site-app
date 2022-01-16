@@ -41,7 +41,7 @@
                 <div>
                   <p class="title mb-0">
                     <a
-                      :href="`${itemData[social]}`" 
+                      :href="`${ social === 'email' ? 'mailto:' : '' }${ itemData[social] }`" 
                       class=""
                       >
                       <b-icon
