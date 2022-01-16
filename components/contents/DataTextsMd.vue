@@ -3,17 +3,15 @@
   <div class="columns">
 
     <div class="column is-one-quarter">
-      <p class="mb-2">
+      <div class="content">
         <h4>
           {{ $translate(dataText.key, itemDict) }}
         </h4>
-      </p>
+      </div>
     </div>
 
     <div class="column is-three-quarters">
-      <p class="mb-2 mt-0">
-
-        <!-- {{ dataText }} -->
+      <div class="content">
 
         <div 
           v-if="isString(dataText.text[locale])"
@@ -37,7 +35,7 @@
             <li 
               v-for="(dataTxtLi, idxLi) in dataText.text[locale]"
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
-              class="pb-1"
+              class="pb-0"
               >
               <span >
                 {{ dataTxtLi }}
@@ -52,7 +50,7 @@
             <div 
               v-for="(dataTxtLi, idxLi) in dataText.text"
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
-              class="level mt-0 pt-0 pb-1"
+              class="level mt-0 mb-1 pt-0 pb-0"
               >
               <div class="level-left">
                 <b-icon
@@ -72,7 +70,7 @@
 
         </p>
 
-      </p>
+      </div>
     </div>
 
   </div>
