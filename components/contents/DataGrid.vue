@@ -145,7 +145,8 @@ export default {
       return this.gapDict[this.colSize] || 'is-4'
     },
     tagsKeys() {
-      const tagsKeys = this.options['tags-keys'].map( t => t.key )
+      const tagsKeysObj = this.options['tags-keys'] || []
+      const tagsKeys = tagsKeysObj.map( t => t.key ) 
       return tagsKeys
     },
     usableTags() {

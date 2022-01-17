@@ -83,6 +83,24 @@
         class="card-content"
         >
 
+        <!-- MINIATURE KEYS -->
+        <ul
+          v-if="miniaturekKeys"
+          >
+          <li 
+            v-for="key in miniaturekKeys"
+            :key="key"
+            >
+            <span class="has-text-weight-bold">
+              {{ $translate(key, itemDict) }} :
+            </span>
+            <span>
+              {{ data[ key ]}}
+            </span>
+          </li>
+        </ul>
+
+
         <!-- TAGS -->
         <div 
           v-if="options['tags-keys']"
@@ -306,6 +324,12 @@ export default {
     },
     tagsKeys() {
       return this.options['tags-keys'] || []
+    },
+    miniaturekKeys() {
+      let minKeys = this.options['miniature-keys'] || []
+      const tagsKeys = this.tagsKeys.map( t => t.key )
+      minKeys = minKeys.filter(  k => !tagsKeys.includes(k) )
+      return minKeys
     },
     imagesRatio() {
       return this.options['images-ratio'] || '4by4'

@@ -2,9 +2,10 @@
   
   <div style="display: flex">
 
-    <div style="display: flex"
+    <div 
       v-for="item in items"
       :key="item.name"
+      style="display: flex"
       >
 
       <div style="display: flex"
