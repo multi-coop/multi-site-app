@@ -6,7 +6,7 @@ export default async function ({
   $axios,
 }) {
 
-  console.log( '-MW- buildNavbar > ... ' ) 
+  // console.log( '-MW- buildNavbar > ... ' ) 
   // console.log( '-MW- buildNavbar > store.state.config : ', store.state.config ) 
 
   if (!store.state.navbar) {
@@ -18,7 +18,7 @@ export default async function ({
     const gitInfos = store.state.gitInfos
     const navbarFile = store.state.config.data.navbar
     const urlNavbarFile = `${gitInfos.gitRawRoot}${navbarFile}`
-    console.log( '-MW- buildNavbar > urlNavbarFile : ', urlNavbarFile )
+    // console.log( '-MW- buildNavbar > urlNavbarFile : ', urlNavbarFile )
 
     await $axios.get(urlNavbarFile)
       .then( resp => {
@@ -29,7 +29,6 @@ export default async function ({
         // save to store
         store.dispatch('updateNavbar', navbarObject)
       })
-  
   
   }
 

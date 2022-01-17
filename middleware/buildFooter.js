@@ -6,7 +6,7 @@ export default async function ({
   $axios,
 }) {
 
-  console.log( '-MW- buildFooter > ... ' ) 
+  // console.log( '-MW- buildFooter > ... ' ) 
   // console.log( '-MW- buildFooter > store.state.config : ', store.state.config ) 
 
   if (!store.state.footer) {
@@ -14,7 +14,7 @@ export default async function ({
     const gitInfos = store.state.gitInfos
     const footerFile = store.state.config.data.footer
     const urlFooterFile = `${gitInfos.gitRawRoot}${footerFile}`
-    console.log( '-MW- buildFooter > urlFooterFile : ', urlFooterFile )
+    // console.log( '-MW- buildFooter > urlFooterFile : ', urlFooterFile )
 
     await $axios.get(urlFooterFile)
       .then( resp => {

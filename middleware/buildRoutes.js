@@ -6,7 +6,7 @@ export default async function ({
   $axios,
 }) {
 
-  console.log( '-MW- buildRoutes > ... ' ) 
+  // console.log( '-MW- buildRoutes > ... ' ) 
   // console.log( '-MW- buildRoutes > store.state.config : ', store.state.config ) 
 
   if (!store.state.routes) {
@@ -14,7 +14,7 @@ export default async function ({
     const gitInfos = store.state.gitInfos
     const routesFile = store.state.config.data.routes
     const urlRoutesFile = `${gitInfos.gitRawRoot}${routesFile}`
-    console.log( '-MW- buildRoutes > urlRoutesFile : ', urlRoutesFile )
+    // console.log( '-MW- buildRoutes > urlRoutesFile : ', urlRoutesFile )
 
     await $axios.get(urlRoutesFile)
       .then( resp => {

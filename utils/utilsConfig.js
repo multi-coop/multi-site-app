@@ -42,32 +42,32 @@ export const chooseBooleanMode = (ARG) => {
   }
 }
 
-export const defaultLoc = 'fr'
-export const defaultLocs = [
-  {
-    code: 'fr',
-    name: 'Français',
-    file: 'fr-FR.js'
-  }
-]
+// export const defaultLoc = 'fr'
+// export const defaultLocs = [
+//   {
+//     code: 'fr',
+//     name: 'Français',
+//     file: 'fr-FR.js'
+//   }
+// ]
 
-export const buildLocales = (localesString) => {
-  if (localesString) {
-    const locales = []
-    const tempLocales = localesString.split(',')
-    for (const loc of tempLocales) {
-      const loc_ = loc.split(':')
-      const obj = {
-        code: loc_[0],
-        name: loc_[1],
-        iso: loc_[2],
-        file: `${loc_[2]}.js`
-      }
-      locales.push(obj)
-    }
-    return locales
-  }
-}
+// export const buildLocales = (localesString) => {
+//   if (localesString) {
+//     const locales = []
+//     const tempLocales = localesString.split(',')
+//     for (const loc of tempLocales) {
+//       const loc_ = loc.split(':')
+//       const obj = {
+//         code: loc_[0],
+//         name: loc_[1],
+//         iso: loc_[2],
+//         file: `${loc_[2]}.js`
+//       }
+//       locales.push(obj)
+//     }
+//     return locales
+//   }
+// }
 
 
 export const logAllowed = ['preprod', 'dev', 'mockup']
@@ -107,9 +107,9 @@ export class configApp {
     this.loadingContinuous = env.NUXT_ENV_APP_LOADING_CONTINUOUS || true
 
     // INTERNATIONALIZATION
-    this.defaultLocale = env.NUXT_ENV_LANG_DEFAULT_LOCALE || defaultLoc
-    this.localesBuild =
-      buildLocales(env.NUXT_ENV_LANG_DEFAULT_LOCALES) || defaultLocs
+    // this.defaultLocale = env.NUXT_ENV_LANG_DEFAULT_LOCALE || defaultLoc
+    // this.localesBuild =
+    //   buildLocales(env.NUXT_ENV_LANG_DEFAULT_LOCALES) || defaultLocs
 
     // this.vuetifyThemes = {
     //   light : {

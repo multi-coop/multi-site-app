@@ -106,6 +106,7 @@ export default {
   head () { 
     return {
       title: this.config.data.app_name,
+      lang: this.locale,
       link: [
         { rel: 'icon', href: this.iconUrl, sizes: '32x32' },
       ],

@@ -86,6 +86,12 @@ export default {
   async mounted() {
     await this.getFileData()
   },
+  watch: {
+    async locale(next) {
+      // console.log('-C- ContentsSkeleton > watch > locale > next :', next)
+       await this.getFileData()
+    }
+  },
   data() {
     return {
       sectionData: undefined,
@@ -95,13 +101,15 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+      localeFallback: (state) => state.localeFallback,
       gitInfos: (state) =>  state.gitInfos,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
     convertUrl() {
-      return `${this.rawRoot}${this.section.files[this.locale]}`
+      const url = `${this.rawRoot}${this.section.files[this.locale] || this.section.files[this.localeFallback] }`
+      return url
     },
     sectionOptions() {
       return this.section.options

@@ -12,6 +12,11 @@ export const state = () => ({
   locale: undefined,
   locales: undefined,
   localeFallback: undefined,
+  localesDict: {
+    fr: 'Français',
+    en: 'English',
+    es: 'Español'
+  },
 
   // CONFIG
   contentsRepo: undefined,

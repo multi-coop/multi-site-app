@@ -28,7 +28,8 @@ export default {
   head: {
     title: config.appTitle,
     htmlAttrs: {
-      lang: config.defaultLocale,
+      // lang: config.defaultLocale,
+      lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
@@ -73,15 +74,15 @@ export default {
   ** cf : https://phrase.com/blog/posts/nuxt-js-tutorial-i18n/
   ** cf : 
   */
-  i18n: {
-    defaultLocale: config.defaultLocale || defaultLoc, // 'fr',
-    locales: config.localesBuild,
-    vueI18n: {
-      fallbackLocale: config.defaultLocale || defaultLoc // 'fr',
-    },
-    lazy: true,
-    langDir: 'locales/'
-  },
+  // i18n: {
+  //   defaultLocale: config.defaultLocale || defaultLoc, // 'fr',
+  //   locales: config.localesBuild,
+  //   vueI18n: {
+  //     fallbackLocale: config.defaultLocale || defaultLoc // 'fr',
+  //   },
+  //   lazy: true,
+  //   langDir: 'locales/'
+  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
