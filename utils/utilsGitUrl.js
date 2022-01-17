@@ -16,12 +16,9 @@ export const gitProviders = {
   }
 }
 
-export const convertToRawUrl = ( url, gitInfos ) => {
-}
-
 export const extractGitInfos = (str) => {
 
-  console.log( '-U- extractGitInfos > str : ', str ) 
+  // console.log( '-U- utilsGitUrl > extractGitInfos > str : ', str ) 
   let provider, orga, repo, branch, rawRoot, remaining
   let gitRef, trimmed, split, rawUrl
 
