@@ -83,28 +83,10 @@
         class="card-content"
         >
 
-        <!-- MINIATURE KEYS -->
-        <ul
-          v-if="miniaturekKeys"
-          >
-          <li 
-            v-for="key in miniaturekKeys"
-            :key="key"
-            >
-            <span class="has-text-weight-bold">
-              {{ $translate(key, itemDict) }} :
-            </span>
-            <span>
-              {{ data[ key ]}}
-            </span>
-          </li>
-        </ul>
-
-
         <!-- TAGS -->
         <div 
           v-if="options['tags-keys']"
-          class="content"
+          class="content mb-1"
           @click="showModal = !showModal"
           >
           <b-taglist
@@ -123,6 +105,28 @@
             </b-tag>
           </b-taglist>
         </div>
+
+        <!-- MINIATURE KEYS -->
+        <ul
+          v-if="miniaturekKeys"
+          >
+          <li 
+            v-for="key in miniaturekKeys"
+            :key="key"
+            >
+            <span class="has-text-weight-bold">
+              {{ $translate(key, itemDict) }} :
+            </span>
+            <span>
+              {{ data[ key ]}}
+            </span>
+          </li>
+        </ul>
+
+        <hr 
+          v-if="options['has-readmore']"
+          class="mt-1 mb-5"
+        >
 
         <!-- TEXT -->
         <div 
