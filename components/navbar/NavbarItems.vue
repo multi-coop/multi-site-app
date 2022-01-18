@@ -8,15 +8,17 @@
       style="display: flex"
       >
 
-      <div style="display: flex"
+      <div 
         v-if="!item.disabled"
+        style="display: flex"
         > 
 
         <!-- ITEMS -->
         <b-navbar-item 
           v-if="item.component === 'simpleLink'"
-          tag="router-link"
           :to="{ path: item.link }"
+          tag="router-link"
+          class="is-size-6-touch"
           >
           {{ $translate('label', item) }}
         </b-navbar-item>
@@ -29,13 +31,15 @@
           :arrowless="item.options.includes('arrowless')"
           :hoverable="item.options.includes('hoverable')"
           :right="isRight"
+          class="is-size-6-touch"
           >
 
           <b-navbar-item 
             v-for="subItem in item.submenu"
             :key="subItem.name"
-            tag="router-link"
             :to="{ path: subItem.link }"
+            tag="router-link"
+            class="is-size-7-touch"
             >
             {{ $translate('label', subItem) }}
           </b-navbar-item>
@@ -49,7 +53,7 @@
           arrowless
           hoverable
           right
-          class="mr-4"
+          class="mr-4 is-size-6-touch"
           >
           <template v-slot:label>
             <span class="is-uppercase">
@@ -62,6 +66,7 @@
             :key="loc"
             :value="loc === locale"
             aria-role="listitem"
+            class="is-size-7-touch"
             @click="changeLocale(loc)"
             >
             {{ localesDict[loc] }}
