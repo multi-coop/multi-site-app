@@ -43,7 +43,7 @@ p {
 
 ul {
   padding-top: .5em;
-  padding-bottom: .5em;
+  // padding-bottom: .5em;
 }
 
 // ul > li:before {
@@ -52,8 +52,14 @@ ul {
 
 ul > li {
   // margin-left: 1.5em;
-  padding-bottom: .3em;
+  padding-bottom: .5em;
 }
+
+nav > ul > li {
+  // margin-left: 1.5em;
+  padding-bottom: 0em;
+}
+
 
 // ol > li {
 //   margin-left: 2em;

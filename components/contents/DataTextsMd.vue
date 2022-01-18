@@ -15,7 +15,7 @@
 
         <div 
           v-if="isString(dataText.text[locale])"
-          class=""
+          class="is-size-6-touch"
           >
           <VueShowdown
             :markdown="dataText.text[locale]"
@@ -50,7 +50,7 @@
             <div 
               v-for="(dataTxtLi, idxLi) in dataText.text"
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
-              class="level mt-0 mb-1 pt-0 pb-0"
+              class="level mt-0 mb-2 pt-0 pb-0"
               >
               <div class="level-left">
                 <b-icon

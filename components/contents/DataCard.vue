@@ -109,6 +109,7 @@
         <!-- MINIATURE KEYS -->
         <ul
           v-if="miniaturekKeys"
+          @click="showModal = !showModal"
           >
           <li 
             v-for="key in miniaturekKeys"
@@ -130,7 +131,7 @@
 
         <!-- TEXT -->
         <div 
-          class="content"
+          class="content is-size-6-touch"
           @click="showModal = !showModal"
           >
 
@@ -139,9 +140,10 @@
             >
             <!-- resume -->
             <VueShowdown
-              :markdown="contentSplit.resume"
+              :markdown="contentSplit.resume + '(...)'"
               :options="showdownOptions"
             />
+
 
             <!-- read more -->
             <!-- <VueShowdown
@@ -151,7 +153,9 @@
             /> -->
           </div>
 
-          <div v-else>
+          <div
+            v-else
+            >
             <VueShowdown
               :markdown="content"
               :options="showdownOptions"
@@ -160,7 +164,7 @@
 
         </div>
 
-        <!-- button more -->
+        <!-- button read more -->
         <div 
           class="content"
           >
@@ -174,9 +178,11 @@
             >
             <span v-if="!showMore">
               {{ $translate('readmore', defaultDict) }}
+              <b-icon icon="plus" size="is-small" class="pl-2"/>
             </span>
             <span v-if="showMore">
               {{ $translate('readless', defaultDict) }}
+              <b-icon icon="minus" size="is-small" class="pl-2"/>
             </span>
           </b-button>
         </div>
@@ -204,7 +210,10 @@
     <!-- MODAL -->
     <b-modal 
       v-model="showModal" 
-      :width="'80%'"
+      :width="'85%'"
+      :height="'100%'"
+      :has-modal-card="modalConfig['full-screen']"
+      :full-screen="modalConfig['full-screen']"
       scroll="keep"
       >
       <DataCardModal
@@ -221,8 +230,9 @@
         :imagesKey="imagesKey"
         :tagsKeys="tagsKeys"
         :imagesRatio="imagesRatio"
-        :imagesRounded="imagesRounded"
         :imagesList="imagesList"
+        :imagesRounded="imagesRounded"
+        :fullScreen="modalConfig['full-screen']"
         :debug="false"
         @close="showModal = false"
       />
@@ -383,7 +393,9 @@ export default {
       }
       return dataLinks
     },
-
+    modalConfig() {
+      return this.options['card-modal-config']
+    },
     canShowCard() {
       const selectionActivated = this.isSelectionActivated
       const tagsKeys = this.tagsKeys.map( k => k.key )

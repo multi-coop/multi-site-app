@@ -21,7 +21,7 @@
         </ul>
       </aside> -->
 
-      <div class="container column is-10 mt-3 mb-6">
+      <div class="container column is-10 mt-3 mb-6 pt-6">
         <Nuxt />
       </div>
 

@@ -2,14 +2,57 @@
 
 <template>
 
-  <div class="card">
+  <div 
+    :class="`${fullScreen ? 'modal-card': 'card'}`"
+    >
 
     <div
-      class="card-content"
+      :class="`${fullScreen ? 'modal-card-body': 'card-content'}`"
       >
 
-      <div class="content">
-        
+      <div 
+        v-if="fullScreen"
+        class="content mb-6"
+        >
+        <NavbarComponent/>
+      </div>
+
+      <div 
+        v-if="fullScreen"
+        class="content"
+        >
+        <div class="level">
+          <div class="level-left">
+          </div>
+          <div class="level-right">
+            <p
+              class="level-item"
+              >
+              <b-button
+                class="is-primary py-1 px-3"
+                size="is-small"
+                icon-right="close-thick"
+                rounded
+                @click="$parent.close()"
+                @mouseover="hoverClose = true"
+                @mouseleave="hoverClose = false"
+                >
+                <span
+                  v-if="hoverClose"
+                  class="has-text-weight-semibold"
+                  >
+                  {{ $translate('close', dict) }}
+                </span>
+              </b-button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div 
+        :class="`content ${fullScreen ? 'px-3' : ''}`"
+        >
         <div class="columns">
 
           <!-- COLUMN LEFT -->
@@ -25,21 +68,21 @@
               :alt='itemData.name'
               :ratio="imagesRatio"
               :rounded="imagesRounded"
-              class="mx-0"
+              class="mx-0 mb-4"
             />
 
             <!-- SOCIALS -->
             <nav 
               v-if="options && options['has-socials']"
-              class="level"
+              class="level is-mobile"
               >
               <div
                 v-for="social in itemSocials"
                 :key="social"
-                class="level-item has-text-centered"
+                class="level-item has-text-centered mb-2"
                 >
                 <div>
-                  <p class="title mb-0">
+                  <p class="title mb-0 pb-1">
                     <a
                       :href="`${ social === 'email' ? 'mailto:' : '' }${ itemData[social] }`" 
                       class=""
@@ -59,8 +102,8 @@
 
           </div>
 
-          <!-- COLUMN LEFT -->
-          <div class="column px-6">
+          <!-- COLUMN RIGHT -->
+          <div class="column">
             
             <!-- TITLE -->
             <h1 class="mt-4 mb-5 pb-1 has-text-centered">
@@ -121,7 +164,7 @@
                 :label="$translate('gallery', dict)"
                 >
                 <div 
-                  class="columns is-centered has-background-grey-light pt-6 px-0 pb-4"
+                  class="columns is-centered has-background-grey-light px-0 pb-4"
                   >
                   <div 
                     class="column is-9 content"
@@ -223,6 +266,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'DataCardModal',
   components: {
+    NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
     DataTextsMd: () => import(/* webpackChunkName: "DataTextsMd" */ '~/components/contents/DataTextsMd.vue'),
     DataGallery: () => import(/* webpackChunkName: "DataGallery" */ '~/components/contents/DataGallery.vue'),
   },
@@ -242,11 +286,13 @@ export default {
     'imagesRatio',
     'imagesList',
     'imagesRounded',
+    'fullScreen',
     'debug',
   ],
   data() {
     return {
       socials: [ 'email', 'twitter', 'linkedin', 'github' ],
+      hoverClose: false,
       dict: {
         gallery: {
           fr: 'Images',
@@ -259,6 +305,10 @@ export default {
         links: {
           fr: 'Liens',
           en: 'Links'
+        },
+        close: {
+          fr: 'Fermer',
+          en: 'Close'
         }
       }
     }

@@ -18,7 +18,7 @@
           v-if="item.component === 'simpleLink'"
           :to="{ path: item.link }"
           tag="router-link"
-          class="is-size-6-touch"
+          class="is-size-7-touch"
           >
           {{ $translate('label', item) }}
         </b-navbar-item>
@@ -31,7 +31,7 @@
           :arrowless="item.options.includes('arrowless')"
           :hoverable="item.options.includes('hoverable')"
           :right="isRight"
-          class="is-size-6-touch"
+          class="is-size-7-touch"
           >
 
           <b-navbar-item 
@@ -53,7 +53,7 @@
           arrowless
           hoverable
           right
-          class="mr-4 is-size-6-touch"
+          class="mr-4 is-size-7-touch"
           >
           <template v-slot:label>
             <span class="is-uppercase">

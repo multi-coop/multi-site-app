@@ -52,6 +52,9 @@ export default {
   components: {
     NavbarItems: () => import(/* webpackChunkName: "NavbarItems" */ '~/components/navbar/NavbarItems.vue'),
   },
+  props: [
+    
+  ],
   computed: {
     ...mapState({
       log: (state) => state.log,
