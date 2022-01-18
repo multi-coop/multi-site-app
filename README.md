@@ -10,9 +10,11 @@
 
 We simply didn't want to have all our `.md` contents in the same repo than the app deploying them into an simili-static website... 
 
-Yes, sometimes it's simpler to distinguish the repos you want people to collaborate into, depending you're expecting them to contribute only to tthe content texts or to the code... 
+Yes, sometimes it's simpler to distinguish the repos you want people to collaborate into, depending if you're expecting them to contribute only to the content texts, or to the code... Usually it's not the same kind of people nor the same required skills.
 
-And also this app is reusable to deploy different websites without having to fork the project... It's just a matter of changing the `.env` file...
+We also wanted to display some filterable galeries : for instance having a page with a card for every team member, or a card for every project in our portfolio, ... and filtering which cards you want to hide given some tags... 
+
+Finally we wanted a reusable app to deploy different websites, without having to fork the project... It's just a matter of changing the `.env` file and having another contents in another repo...
 
 
 ## Who did that ?
@@ -55,23 +57,25 @@ NUXT_ENV_REPO_CONTENTS=https://github.com/co-demos/multi-site-contents
 NUXT_ENV_SITE_CONFIG=https://github.com/co-demos/multi-site-contents/blob/main/config/global.md
 ```
 
-### Notes on the distant repo (your `.md` files), the "contents" repo
+### About the distant repo (your `.md` files), the "contents" repo
 
-You can base the organisation of your distant repo following [the example of this repo](https://github.com/co-demos/multi-site-contents).
+You can base the organisation of your distant repo by checking [the example of this repo](https://github.com/co-demos/multi-site-contents).
 
-The distsant "contents" repo is organized as follow : 
+The distant "contents" repo is organized as follow : 
 
 ```
 .
 ├── README.md
 ├── LICENCE.md
-├── config folder: to deploy a website with the `multi-site` app
+├── config: folder containing the config data necessary to deploy a website with the `multi-site` app
 │   ├── global.md : global config file (md and yaml head)
 │   ├── navbar.md : config file for navbar butttons and links (md and yaml head)
 │   ├── route.md : config file for routes (md and yaml head)
 │   └── footer.md : config file for footer links (md and yaml head)
-├── images folder: contains images
-├── texts folder : contains all markdown files, including 
+├── images: folder containing images
+│   └── <whatever you want> ...
+├── texts: folder containing all markdown files, including data files 
+│   └── <whatever you want> ...
 
 ```
 
