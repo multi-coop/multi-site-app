@@ -57,7 +57,7 @@
       <!-- TITLE -->
       <header 
         class="card-header"
-        @click="showModal = !showModal"
+        @click="openModal()"
         >
         <h2 class="card-header-title is-size-5">
           {{ data[titleKey] }}
@@ -68,7 +68,7 @@
       <div 
         v-if="imagesList"
         class="card-image"
-        @click="showModal = !showModal"
+        @click="openModal()"
         >
         <b-image
           :src='convertUrl(imagesList[0])'
@@ -87,7 +87,7 @@
         <div 
           v-if="options['tags-keys']"
           class="content mb-1"
-          @click="showModal = !showModal"
+          @click="openModal()"
           >
           <b-taglist
             v-for="(tagKey, idx) in options['tags-keys']"
@@ -109,7 +109,7 @@
         <!-- MINIATURE KEYS -->
         <ul
           v-if="miniaturekKeys"
-          @click="showModal = !showModal"
+          @click="openModal()"
           >
           <li 
             v-for="key in miniaturekKeys"
@@ -132,7 +132,7 @@
         <!-- TEXT -->
         <div 
           class="content is-size-6-touch"
-          @click="showModal = !showModal"
+          @click="openModal()"
           >
 
           <div 
@@ -174,7 +174,7 @@
             class="mt-3"
             outlined
             expanded
-            @click="showMore = !showMore;  showModal = !showModal"
+            @click="showMore = !showMore; openModal()"
             >
             <span v-if="!showMore">
               {{ $translate('readmore', defaultDict) }}
@@ -234,7 +234,7 @@
         :imagesRounded="imagesRounded"
         :fullScreen="modalConfig['full-screen']"
         :debug="false"
-        @close="showModal = false"
+        @close="openModal(true)"
       />
     </b-modal>
 
@@ -260,6 +260,7 @@ export default {
     'itemDict',
     'colSize',
     'index',
+    'preOpenItem',
     'debug',
   ],
   data() {
@@ -425,6 +426,10 @@ export default {
       })
       // console.log('-C- DataCard > watch > tagsToAdd :', tagsToAdd)
       this.$store.dispatch('data/setAvailableTags', tagsToAdd)
+      this.showModal = this.preOpenItem === this.file
+    },
+    showModal(next) {
+      this.changeUrl(!next)
     }
   },
   async mounted() {
@@ -454,7 +459,18 @@ export default {
       const strTrimmed = str.length >= max ? `${str.slice(0, max)}...` : str
       return strTrimmed
     },
-
+    changeUrl(reset) {
+      // console.log('\n-C- DataCard > openModal > reset :', reset)
+      // console.log('-C- DataCard > openModal > this.file :', this.file)
+      // console.log('-C- DataCard > openModal > this.$route :', this.$route)
+      const queryItem = reset ? {} : { item: this.file }
+      this.$router.push({path: this.$route.path, query: queryItem})
+      // const newPath = `${this.$route.path}${query}`
+      // console.log('-C- DataCard > openModal > newPath :', newPath)
+    },
+    openModal(forceClose) {
+      this.showModal = forceClose ? false : !this.showModal
+    }
 
   }
 

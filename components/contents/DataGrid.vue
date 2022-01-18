@@ -83,6 +83,7 @@
         :colSize="colSize"
         :itemDict="sectionData.data.dict"
         :index="idx"
+        :preOpenItem="preOpenItem"
         :debug="false"
       />
     </div>
@@ -109,11 +110,16 @@ export default {
   // beforeDestroy() {
   //   this.resetAvailableTags()
   // },
+  beforeMount() {
+    const preOpenItem = this.$route.query && this.$route.query.item
+    this.preOpenItem = preOpenItem
+  },
   created() {
     this.setAvailableTagsKeys(this.tagsKeys)
   },
   data() {
     return {
+      preOpenItem: undefined,
       gapDict: {
         'half': 'is-5',
         'one-third': 'is-4'
