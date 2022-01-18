@@ -16,6 +16,8 @@ We also wanted to display some filterable galeries : for instance having a page 
 
 Finally we wanted a reusable app to deploy different websites, without having to fork the project... It's just a matter of changing the `.env` file and having another contents in another repo...
 
+In short, vuepress or equivalent static content app weren't versatile enough for our needs (and we wanted to have a bit of fun doing this project from scratch)... 
+
 
 ## Who did that ?
 
