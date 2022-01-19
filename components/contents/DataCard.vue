@@ -234,7 +234,7 @@
         :imagesRounded="imagesRounded"
         :fullScreen="modalConfig['full-screen']"
         :debug="false"
-        @close="openModal(true)"
+        @close="openModal(true); showMore = false"
       />
     </b-modal>
 

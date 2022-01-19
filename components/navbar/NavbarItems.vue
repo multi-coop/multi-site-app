@@ -42,7 +42,10 @@
             class="is-size-7-touch"
             :active="subItem.link === $route.path"
             >
-            {{ $translate('label', subItem) }}
+            <span
+              :class="`${ subItem.link === $route.path ? 'has-text-weight-bold' : '' }`">
+              {{ $translate('label', subItem) }}
+            </span>
           </b-navbar-item>
 
         </b-navbar-dropdown>
