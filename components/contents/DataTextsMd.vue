@@ -2,9 +2,9 @@
 
   <div class="columns">
 
-    <div class="column is-one-quarter">
+    <div class="column is-one-quarter pb-0">
       <div class="content">
-        <h4>
+        <h4 class="mb-0">
           {{ $translate(dataText.key, itemDict) }}
         </h4>
       </div>

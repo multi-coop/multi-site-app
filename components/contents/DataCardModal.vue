@@ -7,7 +7,7 @@
     >
 
     <div
-      :class="`${fullScreen ? 'modal-card-body': 'card-content'}`"
+      :class="`${fullScreen ? 'modal-card-body px-5': 'card-content'}`"
       >
 
       <div 
@@ -19,7 +19,7 @@
 
       <div 
         v-if="fullScreen"
-        class="content"
+        class="content mb-0"
         >
         <div class="level">
           <div class="level-left">
@@ -51,9 +51,9 @@
 
 
       <div 
-        :class="`content ${fullScreen ? 'px-3' : ''}`"
+        :class="`container content`"
         >
-        <div class="columns">
+        <div class="columns is-centered">
 
           <!-- COLUMN LEFT -->
           <div 
@@ -103,7 +103,7 @@
           </div>
 
           <!-- COLUMN RIGHT -->
-          <div class="column">
+          <div class="column is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile">
             
             <!-- TITLE -->
             <h1 class="mt-4 mb-5 pb-1 has-text-centered">
@@ -129,7 +129,7 @@
 
 
             <!-- MD CONTENTS -->
-            <div class="content mt-6">
+            <div class="content mt-6 px-5">
 
               <VueShowdown
                 :markdown="itemContent"
@@ -164,10 +164,10 @@
                 :label="$translate('gallery', dict)"
                 >
                 <div 
-                  class="columns is-centered has-background-grey-light px-0 pb-4"
+                  class="columns is-centered has-background-grey-lighter mx-3 pb-4"
                   >
                   <div 
-                    class="column is-9 content"
+                    class="column is-8 is-10-tablet is-full-mobile content"
                     >
                     <DataGallery
                       :imagesListUrls="imagesListUrls"
@@ -182,7 +182,7 @@
                 v-if="modalConfigColRight"
                 :label="$translate('infos', dict)"
                 >
-                <div class="content px-4 pb-5">
+                <div class="content px-4 pt-4 pb-5">
                   <!-- MD DATA CONTENTS -->
                   <div
                     v-for="(dataText, idx) in otherDataTexts"
@@ -205,7 +205,7 @@
                 v-if="modalConfigColRight['tabs'].includes('links')"
                 :label="$translate('links', dict)"
                 >
-                <div class="content px-4 pb-5">
+                <div class="content px-4 pt-4 pb-5">
                   <!-- MD DATA CONTENTS -->
                   <div
                     v-for="(dataLink, idx) in dataLinks"

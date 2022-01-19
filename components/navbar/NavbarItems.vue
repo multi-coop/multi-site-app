@@ -40,6 +40,7 @@
             :to="{ path: subItem.link }"
             tag="router-link"
             class="is-size-7-touch"
+            :active="subItem.link === $route.path"
             >
             {{ $translate('label', subItem) }}
           </b-navbar-item>

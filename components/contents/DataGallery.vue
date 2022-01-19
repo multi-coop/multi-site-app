@@ -11,6 +11,7 @@
     :indicator-inside="false"
     indicator-custom
     :overlay="gallery" 
+    class="pt-6"
     @click="switchGallery(true)"
     >
     <template 
