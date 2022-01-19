@@ -112,6 +112,27 @@
               {{ itemData[titleKey] }}
             </h1>
 
+            <!-- INFO TEXT MD DATA CONTENTS -->
+            <div 
+              v-if="infoDataTexts && infoDataTexts.length"
+              class="content px-4 pt-4"
+              >
+              <p
+                v-for="(dataText, idx) in infoDataTexts"
+                :key="`${sectionIndex}-${index}-info-data-text-${idx}-${dataText.key}`"
+                class="mb-1 pb-0"
+                >
+                <DataTextsMd
+                  :dataText="dataText"
+                  :itemDict="itemDict"
+                  :sectionIndex="sectionIndex"
+                  :index="index"
+                  :idx="idx"
+                />
+              </p>
+            </div>
+
+
             <!-- TAGS -->
             <p 
               v-for="(tagKey, idx) in options['tags-keys']"
@@ -319,6 +340,7 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+      locales: (state) => state.locales,
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -350,6 +372,18 @@ export default {
       const hasDefaultDataText = this.modalConfigColRight['default-text']
       const defaultDataText = hasDefaultDataText && this.dataTexts.find( d => d.key === hasDefaultDataText)
       return defaultDataText
+    },
+    infoDataTexts() {
+      const infoDataTextsKeys = this.modalConfig && this.modalConfig['infos-texts']
+      const dataTexts = []
+      if (infoDataTextsKeys) {
+        infoDataTextsKeys.forEach( k => {
+          const texts = this.locales.reduce((a, v) => ({ ...a, [v]: this.itemData[k]}), {}) 
+          // .reduce( (a, v) => [v] = this.itemData[k],  ) 
+          dataTexts.push( { key: k, text: texts } )
+        })
+      }
+      return dataTexts
     },
     otherDataTexts() {
       const otherTexts = this.defaultDataText ? this.dataTexts.filter( t  => t.key !== this.defaultDataText.key ) : this.DataTexts
