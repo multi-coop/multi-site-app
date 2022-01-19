@@ -51,9 +51,10 @@
 
 
       <div 
-        :class="`container content`"
+        :class="`${fullScreen ? 'container' : '' } content`"
         >
-        <div class="columns is-centered">
+        <div 
+          :class="`columns ${fullScreen ? 'is-centered' : '' }`">
 
           <!-- COLUMN LEFT -->
           <div 
@@ -103,7 +104,8 @@
           </div>
 
           <!-- COLUMN RIGHT -->
-          <div class="column is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile">
+          <div 
+            :class="`column ${fullScreen ? 'is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile' : ''}`">
             
             <!-- TITLE -->
             <h1 class="mt-4 mb-5 pb-1 has-text-centered">
