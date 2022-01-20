@@ -115,7 +115,7 @@
             <!-- INFO TEXT MD DATA CONTENTS -->
             <div 
               v-if="infoDataTexts && infoDataTexts.length"
-              class="content px-4 pt-4"
+              class="notification px-4 pt-4"
               >
               <p
                 v-for="(dataText, idx) in infoDataTexts"
