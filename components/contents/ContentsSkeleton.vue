@@ -84,7 +84,10 @@ export default {
     DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
   },
   async mounted() {
-    await this.getFileData()
+    // console.log('-C- ContentsSkeleton > mounted > this.section :', this.section)
+    if (this.section.files) {
+      await this.getFileData()
+    }
   },
   watch: {
     async locale(next) {
