@@ -38,7 +38,7 @@
           :class="`column is-${sectionOptions['buttons-size']}`"
           >
           <b-button 
-            type="is-primary" 
+            :type="`is-${ btn.color || 'primary' }`" 
             :to="{path: btn.link}"
             :icon-left="btn['icon-left']"
             :rounded="btn.rounded"
