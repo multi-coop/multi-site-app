@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       multiUrl: 'https://multi.coop',
-      source: 'https://github.com/co-demos/multi-site-app',
+      source: 'https://github.com/multi-coop/multi-site-app',
       years: '2021-2022',
       dict: {
         credits: {
