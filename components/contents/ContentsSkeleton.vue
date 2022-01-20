@@ -61,6 +61,13 @@
       :debug="false"
     />
 
+    <ButtonsComponent
+      v-if="section.component === 'ButtonsComponent'"
+      :sectionIndex="sectionIndex"
+      :sectionOptions="sectionOptions"
+      :debug="false"
+    />
+
   </div>
 </template>
 
@@ -82,6 +89,7 @@ export default {
     TextComponent: () => import(/* webpackChunkName: "TextComponent" */ '~/components/contents/TextComponent.vue'),
     TextDataComponent: () => import(/* webpackChunkName: "TextDataComponent" */ '~/components/contents/TextDataComponent.vue'),
     DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
+    ButtonsComponent: () => import(/* webpackChunkName: "ButtonsComponent" */ '~/components/buttons/ButtonsComponent.vue'),
   },
   async mounted() {
     // console.log('-C- ContentsSkeleton > mounted > this.section :', this.section)
@@ -92,7 +100,9 @@ export default {
   watch: {
     async locale(next) {
       // console.log('-C- ContentsSkeleton > watch > locale > next :', next)
-       await this.getFileData()
+      if (this.section.files) {
+        await this.getFileData()
+      }
     }
   },
   data() {

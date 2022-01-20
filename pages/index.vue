@@ -11,7 +11,7 @@
       <div 
         v-for="(section, idx) in currentRoute.sections"
         :key="`${idx}-${section.name}`"
-        class="container mb-4"
+        class="container mb-3"
         >
         <ContentsSkeleton 
           :section="section"
@@ -43,7 +43,6 @@
             :options="{ emoji: true }"
           />
         </card>
-
 
         <card title="footer obj" icon="">
           <code>
