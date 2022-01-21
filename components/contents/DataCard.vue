@@ -80,13 +80,13 @@
       
       <!-- CONTENT -->
       <div 
-        class="card-content"
+        :class="`card-content ${miniatureKeys.length ? 'pb-0' : ''}`"
         >
 
         <!-- TAGS -->
         <div 
           v-if="options['tags-keys']"
-          class="content mb-1"
+          class="content mb-2"
           @click="openModal()"
           >
           <b-taglist
@@ -105,24 +105,6 @@
             </b-tag>
           </b-taglist>
         </div>
-
-        <!-- MINIATURE KEYS -->
-        <ul
-          v-if="miniaturekKeys"
-          @click="openModal()"
-          >
-          <li 
-            v-for="key in miniaturekKeys"
-            :key="key"
-            >
-            <span class="has-text-weight-bold">
-              {{ $translate(key, itemDict) }} :
-            </span>
-            <span>
-              {{ data[ key ]}}
-            </span>
-          </li>
-        </ul>
 
         <hr 
           v-if="options['has-readmore']"
@@ -188,6 +170,31 @@
         </div>
 
       </div>
+
+
+      <!-- MINIATURE KEYS -->
+      <div 
+        v-if="miniatureKeys.length"
+        class="card-content pt-0"
+        @click="openModal()"
+        >
+        <hr class="mb-2">
+        <ul
+          >
+          <li 
+            v-for="key in miniatureKeys"
+            :key="key"
+            >
+            <span class="has-text-weight-bold">
+              {{ $translate(key, itemDict) }} :
+            </span>
+            <span>
+              {{ data[ key ]}}
+            </span>
+          </li>
+        </ul>
+      </div>
+
 
       <!-- FOOTER -->
       <footer
@@ -340,7 +347,7 @@ export default {
     tagsKeys() {
       return this.options['tags-keys'] || []
     },
-    miniaturekKeys() {
+    miniatureKeys() {
       let minKeys = this.options['miniature-keys'] || []
       const tagsKeys = this.tagsKeys.map( t => t.key )
       minKeys = minKeys.filter(  k => !tagsKeys.includes(k) )
