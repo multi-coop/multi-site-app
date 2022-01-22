@@ -21,6 +21,8 @@ In short, vuepress or equivalent "static-contents-based" apps weren't versatile 
 
 ## Who did that ?
 
+( ... Aren't you a bit of a curious fellow ? ... )
+
 This open source tool was developped by the cooperative **[multi](https://multi.coop)** (and our website is based on this solution).
 
 ---
