@@ -139,6 +139,25 @@ $ npm run generate
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
+---
+
+## Deployment
+
+These instances are deployed  with Netlify :
+
+- Test deploy : [![Netlify Status](https://api.netlify.com/api/v1/badges/5a774814-2a6a-4da7-a8b5-1cc3d654df2a/deploy-status)](https://app.netlify.com/sites/multi-site-app-test/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents).
+- Official website of [cooperative multi](https://multi.coop) : [![Netlify Status](https://api.netlify.com/api/v1/badges/5be5abcb-7667-4b96-b1d1-952839f70c2f/deploy-status)](https://app.netlify.com/sites/multi-website/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents)
+
+---
+
+## Contributions
+
+If you want to propose somme enhancements to our app please make your pull requests against the `main` branch. We will review that with great pleasure :)
+
+You can also add issues directly in the reop, or add notes or issues from our [github "project" page](https://github.com/orgs/multi-coop/projects/2).
+
+----
+
 ## Special Directories
 
 You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
