@@ -39,8 +39,7 @@ This open source tool was developped by the cooperative **[multi](https://multi.
 
 ### The `.env` file
 
-First you have to create an 
-file at the root of the project, which can be based on the `example.env` file :
+First you have to create an `.env` file at the root of the project, which can be based on the `example.env` file :
 
 The template - `example.env` - is present at the root. You can copy-paste it and customize it wiith your own values.
 
