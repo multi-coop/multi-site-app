@@ -21,6 +21,8 @@ In short, vuepress or equivalent "static-contents-based" apps weren't versatile 
 
 ## Who did that ?
 
+( ... Aren't you a bit of a curious fellow ? ... )
+
 This open source tool was developped by the cooperative **[multi](https://multi.coop)** (and our website is based on this solution).
 
 ---
@@ -40,6 +42,15 @@ This open source tool was developped by the cooperative **[multi](https://multi.
 ### The `.env` file
 
 First you have to create an `.env` file at the root of the project, which can be based on the `example.env` file :
+
+The template - `example.env` - is present at the root. You can copy-paste it and customize it wiith your own values.
+
+```shell
+# from repo root
+cp example.env .env
+```
+
+You should have an `.env` file looking like this : 
 
 ```bash
 ### - - - - - - - - - - - - - - - - - - - - - ###
@@ -129,6 +140,25 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+
+---
+
+## Deployment
+
+These instances are deployed  with Netlify :
+
+- Test deploy : [![Netlify Status](https://api.netlify.com/api/v1/badges/5a774814-2a6a-4da7-a8b5-1cc3d654df2a/deploy-status)](https://app.netlify.com/sites/multi-site-app-test/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents).
+- Official website of [cooperative multi](https://multi.coop) : [![Netlify Status](https://api.netlify.com/api/v1/badges/5be5abcb-7667-4b96-b1d1-952839f70c2f/deploy-status)](https://app.netlify.com/sites/multi-website/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents)
+
+---
+
+## Contributions
+
+If you want to propose somme enhancements to our app please make your pull requests against the `main` branch. We will review that with great pleasure :)
+
+You can also add issues directly in the reop, or add notes or issues from our [github "project" page](https://github.com/orgs/multi-coop/projects/2).
+
+----
 
 ## Special Directories
 
