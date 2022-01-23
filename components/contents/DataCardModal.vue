@@ -38,7 +38,7 @@
                 @mouseleave="hoverClose = false"
                 >
                 <span
-                  v-if="hoverClose"
+                  v-if="true"
                   class="has-text-weight-semibold"
                   >
                   {{ $translate('close', dict) }}
