@@ -7,20 +7,49 @@
       class="level"
       >
       <div class="columns">
-        <div class="column" v-if="sectionData">
-          sectionData: <br><code>
-            <pre>
-              {{ sectionData.data }}
-            </pre>
-          </code>
+        <div 
+          v-if="sectionData"
+          class="column" 
+          >
+          <p>
+            sectionData: <br><code>
+              <pre>
+                {{ sectionData.data }}
+              </pre>
+            </code>
+          </p>
+          <p>
+            sectionOptions: <br><code>
+              <pre>
+                {{ sectionOptions }}
+              </pre>
+            </code>
+          </p>
+          <p>
+            hasColumnsOptions: 
+            <code>{{ hasColumnsOptions }}</code>
+          </p>
+
         </div>
       </div>
     </div>
 
-    <VueShowdown
-      :markdown="sectionData.content"
-      :options="{ emoji: true }"
-    />
+    <div class="content">
+
+      <!-- render columns with options -->
+      <div
+        class="columns is-multiline is-centered is-variable is-6"
+        >
+        <div 
+          :class="`column ${columnsSize}`"
+          >
+          <VueShowdown
+            :markdown="sectionData.content"
+            :options="{ emoji: true }"
+          />
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -34,6 +63,7 @@ export default {
   name: 'LogoAnimated',
   props: [
     'sectionData',
+    'sectionOptions',
     'debug'
   ],
   data() {
@@ -48,6 +78,10 @@ export default {
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
+    columnsSize() {
+      const colSize = this.sectionOptions['columns-size'] || 'two-thirds'
+      return `is-${colSize}`
+    }
   },
 
 }
