@@ -4,7 +4,7 @@
     :class="`columns is-multiline is-centered ${sectionOptions['custom-classes']}`"
     >
     <div 
-      :class="`column is-${sectionOptions['columns-size']}`"
+      :class="`column is-${sectionOptions['columns-size']}-desktop is-full-tablet`"
       >
 
       <!-- DEBUG -->
