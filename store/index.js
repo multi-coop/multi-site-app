@@ -42,7 +42,10 @@ export const getters = {
   getShowdownOptions: (state) => {
     return {
       emojis: state.config.data.app_md_emojis || true,
-      flavor: state.config.data.app_md_flavor || 'allOn'
+      flavor: state.config.data.app_md_flavor || 'allOn',
+      tables: true,
+      tasklist: true,
+      openLinksInNewWindow: true
     }
   },
   getCurrentRouteConfig: (state) => (currentPath) => {
