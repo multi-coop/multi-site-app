@@ -123,7 +123,8 @@
             <!-- resume -->
             <VueShowdown
               :markdown="contentSplit.resume + '(...)'"
-              :options="showdownOptions"
+              :flavor="showdownOptions.flavor"
+              :options="showdownOptions.options"
             />
 
 
@@ -131,7 +132,8 @@
             <!-- <VueShowdown
               v-show="showMore"
               :markdown="contentSplit.readMore"
-              :options="showdownOptions"
+              :flavor="showdownOptions.flavor"
+              :options="showdownOptions.options"
             /> -->
           </div>
 
@@ -140,7 +142,8 @@
             >
             <VueShowdown
               :markdown="content"
-              :options="showdownOptions"
+              :flavor="showdownOptions.flavor"
+              :options="showdownOptions.options"
             />
           </div>
 

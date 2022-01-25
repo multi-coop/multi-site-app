@@ -156,7 +156,8 @@
 
               <VueShowdown
                 :markdown="itemContent"
-                :options="showdownOptions"
+                :flavor="showdownOptions.flavor"
+                :options="showdownOptions.options"
               />
 
               <DataTextsMd
