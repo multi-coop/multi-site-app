@@ -56,6 +56,10 @@ export const getters = {
   getGitRawRoot: (state) => {
     const root = state.gitInfos &&  state.gitInfos.gitRawRoot
     return root
+  },
+  getGitPublicRoot: (state) => {
+    const root = state.gitInfos &&  state.gitInfos.gitPublicRoot
+    return root
   }
 }
 

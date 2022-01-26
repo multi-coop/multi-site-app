@@ -2,20 +2,20 @@
 
   <div class="columns">
     
-    <div class="column is-one-quarter pb-0">
+    <div class="column is-one-third pb-0">
       <div class="content">
-        <h4 class="mb-0 is-size-7 pt-2">
+        <p class="is-size-7 has-text-weight-semibold">
           {{ $translate(dataText.key, itemDict) }}
-        </h4>
+        </p>
       </div>
     </div>
 
-    <div class="column is-three-quarters">
+    <div class="column is-two-thirds pb-0">
       <div class="content">
 
         <div 
           v-if="isString(dataText.text[locale])"
-          class="is-size-6-touch"
+          class="is-size-7"
           >
           <VueShowdown
             :markdown="dataText.text[locale]"
@@ -26,7 +26,7 @@
 
         <p 
           v-if="!isString(dataText.text[locale])"
-          class="mt-0 pt-0"
+          class="mt-0 pt-0 is-size-7"
           >
 
           <ul 
@@ -38,7 +38,7 @@
               :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}-${idxLi}`"
               class="pb-0"
               >
-              <span >
+              <span>
                 {{ dataTxtLi }}
               </span>
             </li>

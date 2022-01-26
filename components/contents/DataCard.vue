@@ -48,7 +48,6 @@
       </div>
     </div>
 
-
     <div 
       v-if="data"
       class="card"
@@ -230,6 +229,7 @@
         :modalReady="modalReady"
         :sectionIndex="sectionIndex"
         :index="index"
+        :sourceFile="convertUrlPublic(file)"
         :itemData="data"
         :itemContent="content"
         :dataTexts="dataTexts"
@@ -308,10 +308,14 @@ export default {
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
+      publicRoot: 'getGitPublicRoot',
       showdownOptions: 'getShowdownOptions',
       isSelectionActivated: 'data/isSelectionActivated',
       canShowItem: 'data/canShowItem',
     }),
+    urlFile() {
+      return this.convertUrl(this.file)
+    },
     contentSplit() {
       let contentsArray = [ this.content, '' ]
       const re = /\r\n|\n\r|\n|\r/g
@@ -443,7 +447,7 @@ export default {
     }
   },
   async mounted() {
-    await this.getFileData(this.file)
+    await this.getFileData()
   },
   methods: {
     ...mapActions({
@@ -452,8 +456,11 @@ export default {
     convertUrl(url) {
       return `${this.rawRoot}${url}`
     },
-    async getFileData(url) {
-      const urlRaw = this.convertUrl(url)
+    convertUrlPublic(url) {
+      return `${this.publicRoot}${url}`
+    },
+    async getFileData() {
+      const urlRaw = this.urlFile
       // console.log('\n-C- DataCard > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
       const fileData = matter(req.data)
