@@ -82,6 +82,7 @@
       </div>
     </section>
 
+
   </div>
 </template>
 
@@ -90,12 +91,14 @@
 import { mapState, mapGetters } from 'vuex' 
 
 import Card from '~/components/Card'
+import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
 
 export default {
   name: 'IndexPage',
   components: {
     Card,
-    ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
+    ContentsSkeleton,
+    // ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
   },
   data () {
     return {

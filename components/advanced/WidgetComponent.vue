@@ -1,0 +1,89 @@
+<template>
+
+  <div 
+    :class="`content ${sectionOptions['custom-classes']}`"
+    >
+
+    <div 
+      v-html="sectionOptions.html"
+    />
+    <!-- EXTERNAL WIDGET : simulator shares -->
+    <!-- <multi-shares-simulator 
+      locale="fr"
+      partvalue="25"
+      minbenefs="0"
+      benefs="100000"
+      repart='{
+        "reserves":0.4,
+        "participation":0.5,
+        "dividendes":0.1
+      }'
+      team='[
+        { "name":"Johan Richer", "parts":100, "workTime":100 }, 
+        { "name":"Julien Paris", "parts":100, "workTime":100 }, 
+        { "name":"Thomas Brosset", "parts":40, "workTime":40 }, 
+        { "name":"Pierre Camilleri", "parts":100, "workTime":60 }, 
+        { "name":"Quentin Loridant", "parts": 100, "workTime":80 }
+      ]'
+    /> -->
+
+  </div>
+
+</template>
+
+
+<script>
+import { mapState } from 'vuex' 
+
+export default {
+  name: 'ButtonsComponent',
+  props: [
+    'sectionIndex',
+    'sectionOptions',
+    'debug'
+  ],
+  data () {
+    return {
+    }
+  },
+  head () {
+    return {
+      script: [],
+      style: []
+    }
+  },
+  beforeMount () {
+    const widgetScript = {
+      type: 'text/javascript', 
+      src: this.sectionOptions.js,
+      // src: 'https://multi-site-simulator-test.netlify.app/js/app.js', 
+      async: true, 
+      body: true
+    }
+    const widgetCss = {
+      type: 'text/css', 
+      href: this.sectionOptions.css,
+      // href: 'https://multi-site-simulator-test.netlify.app/css/app.css'
+    }
+    // this.head.script.push(widgetScript)
+    // this.head.style.push(widgetCss)
+    const tagScript = document.createElement("script")
+    tagScript.setAttribute("src", widgetScript.src)
+    tagScript.setAttribute("type", widgetScript.type)
+    tagScript.setAttribute("async", widgetScript.async)
+    tagScript.setAttribute("body", widgetScript.body)
+    document.head.appendChild(tagScript)
+
+    const tagCss = document.createElement("style")
+    tagCss.setAttribute("type", widgetCss.type)
+    tagCss.setAttribute("href", widgetScript.href)
+    document.head.appendChild(tagCss)
+
+  },
+  computed: {
+    ...mapState({
+      log: (state) => state.log,
+    }),
+  },
+}
+</script>
