@@ -41,11 +41,13 @@ export const state = () => ({
 export const getters = {
   getShowdownOptions: (state) => {
     return {
-      emojis: state.config.data.app_md_emojis || true,
-      flavor: state.config.data.app_md_flavor || 'allOn',
-      tables: true,
-      // tasklist: true,
-      openLinksInNewWindow: true
+      flavor: state.config.data.app_md_flavor || 'original',
+      options: {
+        emojis: state.config.data.app_md_emojis || true,
+        tables: true,
+        // tasklist: true,
+        // openLinksInNewWindow: true
+      }
     }
   },
   getCurrentRouteConfig: (state) => (currentPath) => {
@@ -53,6 +55,10 @@ export const getters = {
   },
   getGitRawRoot: (state) => {
     const root = state.gitInfos &&  state.gitInfos.gitRawRoot
+    return root
+  },
+  getGitPublicRoot: (state) => {
+    const root = state.gitInfos &&  state.gitInfos.gitPublicRoot
     return root
   }
 }

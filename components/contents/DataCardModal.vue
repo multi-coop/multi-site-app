@@ -117,19 +117,34 @@
               v-if="infoDataTexts && infoDataTexts.length"
               class="notification px-4 pt-4"
               >
-              <p
-                v-for="(dataText, idx) in infoDataTexts"
-                :key="`${sectionIndex}-${index}-info-data-text-${idx}-${dataText.key}`"
-                class="mb-1 pb-0"
-                >
-                <DataTextsMd
-                  :dataText="dataText"
-                  :itemDict="itemDict"
-                  :sectionIndex="sectionIndex"
-                  :index="index"
-                  :idx="idx"
-                />
-              </p>
+              <div class="columns is-centered">
+                <div class="column">
+                  <div
+                    v-for="(dataText, idx) in infoDataTexts"
+                    :key="`${sectionIndex}-${index}-info-data-text-${idx}-${dataText.key}`"
+                    class=""
+                    >
+                    <DataTextsMd
+                      :dataText="dataText"
+                      :itemDict="itemDict"
+                      :sectionIndex="sectionIndex"
+                      :index="index"
+                      :idx="idx"
+                    />
+                  </div>
+                </div>
+                <div class="column is-one-quarter is-v-centered pt-2 pb-1">
+                  <b-button
+                    size="is-small"
+                    icon-left="open-in-new"
+                    tag="a"
+                    :href="sourceFile"
+                    target="_blank"
+                    >
+                    {{ $translate('sourceFile', dict) }}
+                  </b-button>
+                </div>
+              </div>
             </div>
 
 
@@ -156,7 +171,8 @@
 
               <VueShowdown
                 :markdown="itemContent"
-                :options="showdownOptions"
+                :flavor="showdownOptions.flavor"
+                :options="showdownOptions.options"
               />
 
               <DataTextsMd
@@ -297,6 +313,7 @@ export default {
     'modalReady',
     'sectionIndex',
     'index',
+    'sourceFile',
     'itemData',
     'itemContent',
     'dataTexts',
@@ -332,6 +349,10 @@ export default {
         close: {
           fr: 'Fermer',
           en: 'Close'
+        },
+        sourceFile: {
+          fr: 'Fichier source',
+          en: 'Source file'
         }
       }
     }

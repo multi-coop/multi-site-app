@@ -56,7 +56,8 @@
     <div class="content">
       <VueShowdown
         :markdown="content"
-        :options="showdownOptions"
+        :flavor="showdownOptions.flavor"
+        :options="showdownOptions.options"
       />
     </div>
 

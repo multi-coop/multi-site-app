@@ -2,6 +2,7 @@
 export const gitProviders = {
   github: {
     root: 'https://github.com/',
+    rootFix: '/blob',
     raw: 'https://raw.githubusercontent.com/',
     fix: ''
     // root: 'https://github.com                /co-demos/multi-site-contents/ blob/ master/config/global.md',
@@ -9,6 +10,7 @@ export const gitProviders = {
   },
   gitlab: {
     root: 'https://gitlab.com/',
+    rootFix: '/blob',
     raw: 'https://gitlab.com/',
     fix: '/-/raw/'
     // root: 'https://gitlab.com/jailbreak/jailbreak.paris/ -/blob/ master/package.json'
@@ -19,7 +21,7 @@ export const gitProviders = {
 export const extractGitInfos = (str) => {
 
   // console.log( '-U- utilsGitUrl > extractGitInfos > str : ', str ) 
-  let provider, orga, repo, branch, rawRoot, remaining
+  let provider, orga, repo, branch, rawRoot, publicRoot, remaining
   let gitRef, trimmed, split, rawUrl
 
   if ( str.startsWith( gitProviders.github.root ) || str.startsWith( gitProviders.github.raw ) ) {
@@ -46,10 +48,14 @@ export const extractGitInfos = (str) => {
   }
 
   rawRoot = `${gitRef.raw}${orga}/${repo}`
+  publicRoot = `${gitRef.root}${orga}/${repo}`
+
   if (orga === 'github') {
     rawRoot = `${rawRoot}${gitRef.fix}/${branch}/`
+    publicRoot = `${publicRoot}${gitRef.rootFix}/${branch}/`
   } else {
     rawRoot = `${rawRoot}${gitRef.fix}/${branch}/`
+    publicRoot = `${publicRoot}${gitRef.rootFix}/${branch}/`
   }
 
   return {
@@ -58,6 +64,7 @@ export const extractGitInfos = (str) => {
     gitRepo: repo,
     gitBranch: branch || 'master',
     gitRawRoot: rawRoot,
+    gitPublicRoot: publicRoot,
     remainingString: remaining,
   }
 }
