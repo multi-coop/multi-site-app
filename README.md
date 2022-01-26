@@ -88,7 +88,7 @@ The distant "contents" repo is organized as follow :
 ├── images: folder containing images
 │   └── <whatever you want> ...
 ├── texts: folder containing all markdown files, including data files 
-│   └── <whatever you want> ...
+    └── <whatever you want> ...
 
 ```
 
@@ -105,20 +105,18 @@ npm run dev
 
 [`http://localhost:4000/`](http://localhost:4000/)
 
-
 ---
 
 ## Stack
 
-
 Technologies used for **multi-site** are the followiing : 
+
 - [Nuxt.js](https://nuxtjs.org) - js framework js based on vue.js ;
-- [Buefy](https://buefy.org/documentation) - css framework based on Bulma css framework ;
+- [Buefy](https://buefy.org/documentation) - css framework based on [Bulma](https://bulma.io/) css framework ;
 - [Axios](https://axios-http.com/) - for http client requests ;
 - [Dotenv](https://www.npmjs.com/package/dotenv) - js library to load env variables  ;
 - [Gray matter](https://www.npmjs.com/package/gray-matter) - js library to transform yaml or markdown data into js objects  ;
 - [vue-Showdown](https://vue-showdown.js.org/) - js plugin to transform markdown into html  ;
-
 
 ---
 
