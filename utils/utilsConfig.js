@@ -98,13 +98,13 @@ export class configApp {
     this.port = choosePort(RUN_MODE, env)
     
     // CONFIG
-    this.contentsRepo = env.NUXT_ENV_REPO_CONTENTS
+    // this.contentsRepo = env.NUXT_ENV_REPO_CONTENTS
     this.configFile = env.NUXT_ENV_SITE_CONFIG
 
     // LOADING
-    this.loadingColor = env.NUXT_ENV_LOADING_COLOR || '#fff'
-    this.loadingHeight = `${ env.NUXT_ENV_LOADING_HEIGHT || 3 }px`
-    this.loadingContinuous = env.NUXT_ENV_APP_LOADING_CONTINUOUS || true
+    // this.loadingColor = env.NUXT_ENV_LOADING_COLOR || '#fff'
+    // this.loadingHeight = `${ env.NUXT_ENV_LOADING_HEIGHT || 3 }px`
+    // this.loadingContinuous = env.NUXT_ENV_APP_LOADING_CONTINUOUS || true
 
     // INTERNATIONALIZATION
     // this.defaultLocale = env.NUXT_ENV_LANG_DEFAULT_LOCALE || defaultLoc

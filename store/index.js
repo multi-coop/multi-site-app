@@ -19,7 +19,7 @@ export const state = () => ({
   },
 
   // CONFIG
-  contentsRepo: undefined,
+  // contentsRepo: undefined,
   configFile: undefined,
 
   gitInfos: undefined,
@@ -85,9 +85,9 @@ export const actions = {
     commit('setConfig', {space: 'locales', obj: locales})
   },
 
-  async updateContentsRepo ({commit}, configObject) {
-    return await commit('setConfig', {space: 'contentsRepo', obj: configObject})
-  },
+  // async updateContentsRepo ({commit}, configObject) {
+  //   return await commit('setConfig', {space: 'contentsRepo', obj: configObject})
+  // },
   async updateConfigFile ({commit}, configObject) {
     return await commit('setConfig', {space: 'configFile', obj: configObject})
   },

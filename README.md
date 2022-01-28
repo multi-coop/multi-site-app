@@ -66,7 +66,6 @@ NUXT_ENV_APP_TITLE=Multi-site
 ### - - - - - - - - - - - - - - - - - - - - - ###
 ### CONTENTS
 ### - - - - - - - - - - - - - - - - - - - - - ###
-NUXT_ENV_REPO_CONTENTS=https://github.com/co-demos/multi-site-contents
 NUXT_ENV_SITE_CONFIG=https://github.com/co-demos/multi-site-contents/blob/main/config/global.md
 ```
 
