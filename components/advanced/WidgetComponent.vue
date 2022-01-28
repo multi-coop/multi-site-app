@@ -44,6 +44,8 @@ export default {
   ],
   data () {
     return {
+      // tagScript: undefined,
+      // tagCss: undefined
     }
   },
   head () {
@@ -73,11 +75,13 @@ export default {
     tagScript.setAttribute("async", widgetScript.async)
     tagScript.setAttribute("body", widgetScript.body)
     document.head.appendChild(tagScript)
+    // this.tagScript = document.head.appendChild(tagScript)
 
     const tagCss = document.createElement("style")
     tagCss.setAttribute("type", widgetCss.type)
     tagCss.setAttribute("href", widgetScript.href)
     document.head.appendChild(tagCss)
+    // this.tagCss = document.head.appendChild(tagCss)
 
   },
   computed: {
@@ -85,5 +89,9 @@ export default {
       log: (state) => state.log,
     }),
   },
+  // beforeDestroy () {
+  //   document.head.removeChild(this.tagScript)
+  //   document.head.removeChild(this.tagCss)
+  // }
 }
 </script>
