@@ -11,7 +11,6 @@ export default async function ({
   // console.log( '-MW- getConfig > ... ' ) 
 
   if (!store.state.configFile) {
-    // store.dispatch('updateContentsRepo', env.CONFIG_APP.contentsRepo)
     store.dispatch('updateConfigFile', env.CONFIG_APP.configFile)
   }
 
