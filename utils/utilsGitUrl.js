@@ -48,14 +48,14 @@ export const extractGitInfos = (str) => {
   }
 
   rawRoot = `${gitRef.raw}${orga}/${repo}`
-  publicRoot = `${gitRef.root}${orga}/${repo}`
+  const publicRootUrl = `${gitRef.root}${orga}/${repo}`
 
   if (orga === 'github') {
     rawRoot = `${rawRoot}${gitRef.fix}/${branch}/`
-    publicRoot = `${publicRoot}${gitRef.rootFix}/${branch}/`
+    publicRoot = `${publicRootUrl}${gitRef.rootFix}/${branch}/`
   } else {
     rawRoot = `${rawRoot}${gitRef.fix}/${branch}/`
-    publicRoot = `${publicRoot}${gitRef.rootFix}/${branch}/`
+    publicRoot = `${publicRootUrl}${gitRef.rootFix}/${branch}/`
   }
 
   return {
@@ -63,6 +63,7 @@ export const extractGitInfos = (str) => {
     gitOrga: orga,
     gitRepo: repo,
     gitBranch: branch || 'master',
+    gitRepoUrl: publicRootUrl,
     gitRawRoot: rawRoot,
     gitPublicRoot: publicRoot,
     remainingString: remaining,

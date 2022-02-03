@@ -6,12 +6,12 @@
       <p class="has-text-weight-semibold pb-2 mb-0">
         {{ $translate('credits', dict) }}
       </p>
-      
+
       <p>
         
         <a
           target="_blank"
-          :href="contentsRepo"
+          :href="gitInfos.gitRepoUrl"
           >
           {{ $translate('sourceContents', dict) }}
         </a>
@@ -81,7 +81,7 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      contentsRepo: (state) => state.contentsRepo,
+      gitInfos: (state) => state.gitInfos,
     }),
   },
 }
