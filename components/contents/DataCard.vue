@@ -488,7 +488,9 @@ export default {
       // console.log('-C- DataCard > openModal > newPath :', newPath)
     },
     openModal(forceClose) {
-      this.showModal = forceClose ? false : !this.showModal
+      if (this.options['card-modal']) {
+        this.showModal = forceClose ? false : !this.showModal
+      }
     }
 
   }
