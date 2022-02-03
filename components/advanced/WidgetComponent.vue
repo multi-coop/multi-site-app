@@ -7,6 +7,10 @@
     <!-- <code><pre>{{ sectionOptions.html }}</pre></code>
     <hr> -->
 
+    <div 
+      v-html="sectionOptions.html"
+    />
+
     <div
       v-for="(js, idx) in sectionOptions.js"
       :key="`widget-script-${idx}`"
@@ -15,21 +19,15 @@
         v-if="!js.script"
         :src="js.href"
         type='text/javascript'
-        async="true"
         >
       </script>
       <script
         v-if="js.script"
         type='text/javascript'
-        async="true"
         >
         {{ js.script }}
       </script>
     </div>
-
-    <div 
-      v-html="sectionOptions.html"
-    />
 
     <style
       v-if="sectionOptions.css"
@@ -70,7 +68,7 @@
       })
     </script>
     <div id='welcomekit-embed'></div> -->
-    <style>
+    <!-- <style>
       .welcomekit-jobs-list-item {
         margin: 0;
         padding: 0;
@@ -179,7 +177,7 @@
         padding: 50px 0;
         text-align: center;
       }
-    </style>
+    </style> -->
 
   </div>
 

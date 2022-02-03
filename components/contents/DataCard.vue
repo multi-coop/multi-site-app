@@ -149,7 +149,8 @@
         </div>
 
         <!-- button read more -->
-        <div 
+        <div
+          v-if="options['card-modal']"
           class="content"
           >
           <b-button 
@@ -218,6 +219,7 @@
 
     <!-- MODAL -->
     <b-modal 
+      v-if="options['card-modal']" 
       v-model="showModal" 
       :width="'85%'"
       :height="'100%'"
