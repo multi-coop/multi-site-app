@@ -147,7 +147,6 @@ export default {
     itemsArray() {
       let rawArray = this.sectionData.data.items 
       if (this.options.shuffle) {
-      // if (this.options) {
         rawArray = rawArray
           .map(value => ({ value, sort: Math.random() }))
           .sort((a, b) => a.sort - b.sort)
