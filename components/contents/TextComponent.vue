@@ -67,7 +67,7 @@
         <div 
           v-for="(splitContent, index) in contents"
           :key="`text-component-${sectionIndex}-col-${index}`"
-          :class="`column ${columnsSize} mb-6 px-5`"
+          :class="`column ${columnsSize} mb-3 px-5`"
           >
           <VueShowdown
             :markdown="splitContent"
