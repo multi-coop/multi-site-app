@@ -75,7 +75,7 @@
       :class="`columns is-multiline is-centered is-variable ${gapSize}`"
       >
       <DataCard
-        v-for="(cardFile, idx) in sectionData.data.items"
+        v-for="(cardFile, idx) in itemsArray"
         :key="`${cardFile.file}-${idx}`"
         :sectionIndex="sectionIndex"
         :file="cardFile.file"
@@ -143,6 +143,16 @@ export default {
     },
     itemDict() {
       return this.sectionData.data.dict 
+    },
+    itemsArray() {
+      let rawArray = this.sectionData.data.items 
+      if (this.options.shuffle) {
+        rawArray = rawArray
+          .map(value => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value)
+      }
+      return rawArray
     },
     colSize() {
       return this.options['columns-size'] || 'one-third'
