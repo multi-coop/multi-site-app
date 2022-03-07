@@ -54,7 +54,7 @@
       
       <!-- CONTENT -->
       <div 
-        :class="`card-content px-5 py-3`"
+        :class="`card-content px-2 py-4`"
         >
 
         <div
@@ -83,7 +83,7 @@
 
           <!-- TITLE -->
           <div
-            class="column is-5 is-offset-1"
+            class="column is-5 px-4"
             >
             <a
               class="is-size-5 has-text-weight-bold"
