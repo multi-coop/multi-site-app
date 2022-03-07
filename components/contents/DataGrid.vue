@@ -51,7 +51,7 @@
 
     <!-- FILTERS -->
     <div 
-      v-if="options.filters"
+      v-if="options.filters && options.filters.activate"
       class="columns mb-5 is-centered is-multiline"
       >
       <div
