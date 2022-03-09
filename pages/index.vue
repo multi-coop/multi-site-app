@@ -1,17 +1,19 @@
 <template>
 
-  <div class="mb-6">
+  <section 
+    v-if="currentRoute"
+    :class="`${isHero ? 'hero is-fullheight' : 'mb-6 mt-3 pt-5'}`"
+    >
 
     <!-- CONTENTS SECTION -->
-    <section 
-      v-if="currentRoute"
-      class="section"
+    <div 
+      :class="`${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
       >
 
       <div 
         v-for="(section, idx) in currentRoute.sections"
         :key="`${idx}-${section.name}`"
-        class="container mb-3"
+        :class="`mb-2 ${isHero ? '' : 'container'}`"
         >
         <ContentsSkeleton 
           :section="section"
@@ -20,7 +22,7 @@
         />
       </div>
 
-    </section>
+    </div>
 
     <!-- DEBUG -->
     <section 
@@ -83,7 +85,7 @@
     </section>
 
 
-  </div>
+  </section>
 </template>
 
 <script>
@@ -130,6 +132,9 @@ export default {
     }),
     iconUrl() {
       return `${this.rawRoot}${this.config.data.app_icon}`
+    },
+    isHero() {
+      return this.currentRoute.options && this.currentRoute.options.hero
     }
 
   }

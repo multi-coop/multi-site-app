@@ -51,7 +51,7 @@
 
     <!-- FILTERS -->
     <div 
-      v-if="options.filters"
+      v-if="options.filters && options.filters.activate"
       class="columns mb-5 is-centered is-multiline"
       >
       <div
@@ -71,7 +71,24 @@
 
     <!-- CARDS -->
     <div
-      v-if="sectionData"
+      v-if="sectionData && options.list"
+      :class="`columns is-multiline is-centered is-variable ${gapSize}`"
+      >
+      <ListCard
+        v-for="(cardFile, idx) in itemsArray"
+        :key="`${cardFile.file}-${idx}`"
+        :sectionIndex="sectionIndex"
+        :file="cardFile.file"
+        :options="options"
+        :colSize="colSize"
+        :itemDict="sectionData.data.dict"
+        :index="idx"
+        :preOpenItem="preOpenItem"
+        :debug="false"
+      />
+    </div>
+    <div
+      v-else
       :class="`columns is-multiline is-centered is-variable ${gapSize}`"
       >
       <DataCard
@@ -101,6 +118,7 @@ export default {
   components: {
     DataCardsFilter: () => import(/* webpackChunkName: "DataCardsFilter" */ '~/components/contents/DataCardsFilter.vue'),
     DataCard: () => import(/* webpackChunkName: "DataCard" */ '~/components/contents/DataCard.vue'),
+    ListCard: () => import(/* webpackChunkName: "ListCard" */ '~/components/contents/ListCard.vue'),
   },
   props: [
     'sectionIndex',
