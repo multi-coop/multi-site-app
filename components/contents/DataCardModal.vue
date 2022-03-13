@@ -331,7 +331,7 @@ export default {
   ],
   data() {
     return {
-      socials: [ 'email', 'twitter', 'linkedin', 'github' ],
+      socials: [ 'email', 'twitter', 'linkedin', 'gitlab', 'github' ],
       hoverClose: false,
       dict: {
         gallery: {
