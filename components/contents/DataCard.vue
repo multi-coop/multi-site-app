@@ -283,7 +283,7 @@ export default {
       showMore: false,
       showModal: false,
       modalReady: false,
-      socials: [ 'email', 'twitter', 'linkedin', 'github' ],
+      socials: [ 'email', 'twitter', 'linkedin', 'gitlab', 'github' ],
       defaultDict: {
         readmore: {
           fr: 'Lire plus',
