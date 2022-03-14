@@ -1,6 +1,6 @@
 {
   "m.homeserver": {
-    "base_url": "https://multi.ems.host"
+    "base_url": "https://multi-coop.ems.host"
   },
   "m.identity_server": {
     "base_url": "https://vector.im"
