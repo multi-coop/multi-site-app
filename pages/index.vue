@@ -134,7 +134,7 @@ export default {
       // console.log('-C- IndexPage > iconUrl > this.config.data :', this.config.data)
       const faviconUrl = `${this.rawRoot}${this.config.data.app_icon}`
       // console.log('-C- IndexPage > iconUrl > faviconUrl :', faviconUrl)
-      return  faviconUrl || '/favicon_multi.ic'
+      return  faviconUrl || '/favicon_multi.io'
     },
     isHero() {
       return this.currentRoute.options && this.currentRoute.options.hero
