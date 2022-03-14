@@ -17,7 +17,7 @@
         >
         <ContentsSkeleton 
           :section="section"
-          :sectionIndex="idx"
+          :section-index="idx"
           :debug="false"
         />
       </div>
@@ -112,7 +112,7 @@ export default {
       title: this.config.data.app_name,
       lang: this.locale,
       link: [
-        { rel: 'icon', href: this.iconUrl, sizes: '32x32' },
+        { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
       ],
     }
   },
@@ -131,7 +131,10 @@ export default {
       rawRoot : 'getGitRawRoot',
     }),
     iconUrl() {
-      return `${this.rawRoot}${this.config.data.app_icon}`
+      // console.log('-C- IndexPage > iconUrl > this.config.data :', this.config.data)
+      const faviconUrl = `${this.rawRoot}${this.config.data.app_icon}`
+      // console.log('-C- IndexPage > iconUrl > faviconUrl :', faviconUrl)
+      return  faviconUrl || '/favicon_multi.ic'
     },
     isHero() {
       return this.currentRoute.options && this.currentRoute.options.hero
