@@ -38,6 +38,7 @@
           :class="`column is-${sectionOptions['buttons-size']}`"
           >
           <b-button 
+            v-if="isInternalLink(btn)"
             :type="`is-${ btn.color || 'primary' }`" 
             :to="{path: btn.link}"
             :icon-left="btn['icon-left']"
@@ -48,6 +49,20 @@
             >
             {{ $translate('label', btn) }}
           </b-button>
+          <a 
+            v-else
+            type="button"
+            :class="`button is-fullwidth ${btn.rounded ? 'is-rounded' : ''} ${btn.outlined ? 'is-outlined' : ''}  is-${ btn.color || 'primary' }`" 
+            :href="btn.link"
+            >
+            <b-icon
+              :icon="btn['icon-left']"
+              size="is-small"
+              class="mr-2"
+              >
+            </b-icon>
+            {{ $translate('label', btn) }}
+          </a>
         </div>
       </div>
 
@@ -74,7 +89,13 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-    }),
+    })
   },
+  methods: {
+    isInternalLink(btn) {
+      const link = btn.link
+      return link.startsWith('/')
+    }
+  }
 }
 </script>
