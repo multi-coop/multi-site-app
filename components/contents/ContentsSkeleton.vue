@@ -39,6 +39,7 @@
 
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
+      class="TextComponent"
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
