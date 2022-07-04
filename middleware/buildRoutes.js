@@ -25,8 +25,7 @@ export default async function ({
         // save to store
         store.dispatch('updateRoutes', routesObject)
       })
-  
-  
+
   }
 
 }

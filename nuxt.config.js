@@ -1,11 +1,11 @@
-const dotenv = require('dotenv')
-
-import axios from 'axios'
+// import axios from 'axios'
 
 import { 
   logAllowed,
-  configApp
+  ConfigApp
 } from './utils/utilsConfig'
+
+const dotenv = require('dotenv')
 
 // loads .env file(s)
 dotenv.config()
@@ -13,7 +13,7 @@ dotenv.config()
 
 const RUN_MODE = process.env.NUXT_ENV_RUN_MODE || process.env.NUXT_ENV_RUN_MODE_OVERIDE
 
-const config = new configApp(RUN_MODE, process.env)
+const config = new ConfigApp(RUN_MODE, process.env)
 console.log('>>> nuxt.config.js (start) / config : ', config)
 
 

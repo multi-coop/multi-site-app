@@ -44,22 +44,6 @@ export default {
     FooterComponent: () => import(/* webpackChunkName: "FooterComponent" */ '~/components/footer/FooterComponent.vue'),
     CreditsFooter: () => import(/* webpackChunkName: "CreditsFooter" */ '~/components/footer/CreditsFooter.vue'),
   },
-  data() {
-    return {
-      // items: [
-      //   {
-      //     title: 'Home',
-      //     icon: 'home',
-      //     to: { name: 'index' },
-      //   },
-      //   {
-      //     title: 'Inspire',
-      //     icon: 'lightbulb',
-      //     to: { name: 'inspire' },
-      //   },
-      // ],
-    }
-  },
   computed: {
     ...mapState({
       log: (state) => state.log,

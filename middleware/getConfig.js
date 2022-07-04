@@ -1,6 +1,8 @@
+
 import matter from 'gray-matter'
 
 import { extractGitInfos } from '~/utils/utilsGitUrl'
+// import { GetFileObjectFromURL } from '~/utils/utilsFiles'
 
 export default async function ({
   store, 
@@ -19,22 +21,23 @@ export default async function ({
     
     // extract git infos
     const gitInfos = extractGitInfos(urlConfigFile)
-    // console.log( '-MW- getConfig > gitInfos : \n', gitInfos ) 
     store.dispatch('updateGitInfos', gitInfos)
+    // console.log( '-MW- getConfig > gitInfos : \n', gitInfos ) 
 
     const urlConfigFileRaw = `${gitInfos.gitRawRoot}${gitInfos.remainingString}`
-    
+    // console.log( '-MW- getConfig > urlConfigFileRaw : \n', urlConfigFileRaw ) 
+
     await $axios.get(urlConfigFileRaw)
       .then( resp => {
 
         // convert string to json object
         const configObject = matter(resp.data)
-        // console.log( '-MW- getConfig > configObject : \n', configObject ) 
+        console.log( '-MW- getConfig > configObject : \n', configObject ) 
         
         // save to store
         return store.dispatch('updateConfig', configObject)
       })
-  
+
   }
 
 }

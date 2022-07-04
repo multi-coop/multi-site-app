@@ -87,7 +87,7 @@ export const choosePort = (ENVPROD, env) => {
 }
 
 
-export class configApp {
+export class ConfigApp {
   constructor (RUN_MODE, env) {
     this.appVersion = env.npm_package_version
     this.appTitle = env.NUXT_ENV_APP_TITLE

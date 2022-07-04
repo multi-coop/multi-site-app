@@ -26,7 +26,6 @@ export default async function ({
         store.dispatch('updateFooter', footerObject)
       })
   
-  
   }
 
 }
