@@ -1,15 +1,46 @@
 <template>
 
-  <section 
+  <div 
     v-if="currentRoute"
     :class="`${isHero ? 'hero is-fullheight' : 'mb-6 mt-3 pt-5'}`"
     >
 
+    <!-- <pre><code>{{ currentRoute.options }}</code></pre> -->
+
     <!-- CONTENTS SECTION -->
     <div 
+      v-if="currentRoute.options && currentRoute.options.summary"
+      class="columns">
+      <div class="column is-3">
+        <b-menu>
+          <b-menu-list label="menu">
+            <b-menu-item
+              v-for="(section, idx) in currentRoute.sections"
+              :key="`sidebar-${idx}-${section.name}`"
+              >
+              <template #label>
+                {{ section.name }}
+              </template>
+            </b-menu-item>
+          </b-menu-list>
+        </b-menu>
+      </div>
+
+      <div class="column is-9">
+        <ContentsSkeleton 
+          v-for="(section, idx) in currentRoute.sections"
+          :key="`${idx}-${section.name}`"
+          :section="section"
+          :section-index="idx"
+          :debug="false"
+        />
+      </div>
+    </div>
+
+    <div
+      v-else 
       :class="`${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
       >
-
       <div 
         v-for="(section, idx) in currentRoute.sections"
         :key="`${idx}-${section.name}`"
@@ -21,7 +52,6 @@
           :debug="false"
         />
       </div>
-
     </div>
 
     <!-- DEBUG -->
@@ -85,7 +115,7 @@
     </section>
 
 
-  </section>
+  </div>
 </template>
 
 <script>
@@ -104,7 +134,8 @@ export default {
   },
   data () {
     return {
-      debug: false,
+      sidebarOpen: true,
+      debug: false
     }
   },
   head () { 
