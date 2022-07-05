@@ -10,30 +10,38 @@
     <!-- CONTENTS SECTION -->
     <div 
       v-if="currentRoute.options && currentRoute.options.summary"
-      class="columns">
-      <div class="column is-3">
+      class="">
+      <div class="floating-menu">
         <b-menu>
           <b-menu-list label="menu">
             <b-menu-item
               v-for="(section, idx) in currentRoute.sections"
               :key="`sidebar-${idx}-${section.name}`"
-              >
+              :class="`pb-0 ${section.options.depth ? 'ml-2' : ''}`"
+              @click="scrollTo(`#${currentRoute.name}-${idx}-${section.name}`)">
               <template #label>
-                {{ section.name }}
+                <span
+                  :class="`is-size-7 ${section.options.depth ? '' : 'has-text-weight-bold'}`">
+                  {{ getSectionName(section) }}
+                </span>
               </template>
             </b-menu-item>
           </b-menu-list>
         </b-menu>
       </div>
 
-      <div class="column is-9">
-        <ContentsSkeleton 
+      <div class="content-component">
+        <div
           v-for="(section, idx) in currentRoute.sections"
+          :id="`${currentRoute.name}-${idx}-${section.name}`"
           :key="`${idx}-${section.name}`"
-          :section="section"
-          :section-index="idx"
-          :debug="false"
-        />
+          class="">
+          <ContentsSkeleton
+            :section="section"
+            :section-index="idx"
+            :debug="false"
+          />
+        </div>
       </div>
     </div>
 
@@ -41,12 +49,10 @@
       v-else 
       :class="`${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
       >
-      <div 
-        v-for="(section, idx) in currentRoute.sections"
-        :key="`${idx}-${section.name}`"
-        :class="`mb-2 ${isHero ? '' : 'container'}`"
-        >
+      <div :class="`mb-2 ${isHero ? '' : 'container'}`">
         <ContentsSkeleton 
+          v-for="(section, idx) in currentRoute.sections"
+          :key="`${idx}-${section.name}`"
           :section="section"
           :section-index="idx"
           :debug="false"
@@ -170,9 +176,48 @@ export default {
     isHero() {
       return this.currentRoute.options && this.currentRoute.options.hero
     }
-
+  },
+  methods: {
+    getSectionName(section) {
+      const sectionName = (section.options.name && section.options.name[this.locale]) || section.name
+      return sectionName
+    },
+    scrollTo(anchorId) {
+      // console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
+      const element = document.querySelector(anchorId)
+      // console.log('-C- IndexPage > scrollTo > element :', element)
+      const topPosition = element.offsetTop - 45
+      // console.log('-C- IndexPage > scrollTo > topPosition :', topPosition)
+      window.scrollTo({top: topPosition, behavior: 'smooth'})
+    }
   }
-
 
 }
 </script>
+
+<style scoped>
+
+@media screen and (min-width: 0px) and (max-width: 860px) {
+  .floating-menu {
+    display: none;
+  }
+  .content-component {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+@media screen and (min-width: 861px) {
+  .floating-menu {
+    position: fixed;
+    width: 220px;
+    top: 100px;
+    left: 50px;
+    z-index: 3;
+  }
+  .content-component {
+    margin-left: 220px;
+    /* margin-right: 50px; */
+  }
+}
+
+</style>

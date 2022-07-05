@@ -1,5 +1,6 @@
 <template>
-  <div class="mb-5 mt-3">
+  <div
+    class="content-skeleton mb-5 mt-3">
 
     <!-- DEBUG -->
     <div 
@@ -140,7 +141,7 @@ export default {
     }
   },
   async mounted() {
-    console.log('\n-C- ContentsSkeleton > mounted > this.section :', this.section)
+    // console.log('\n-C- ContentsSkeleton > mounted > this.section :', this.section)
     if (this.section.files) {
       await this.getFileData()
     }
@@ -148,7 +149,7 @@ export default {
   methods: {
     async getFileData() {
       const urlRaw = this.convertUrl
-      console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      // console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
       // console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
       const fileData = matter(req.data)
