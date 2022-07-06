@@ -21,15 +21,15 @@ export default async function ({
     // console.log( '-MW- buildNavbar > urlNavbarFile : ', urlNavbarFile )
 
     await $axios.get(urlNavbarFile)
-      .then( resp => {
-        // convert string to json object
-        const navbarObject = matter(resp.data)
-        // console.log( '-MW- buildNavbar > navbarObject : ', navbarObject ) 
-        
-        // save to store
-        store.dispatch('updateNavbar', navbarObject)
-      })
-  
+    .then( resp => {
+      // convert string to json object
+      const navbarObject = matter(resp.data)
+      // console.log( '-MW- buildNavbar > navbarObject : ', navbarObject ) 
+
+      // save to store
+      store.dispatch('updateNavbar', navbarObject)
+    })
+
   }
 
 }

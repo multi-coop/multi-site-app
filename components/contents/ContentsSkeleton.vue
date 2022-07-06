@@ -1,5 +1,6 @@
 <template>
-  <div class="mb-5 mt-3">
+  <div
+    class="content-skeleton mb-5 mt-3">
 
     <!-- DEBUG -->
     <div 
@@ -31,47 +32,48 @@
 
     <LogoAnimated
       v-if="section.component === 'LogoAnimated' && sectionData"
-      :sectionIndex="sectionIndex"
-      :sectionData="sectionData"
-      :sectionOptions="sectionOptions"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
       :debug="false"
     />
 
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
-      :sectionIndex="sectionIndex"
-      :sectionData="sectionData"
-      :sectionOptions="sectionOptions"
+      class="TextComponent"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
       :debug="false"
     />
 
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
-      :sectionIndex="sectionIndex"
-      :sectionData="sectionData"
-      :sectionOptions="sectionOptions"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
       :debug="false"
     />
 
     <TextDataComponent
       v-if="section.component === 'TextDataComponent' && sectionData"
-      :sectionIndex="sectionIndex"
-      :sectionData="sectionData"
-      :sectionOptions="sectionOptions"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
       :debug="false"
     />
 
     <ButtonsComponent
       v-if="section.component === 'ButtonsComponent'"
-      :sectionIndex="sectionIndex"
-      :sectionOptions="sectionOptions"
+      :section-index="sectionIndex"
+      :section-options="sectionOptions"
       :debug="false"
     />
 
     <WidgetComponent
       v-if="section.component === 'WidgetComponent'"
-      :sectionIndex="sectionIndex"
-      :sectionOptions="sectionOptions"
+      :section-index="sectionIndex"
+      :section-options="sectionOptions"
       :debug="true"
     />
 
@@ -86,11 +88,6 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'ContentsSkeleton',
-  props: [
-    'section',
-    'sectionIndex',
-    'debug'
-  ],
   components: {
     LogoAnimated: () => import(/* webpackChunkName: "LogoAnimated" */ '~/components/contents/LogoAnimated.vue'),
     TextComponent: () => import(/* webpackChunkName: "TextComponent" */ '~/components/contents/TextComponent.vue'),
@@ -99,20 +96,11 @@ export default {
     ButtonsComponent: () => import(/* webpackChunkName: "ButtonsComponent" */ '~/components/buttons/ButtonsComponent.vue'),
     WidgetComponent: () => import(/* webpackChunkName: "WidgetComponent" */ '~/components/advanced/WidgetComponent.vue'),
   },
-  async mounted() {
-    // console.log('-C- ContentsSkeleton > mounted > this.section :', this.section)
-    if (this.section.files) {
-      await this.getFileData()
-    }
-  },
-  watch: {
-    async locale(next) {
-      // console.log('-C- ContentsSkeleton > watch > locale > next :', next)
-      if (this.section.files) {
-        await this.getFileData()
-      }
-    }
-  },
+  props: [
+    'section',
+    'sectionIndex',
+    'debug'
+  ],
   data() {
     return {
       sectionData: undefined,
@@ -144,11 +132,26 @@ export default {
       return this.section.options
     }
   },
+  watch: {
+    async locale(next) {
+      // console.log('-C- ContentsSkeleton > watch > locale > next :', next)
+      if (this.section.files) {
+        await this.getFileData()
+      }
+    }
+  },
+  async mounted() {
+    // console.log('\n-C- ContentsSkeleton > mounted > this.section :', this.section)
+    if (this.section.files) {
+      await this.getFileData()
+    }
+  },
   methods: {
     async getFileData() {
       const urlRaw = this.convertUrl
-      // console.log('-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      // console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
+      // console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
       const fileData = matter(req.data)
       this.sectionData = {
         data: fileData.data,

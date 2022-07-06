@@ -1,3 +1,4 @@
+const showdownHighlight = require("showdown-highlight")
 
 export const state = () => ({
 
@@ -46,7 +47,10 @@ export const getters = {
         tables: true,
         // tasklist: true,
         // openLinksInNewWindow: true
-      }
+      },
+      extensions: [
+        showdownHighlight({ pre: true })
+      ]
     }
   },
   getCurrentRouteConfig: (state) => (currentPath) => {

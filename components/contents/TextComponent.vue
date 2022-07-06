@@ -57,6 +57,7 @@
         :markdown="content"
         :flavor="showdownOptions.flavor"
         :options="showdownOptions.options"
+        :extensions="showdownOptions.extensions"
       />
 
       <!-- render columns with options -->
@@ -73,6 +74,7 @@
             :markdown="splitContent"
             :flavor="showdownOptions.flavor"
             :options="showdownOptions.options"
+            :extensions="showdownOptions.extensions"
           />
         </div>
       </div>
