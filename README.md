@@ -116,6 +116,7 @@ Technologies used for **multi-site** are the followiing :
 - [Dotenv](https://www.npmjs.com/package/dotenv) - js library to load env variables  ;
 - [Gray matter](https://www.npmjs.com/package/gray-matter) - js library to transform yaml or markdown data into js objects  ;
 - [vue-Showdown](https://vue-showdown.js.org/) - js plugin to transform markdown into html  ;
+- [highlight.js](https://highlightjs.org/) - to apply css to code blocks (nice colors for every languages) ;
 
 ---
 
