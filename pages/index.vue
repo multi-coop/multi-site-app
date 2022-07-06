@@ -198,8 +198,8 @@ export default {
 <style scoped>
 
 .content-container {
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 5em;
+  padding-bottom: 5em;
 }
 
 @media screen and (min-width: 0px) and (max-width: 860px) {
