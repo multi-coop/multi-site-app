@@ -2,7 +2,7 @@
 
   <div 
     v-if="currentRoute"
-    :class="`${isHero ? 'hero is-fullheight' : 'mb-6 mt-3 pt-5'}`"
+    :class="`${isHero ? 'hero is-fullheight' : ''}`"
     >
 
     <!-- <pre><code>{{ currentRoute.options }}</code></pre> -->
@@ -10,7 +10,7 @@
     <!-- CONTENTS SECTION -->
     <div 
       v-if="currentRoute.options && currentRoute.options.summary"
-      class="">
+      class="content-container">
       <div class="floating-menu">
         <b-menu>
           <b-menu-list label="menu">
@@ -47,7 +47,7 @@
 
     <div
       v-else 
-      :class="`${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
+      :class="`content-container ${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
       >
       <div :class="`mb-2 ${isHero ? '' : 'container'}`">
         <ContentsSkeleton 
@@ -196,6 +196,11 @@ export default {
 </script>
 
 <style scoped>
+
+.content-container {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
 
 @media screen and (min-width: 0px) and (max-width: 860px) {
   .floating-menu {
