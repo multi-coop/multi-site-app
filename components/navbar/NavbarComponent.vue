@@ -13,7 +13,7 @@
           :to="{ path: '/' }"
           >
           <img
-            :src="`${rawRoot}${navbar.data['logo-left']}`"
+            :src="getLink(navbar.data['logo-left'])"
           >
         </b-navbar-item>
       </template>
@@ -35,7 +35,7 @@
         >
         <NavbarItems
           :items="navbar.data['buttons-right']"
-          :isRight="true"
+          :is-right="true"
         />
       </template>
 
@@ -52,9 +52,6 @@ export default {
   components: {
     NavbarItems: () => import(/* webpackChunkName: "NavbarItems" */ '~/components/navbar/NavbarItems.vue'),
   },
-  props: [
-    
-  ],
   computed: {
     ...mapState({
       log: (state) => state.log,
@@ -64,7 +61,13 @@ export default {
     }),
     ...mapGetters({
       rawRoot: 'getGitRawRoot',
-    }),
+    })
   },
+  methods: {
+    getLink (link) {
+      const srcLink = link && link.startsWith('./') ? `${this.rawRoot}${link}` : link
+      return srcLink
+    }
+  }
 }
 </script>

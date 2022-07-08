@@ -1,6 +1,6 @@
 
 <template>
-  <div class="">
+  <div class="container">
 
     <!-- DEBUG -->
     <div 
