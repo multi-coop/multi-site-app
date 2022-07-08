@@ -214,13 +214,15 @@ export default {
 @media screen and (min-width: 861px) {
   .floating-menu {
     position: fixed;
-    width: 220px;
-    top: 100px;
-    left: 50px;
+    padding: 1em 1em 4em 1em;
+    background-color: white;
+    width: 260px;
+    top: 130px;
+    left: 0px;
     z-index: 3;
   }
   .content-component {
-    margin-left: 220px;
+    margin-left: 200px;
     /* margin-right: 50px; */
   }
 }
