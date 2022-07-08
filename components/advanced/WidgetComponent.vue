@@ -1,7 +1,7 @@
 <template>
 
   <div 
-    :class="`content ${sectionOptions['custom-classes']}`"
+    :class="`container ${sectionOptions['custom-classes']}`"
     >
 
     <!-- <code><pre>{{ sectionOptions.html }}</pre></code>
