@@ -77,6 +77,21 @@
       :debug="true"
     />
 
+    <!-- <div
+      v-if="section.component === 'HtmlComponent' && sectionData">
+      <pre></code>{{ section }}</code></pre>
+      <hr>
+      <div
+        v-if="sectionData.content"
+        v-html="sectionData.content"/>
+      <hr>
+      <div class="columns">
+        <div class="column content">
+          <pre></code>{{ sectionData.content }}</code></pre>
+        </div>
+      </div>
+    </div> -->
+
   </div>
 </template>
 
