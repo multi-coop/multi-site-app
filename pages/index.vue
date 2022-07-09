@@ -260,9 +260,19 @@ export default {
     padding: 1em 1em 4em 1em;
     background-color: white;
     width: 260px;
-    top: 130px;
+    top: 52px;
     left: 0px;
     z-index: 3;
+    overflow: auto;
+    /* max-height: 80%; */
+    /* Firefox */
+    max-height: -moz-calc(100% - 52px);
+    /* WebKit */
+    max-height: -webkit-calc(100% - 52px);
+    /* Opera */
+    max-height: -o-calc(100% - 52px);
+    /* Standard */
+    max-height: calc(100% - 52px);
   }
   .content-component {
     margin-left: 200px;
