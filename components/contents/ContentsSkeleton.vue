@@ -30,7 +30,7 @@
 
     <!-- OPTION CONTRIBUTION BTN LINK -->
     <div
-      v-show="contrib"
+      v-if="contrib"
       class="content floating-contrib">
       <b-tooltip
         multilined
@@ -43,6 +43,7 @@
           <p class="mb-1">
             {{ $translate('contribText', dict) }}
           </p>
+          <hr class="my-1">
           <p class="mb-1">
             {{ $translate('fileText', dict) }} :
             <b>{{ fileName }}</b>
@@ -210,10 +211,10 @@ export default {
       publicRoot : 'getGitPublicRoot'
     }),
     sectionFile () {
-      return this.section.files[this.locale] || this.section.files[this.localeFallback]
+      return this.section.files && (this.section.files[this.locale] || this.section.files[this.localeFallback])
     },
     fileName () {
-      return this.sectionFile.split('/').at(-1)
+      return this.sectionFile && this.sectionFile.split('/').at(-1)
     },
     convertUrl() {
       const url = `${this.rawRoot}${this.sectionFile}`
