@@ -26,9 +26,42 @@
           </code>
         </div>
       </div>
-
     </div>
 
+    <!-- OPTION CONTRIBUTION BTN LINK -->
+    <div
+      v-if="contrib"
+      class="content floating-contrib">
+      <b-tooltip
+        multilined
+        class="icon-contrib"
+        type="is-dark"
+        size="is-large"
+        position="is-left"
+        >
+        <template v-slot:content>
+          <p class="mb-1">
+            {{ $translate('contribText', dict) }}
+          </p>
+          <hr class="my-1">
+          <p class="mb-1">
+            {{ $translate('fileText', dict) }} :
+            <b>{{ fileName }}</b>
+          </p>
+        </template>
+        <b-button
+          size="is-small"
+          type="is-text"
+          tag="a"
+          :href="convertPublicUrl"
+          target="_blank">
+          <b-icon
+            icon="git"
+            type="is-grey-lighter"
+          />
+        </b-button>
+      </b-tooltip>
+    </div>
 
     <LogoAnimated
       v-if="section.component === 'LogoAnimated' && sectionData"
@@ -92,6 +125,34 @@
       </div> -->
     </div>
 
+    <!-- <section
+      v-show="contrib"
+      class="has-text-centered mt-0 mb-6">
+      <b-tooltip
+        multilined
+        type="is-dark"
+        size="is-medium"
+        position="is-right"
+        >
+        <template v-slot:content>
+          {{ $translate('sourceFile', dict) }} :
+          <br>
+          <b>{{ fileName }}</b>
+        </template>
+        <b-button
+          size="is-small"
+          type="is-text"
+          tag="a"
+          :href="convertUrl"
+          target="_blank">
+          <b-icon
+            icon="git"
+            type="is-grey-lighter"
+          />
+        </b-button>
+      </b-tooltip>
+    </section> -->
+
   </div>
 </template>
 
@@ -114,19 +175,28 @@ export default {
   props: [
     'section',
     'sectionIndex',
+    'contrib',
     'debug'
   ],
   data() {
     return {
       sectionData: undefined,
+      dict: {
+        contribText: {
+          fr: 'Cliquez pour contribuer à améliorer cette section sur le repo',
+          en: 'Click to contribute improving this section on the repository'
+        },
+        fileText: {
+          fr: 'Fichier',
+          en: 'File'
+        }
+      }
     }
   },
   head () {
     return {
-      link: [
-      ],
-      script: [
-      ],
+      link: [],
+      script: []
     }
   },
   computed: {
@@ -134,13 +204,24 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       localeFallback: (state) => state.localeFallback,
-      gitInfos: (state) =>  state.gitInfos,
+      gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
+      publicRoot : 'getGitPublicRoot'
     }),
+    sectionFile () {
+      return this.section.files && (this.section.files[this.locale] || this.section.files[this.localeFallback])
+    },
+    fileName () {
+      return this.sectionFile && this.sectionFile.split('/').at(-1)
+    },
     convertUrl() {
-      const url = `${this.rawRoot}${this.section.files[this.locale] || this.section.files[this.localeFallback] }`
+      const url = `${this.rawRoot}${this.sectionFile}`
+      return url
+    },
+    convertPublicUrl() {
+      const url = `${this.publicRoot}${this.sectionFile}`
       return url
     },
     sectionOptions() {
@@ -177,3 +258,13 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  .floating-contrib {
+    float: right;
+  }
+  .icon-contrib {
+    left: 20px;
+    top: 20px;
+  }
+</style>
