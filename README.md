@@ -1,43 +1,41 @@
 # Multi-site
 
-
-**This app allows to deploy an SPA website, by pointing to distant contents (markdown files) hosted on github or gitlab.**
+**This app allows to deploy an SPA website, by pointing to distant contents (markdown files) hosted anywhere on github or gitlab.**
 
 ---
 ## Why this project ? 
 
 ( ... so you may ask ... )
 
-We simply didn't want to have all our `.md` contents in the same repo than the app deploying them into an simili-static website... 
+We simply didn't want to have all our `.md` contents in the same repo than the app deploying them into an simili-static website...
 
 Yes, sometimes it's simpler to distinguish the repos you want people to collaborate into, depending if you're expecting them to contribute only to the content texts, or to the code... Usually it's not the same kind of people nor the same required skills.
 
-We also wanted to display some filterable galeries : for instance having a page with a card for every team member, or a card for every project in our portfolio, ... and filtering which cards you want to hide given some tags... 
+We also wanted to display some filterable galeries : for instance having a page with a card for every team member, or a card for every project in our portfolio, ... and filtering which cards you want to hide given some tags...
 
 Finally we wanted a reusable app to deploy different websites, without having to fork the project... It's just a matter of changing the `.env` file and having another contents in another repo...
 
-In short, vuepress or equivalent "static-contents-based" apps weren't versatile nor simple enough for our needs (and we wanted to have a bit of fun doing this project from scratch)... 
+In short, vuepress or equivalent "static-contents-based" apps weren't versatile nor simple enough for our needs (and we wanted to have a bit of fun doing this project from scratch)...
 
 
 ## Who did that ?
 
 ( ... Aren't you a bit of a curious fellow ? ... )
 
-This open source tool was developped by the cooperative **[multi](https://multi.coop)** (and our website is based on this solution).
+This open source tool was developped by the tech cooperative **[multi](https://multi.coop)** (and our website is based on this solution).
 
 ---
 
 ## Main features
 
 - Load distant `.md` contents hosted on Github or Gitlab ;
-- Multi lingual (if you provide the dictionnaries) ; 
+- Multi lingual (if you provide the dictionnaries) ;
 - Filters and cards ;
-- Specific urls for every item you can provide on the fly ; 
-
+- Specific urls for every item you can provide on the fly ;
 
 ---
 
-## Setup 
+## Setup
 
 ### The `.env` file
 
@@ -50,7 +48,7 @@ The template - `example.env` - is present at the root. You can copy-paste it and
 cp example.env .env
 ```
 
-You should have an `.env` file looking like this : 
+You should have an `.env` file looking like this :
 
 ```bash
 ### - - - - - - - - - - - - - - - - - - - - - ###
@@ -93,7 +91,7 @@ The distant "contents" repo is organized as follow :
 
 ### Local development
 
-Then you just have to run the app : 
+Then you just have to run the app :
 
 ```bash
 nvm use
@@ -108,7 +106,7 @@ npm run dev
 
 ## Stack
 
-Technologies used for **multi-site** are the followiing : 
+Technologies used for **multi-site-app** are the followiing :
 
 - [Nuxt.js](https://nuxtjs.org) - js framework js based on vue.js ;
 - [Buefy](https://buefy.org/documentation) - css framework based on [Bulma](https://bulma.io/) css framework ;
@@ -145,8 +143,9 @@ For detailed explanation on how things work, check out the [documentation](https
 
 These instances are deployed  with Netlify :
 
-- Test deploy : [![Netlify Status](https://api.netlify.com/api/v1/badges/5a774814-2a6a-4da7-a8b5-1cc3d654df2a/deploy-status)](https://app.netlify.com/sites/multi-site-app-test/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents).
-- Official website of [cooperative multi](https://multi.coop) : [![Netlify Status](https://api.netlify.com/api/v1/badges/5be5abcb-7667-4b96-b1d1-952839f70c2f/deploy-status)](https://app.netlify.com/sites/multi-website/deploys) - rendering [these contents](https://github.com/multi-coop/multi-site-contents)
+- Test deploy : [![Netlify Status](https://api.netlify.com/api/v1/badges/5a774814-2a6a-4da7-a8b5-1cc3d654df2a/deploy-status)](https://app.netlify.com/sites/multi-site-app-test/deploys) - rendering [these content](https://github.com/multi-coop/multi-site-contents).
+- Official website of [our tech cooperative multi](https://multi.coop) : [![Netlify Status](https://api.netlify.com/api/v1/badges/5be5abcb-7667-4b96-b1d1-952839f70c2f/deploy-status)](https://app.netlify.com/sites/multi-website/deploys) - rendering [these content](https://github.com/multi-coop/multi-site-contents)
+- [Official Documentation website](https://gitribute-docs.multi.coop) for the [Gitribute](https://gitlab.com/multi-coop/gitribute) project : [![Netlify Status](https://api.netlify.com/api/v1/badges/8a49a93f-e443-48e5-b5d8-baa2d7f5fee5/deploy-status)](https://app.netlify.com/sites/gitribute-documentation/deploys) - rendering [these content](https://github.com/multi-coop/gitribute-documentation-content)
 
 ---
 
@@ -156,7 +155,7 @@ If you want to propose somme enhancements to our app please make your pull reque
 
 You can also add issues directly in the reop, or add notes or issues from our [github "project" page](https://github.com/orgs/multi-coop/projects/2).
 
-----
+---
 
 ## Special Directories
 
