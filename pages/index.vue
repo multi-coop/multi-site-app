@@ -122,6 +122,26 @@
       </div>
     </section>
 
+    <!-- CUSTOMM CSS STYLING FROM CONFIG -->
+    <div
+      class="content-container">
+      <!-- <pre><code>{{ config.data }}</code></pre>
+      <br>{{ configPrimaryColor }} -->
+      <style
+        v-if="configColors && configPrimaryColor">
+        a:not(.navbar-link, .navbar-item), .navbar-link:hover, a.navbar-item.is-active {
+          color: {{ configPrimaryColor }} !important;
+        }
+        .button.is-primary, .tag.is-primary {
+          background-color: {{ configPrimaryColor }} !important;
+          color: {{ getContrastYIQ(configPrimaryColor) }} !important;
+        }
+        .menu-list a.is-active {
+          background-color: {{ configPrimaryColor }} !important;
+          color: {{ getContrastYIQ(configPrimaryColor) }} !important;
+        }
+      </style>
+    </div>
 
   </div>
 </template>
@@ -181,6 +201,13 @@ export default {
     routeHasContrib () {
       return this.currentRoute.options && this.currentRoute.options.contrib
     },
+    configColors () {
+      // return this.config.data && this.config.data.colors
+      return this.config.data && this.config.data.custom_colors && this.config.data.colors
+    },
+    configPrimaryColor () {
+      return (this.configColors && this.configColors.primary) || '#7957d5' 
+    }
   },
   methods: {
     getSectionName (section) {
@@ -197,6 +224,14 @@ export default {
       const topPosition = element.offsetTop - 45
       // console.log('-C- IndexPage > scrollTo > topPosition :', topPosition)
       window.scrollTo({top: topPosition, behavior: 'smooth'})
+    },
+    getContrastYIQ (hexcolor) {
+      hexcolor = hexcolor.replace('#', '')
+      const r = parseInt(hexcolor.substr(0, 2), 16)
+      const g = parseInt(hexcolor.substr(2, 2), 16)
+      const b = parseInt(hexcolor.substr(4, 2), 16)
+      const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
+      return (yiq >= 128) ? 'black' : 'white'
     }
   }
 
