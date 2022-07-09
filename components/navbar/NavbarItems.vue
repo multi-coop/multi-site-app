@@ -13,16 +13,49 @@
         style="display: flex"
         > 
 
-        <!-- ITEMS -->
+        <!-- ITEMS - INTERNAL LINK -->
         <b-navbar-item 
           v-if="item.component === 'simpleLink'"
           :to="{ path: item.link }"
           tag="router-link"
           class="is-size-7-touch"
           >
-          {{ $translate('label', item) }}
+          <b-tooltip
+            v-if="item.icon"
+            :label="$translate('label', item)"
+            position="is-left"
+            type="is-dark">
+            <b-icon
+              :icon="item.icon"
+              />
+          </b-tooltip>
+          <span v-else>
+            {{ $translate('label', item) }}
+          </span>
         </b-navbar-item>
 
+
+        <!-- ITEMS - EXTERNAL LINK -->
+        <b-navbar-item 
+          v-if="item.component === 'extLink'"
+          :href="item.link"
+          target="_blank"
+          tag="a"
+          class="is-size-7-touch"
+          >
+          <b-tooltip
+            v-if="item.icon"
+            :label="$translate('label', item)"
+            position="is-left"
+            type="is-dark">
+            <b-icon
+              :icon="item.icon"
+              />
+          </b-tooltip>
+          <span v-else>
+            {{ $translate('label', item) }}
+          </span>
+        </b-navbar-item>
 
         <!-- DROPDOWNS -->
         <b-navbar-dropdown 
@@ -59,7 +92,7 @@
           right
           class="mr-4 is-size-7-touch"
           >
-          <template v-slot:label>
+          <template #label>
             <span class="is-uppercase">
               {{ locale }}
             </span>
