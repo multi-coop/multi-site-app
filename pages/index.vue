@@ -39,6 +39,7 @@
           <ContentsSkeleton
             :section="section"
             :section-index="idx"
+            :contrib="routeHasContrib || sectionHasContrib(section)"
             :debug="false"
           />
         </div>
@@ -55,6 +56,7 @@
           :key="`${idx}-${section.name}`"
           :section="section"
           :section-index="idx"
+          :contrib="routeHasContrib || sectionHasContrib(section)"
           :debug="false"
         />
       </div>
@@ -167,22 +169,28 @@ export default {
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
-    iconUrl() {
+    iconUrl () {
       // console.log('-C- IndexPage > iconUrl > this.config.data :', this.config.data)
       const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
       // console.log('-C- IndexPage > iconUrl > faviconUrl :', faviconUrl)
       return  faviconUrl || '/favicon_multi.io'
     },
-    isHero() {
+    isHero () {
       return this.currentRoute.options && this.currentRoute.options.hero
-    }
+    },
+    routeHasContrib () {
+      return this.currentRoute.options && this.currentRoute.options.contrib
+    },
   },
   methods: {
-    getSectionName(section) {
+    getSectionName (section) {
       const sectionName = (section.options.name && section.options.name[this.locale]) || section.name
       return sectionName
     },
-    scrollTo(anchorId) {
+    sectionHasContrib (section) {
+      return section.options && section.options.contrib
+    },
+    scrollTo (anchorId) {
       // console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
       const element = document.querySelector(anchorId)
       // console.log('-C- IndexPage > scrollTo > element :', element)
