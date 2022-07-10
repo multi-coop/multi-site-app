@@ -2,7 +2,7 @@
 
   <div 
     v-if="currentRoute"
-    :class="`${isHero ? 'hero is-fullheight' : ''}`"
+    :class="`multi-site-app ${isHero ? 'hero is-fullheight' : ''}`"
     >
 
     <!-- <pre><code>{{ currentRoute.options }}</code></pre> -->
@@ -17,7 +17,7 @@
             <b-menu-item
               v-for="(section, idx) in currentRoute.sections"
               :key="`sidebar-${idx}-${section.name}`"
-              :class="`pb-0 ${section.options.depth ? 'ml-2' : ''}`"
+              :class="`floating-menu-item pb-0 ${section.options.depth ? 'ml-2' : ''}`"
               @click="scrollTo(`#${currentRoute.name}-${idx}-${section.name}`)">
               <template #label>
                 <span
@@ -129,8 +129,14 @@
       <br>{{ configPrimaryColor }} -->
       <style
         v-if="configColors && configPrimaryColor">
-        a:not(.navbar-link, .navbar-item), .navbar-link:hover, a.navbar-item.is-active {
+        a:not(.navbar-link, .navbar-item), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
           color: {{ configPrimaryColor }} !important;
+        }
+        a:not(.navbar-link, .navbar-item, .button) {
+          text-decoration: underline;
+        }
+        .floating-menu-item > a, nav.tabs  > ul > li > a {
+          text-decoration: none !important;
         }
         .button.is-primary, .tag.is-primary {
           background-color: {{ configPrimaryColor }} !important;
