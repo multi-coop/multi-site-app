@@ -30,7 +30,7 @@
 
     <!-- OPTION CONTRIBUTION BTN LINK -->
     <div
-      v-if="contrib"
+      v-if="contrib && isFile"
       class="content floating-contrib">
       <b-tooltip
         multilined
@@ -39,7 +39,7 @@
         size="is-large"
         position="is-left"
         >
-        <template v-slot:content>
+        <template #content>
           <p class="mb-1">
             {{ $translate('contribText', dict) }}
           </p>
@@ -216,16 +216,24 @@ export default {
     fileName () {
       return this.sectionFile && this.sectionFile.split('/').at(-1)
     },
-    convertUrl() {
+    convertUrl () {
       const url = `${this.rawRoot}${this.sectionFile}`
       return url
     },
-    convertPublicUrl() {
+    convertPublicUrl () {
       const url = `${this.publicRoot}${this.sectionFile}`
       return url
     },
-    sectionOptions() {
+    sectionOptions () {
       return this.section.options
+    },
+    isFile () {
+      const editableComponents = [
+        'TextComponent',
+        'DataGrid',
+        'TextDataComponent'
+      ]
+      return editableComponents.includes(this.section.component)
     }
   },
   watch: {
