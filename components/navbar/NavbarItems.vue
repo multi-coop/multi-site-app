@@ -60,12 +60,22 @@
         <!-- DROPDOWNS -->
         <b-navbar-dropdown 
           v-if="item.component === 'dropdownLink'"
-          :label="$translate('label', item)"
           :arrowless="item.options.includes('arrowless')"
           :hoverable="item.options.includes('hoverable')"
           :right="isRight"
           class="is-size-7-touch"
           >
+          <template #label>
+            <b-icon
+              v-if="item.icon"
+              :icon="item.icon"
+              class="mr-2"
+              size="is-small"
+              />
+              <span>
+                {{ $translate('label', item) }}
+              </span>
+          </template>
 
           <b-navbar-item 
             v-for="subItem in item.submenu"
