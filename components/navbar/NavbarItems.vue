@@ -69,7 +69,7 @@
             <b-icon
               v-if="item.icon"
               :icon="item.icon"
-              class="mr-2"
+              class="mr-1"
               size="is-small"
               />
               <span>

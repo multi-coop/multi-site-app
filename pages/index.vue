@@ -13,7 +13,8 @@
       class="content-container">
       <div class="floating-menu">
         <b-menu>
-          <b-menu-list label="menu">
+          <b-menu-list
+            :label="getSectionName(currentRoute, true) || `menu`">
             <b-menu-item
               v-for="(section, idx) in currentRoute.sections"
               :key="`sidebar-${idx}-${section.name}`"
@@ -216,8 +217,9 @@ export default {
     }
   },
   methods: {
-    getSectionName (section) {
-      const sectionName = (section.options.name && section.options.name[this.locale]) || section.name
+    getSectionName (section, isRoute = false) {
+      let sectionName = (section.options.name && section.options.name[this.locale])
+      sectionName = isRoute ? sectionName : sectionName || section.name
       return sectionName
     },
     sectionHasContrib (section) {
