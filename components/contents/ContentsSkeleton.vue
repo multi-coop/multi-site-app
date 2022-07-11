@@ -1,6 +1,6 @@
 <template>
   <div
-    class="content-skeleton mb-5 mt-3">
+    :class="`content-skeleton ${sectionCustomClass}`">
 
     <!-- DEBUG -->
     <div 
@@ -234,6 +234,9 @@ export default {
         'TextDataComponent'
       ]
       return editableComponents.includes(this.section.component)
+    },
+    sectionCustomClass () {
+      return (this.section.options && this.section.options['custom-class']) || 'mb-5 mt-3'
     }
   },
   watch: {

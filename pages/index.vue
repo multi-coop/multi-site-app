@@ -17,6 +17,7 @@
             :label="getSectionName(currentRoute, true) || `menu`">
             <b-menu-item
               v-for="(section, idx) in currentRoute.sections"
+              v-show="!section.options['not-in-menu']"
               :key="`sidebar-${idx}-${section.name}`"
               :class="`floating-menu-item pb-0 ${section.options.depth ? 'ml-2' : ''}`"
               @click="scrollTo(`#${currentRoute.name}-${idx}-${section.name}`)">
@@ -36,7 +37,7 @@
           v-for="(section, idx) in currentRoute.sections"
           :id="`${currentRoute.name}-${idx}-${section.name}`"
           :key="`${idx}-${section.name}`"
-          class="">
+          :class="``">
           <ContentsSkeleton
             :section="section"
             :section-index="idx"
@@ -49,9 +50,9 @@
 
     <div
       v-else 
-      :class="`content-container ${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`"
-      >
-      <div :class="`mb-2 ${isHero ? '' : 'container'}`">
+      :class="`content-container ${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`">
+      <div
+        :class="`mb-2 ${isHero ? '' : 'container'}`">
         <ContentsSkeleton 
           v-for="(section, idx) in currentRoute.sections"
           :key="`${idx}-${section.name}`"
@@ -214,7 +215,10 @@ export default {
     },
     configPrimaryColor () {
       return (this.configColors && this.configColors.primary) || '#7957d5' 
-    }
+    },
+    // menuSections () {
+    //   return this.currentRoute.sections.filter(section => !(section.options && section.options['not-in-menu']) )
+    // }
   },
   methods: {
     getSectionName (section, isRoute = false) {
