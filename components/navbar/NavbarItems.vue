@@ -18,18 +18,27 @@
           v-if="item.component === 'simpleLink'"
           :to="{ path: item.link }"
           tag="router-link"
-          class="is-size-7-touch"
+          class="is-size-7-touch navbar-multi"
           >
           <b-tooltip
-            v-if="item.icon"
+            v-if="item.icon || item.image"
             :label="$translate('label', item)"
             position="is-left"
             type="is-dark">
             <b-icon
+              v-if="item.icon && !item.image"
               :icon="item.icon"
+              class="mr-1"
+              size="is-small"
+              />
+            <img
+              v-if="item.image"
+              class="navbar-multi-img"
+              :src="item.image"
               />
           </b-tooltip>
-          <span v-else>
+          <span
+            v-if="!item.image">
             {{ $translate('label', item) }}
           </span>
         </b-navbar-item>
@@ -41,15 +50,21 @@
           :href="item.link"
           target="_blank"
           tag="a"
-          class="is-size-7-touch"
+          class="is-size-7-touch navbar-multi"
           >
           <b-tooltip
-            v-if="item.icon"
+            v-if="item.icon || item.image"
             :label="$translate('label', item)"
             position="is-left"
             type="is-dark">
             <b-icon
+              v-if="item.icon && !item.image"
               :icon="item.icon"
+              />
+            <img
+              v-if="item.image"
+              class="navbar-multi-img"
+              :src="item.image"
               />
           </b-tooltip>
           <span v-else>
@@ -63,18 +78,26 @@
           :arrowless="item.options.includes('arrowless')"
           :hoverable="item.options.includes('hoverable')"
           :right="isRight"
-          class="is-size-7-touch"
+          class="is-size-7-touch navbar-multi"
           >
           <template #label>
-            <b-icon
-              v-if="item.icon"
-              :icon="item.icon"
-              class="mr-1"
-              size="is-small"
-              />
-              <span>
+            <div>
+              <b-icon
+                v-if="item.icon && !item.image"
+                :icon="item.icon"
+                class="mr-1"
+                size="is-small"
+                />
+              <img
+                v-if="item.image"
+                class="navbar-multi-img"
+                :src="item.image"
+                />
+              <span
+                v-if="!item.image">
                 {{ $translate('label', item) }}
               </span>
+            </div>
           </template>
 
           <b-navbar-item 
@@ -195,3 +218,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.navbar-multi-img {
+  margin-top: .4em !important;
+  max-height: 1.4em !important;
+}
+
+</style>
