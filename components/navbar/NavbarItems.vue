@@ -100,15 +100,17 @@
             </div>
           </template>
 
-          <b-navbar-item 
-            v-for="subItem in item.submenu"
-            :key="subItem.name"
-            :to="{ path: subItem.link }"
-            tag="router-link"
-            class="is-size-7-touch"
-            :active="subItem.link === $route.path"
+          <b-navbar-item
+            v-for="(subItem, idx) in item.submenu"
+            :key="`${idx}-${subItem.name}`"
+            :to="!subItem.separator && { path: subItem.link }"
+            :separator="subItem.separator"
+            :tag="subItem.separator ? 'hr' : 'router-link'"
+            :class="subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'"
+            :active="!subItem.separator && subItem.link === $route.path"
             >
             <span
+              v-if="!subItem.separator"
               :class="`${ subItem.link === $route.path ? 'has-text-weight-bold' : '' }`">
               {{ $translate('label', subItem) }}
             </span>
