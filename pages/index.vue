@@ -251,15 +251,15 @@ export default {
     }
   },
   mounted () {
-    console.log('\n-C- IndexPage > mounted > ... ')
+    // console.log('\n-C- IndexPage > mounted > ... ')
     window.addEventListener('scroll', this.handleScroll)
-    const route = this.$route
-    if (route.hash !== '') {
-      setTimeout(
-        this.scrollTo(route.hash),
-        2000
-      )
-    }
+    // const route = this.$route
+    // if (route.hash !== '') {
+    //   setTimeout(
+    //     this.scrollTo(route.hash),
+    //     2000
+    //   )
+    // }
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
@@ -274,7 +274,7 @@ export default {
       return section.options && section.options.contrib
     },
     scrollTo (anchorId, updateUrl = true) {
-      console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
+      // console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
       this.isAutoScrolling = true
       const element = document.querySelector(anchorId)
       // console.log('-C- IndexPage > scrollTo > element :', element)
