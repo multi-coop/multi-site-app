@@ -1,26 +1,26 @@
 <template>
 
-  <footer class="footer is-size-7	py-3">
+  <footer
+    class="footer is-size-7	py-3 has-background-grey">
     <div class="content has-text-centered">
-      
-      <p class="has-text-weight-semibold pb-2 mb-0">
-        {{ $translate('credits', dict) }}
-      </p>
 
-      <p>
-        
+      <!-- <p class="has-text-weight-semibold pb-2 mb-0 credit-text">
+        {{ $translate('credits', dict) }}
+      </p> -->
+
+      <p class="credit-text">
         <a
           target="_blank"
           :href="gitInfos.gitRepoUrl"
+          class="credit-text"
           >
           {{ $translate('sourceContents', dict) }}
         </a>
-
-        <br> 
-        
-          <a
+        <br>
+        <a
           target="_blank"
           :href="source"
+          class="credit-text"
           >
           {{ $translate('sourceCode', dict) }}
         </a>
@@ -30,13 +30,12 @@
         <a 
           target="_blank"
           :href="multiUrl"
-          class="has-text-weight-semibold"
+          class="has-text-weight-semibold credit-text"
           >
           Multi
         </a>
         - 
         {{ years }} 
-        
       </p>
     </div>
   </footer>
@@ -64,7 +63,7 @@ export default {
           en: 'Coded by'
         },
         projetBy: {
-          fr: 'Un projet par',
+          fr: 'un projet par',
           en: 'a project by',
         },
         sourceContents: {
@@ -72,8 +71,8 @@ export default {
           en: "Website's contents"
         },
         sourceCode: {
-          fr: 'Code source',
-          en: 'Source code'
+          fr: 'Code source de "multi-site-app"',
+          en: '"multi-site-app" source code'
         }
       }
     }
@@ -86,3 +85,11 @@ export default {
   },
 }
 </script>
+
+<style>
+
+.credit-text, a.credit-text {
+  color: white !important;
+}
+
+</style>

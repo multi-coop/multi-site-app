@@ -131,7 +131,7 @@
       <br>{{ configPrimaryColor }} -->
       <style
         v-if="configColors && configPrimaryColor">
-        a:not(.navbar-link, .navbar-item), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
+        a:not(.navbar-link, .navbar-item, .credit-text), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
           color: {{ configPrimaryColor }} !important;
         }
         a:not(.navbar-link, .navbar-item, .button) {
