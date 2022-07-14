@@ -7,7 +7,8 @@
 
     <!-- <pre><code>{{ currentRoute.options }}</code></pre> -->
 
-    <!-- CONTENTS SECTION -->
+    <!-- CONTENT SECTION -->
+    <!-- CONTENT SUMMARY - FLOATING -->
     <div 
       v-if="currentRoute.options && currentRoute.options.summary"
       class="content-container">
@@ -15,16 +16,28 @@
         <b-menu>
           <b-menu-list
             :label="getSectionName(currentRoute, true) || `menu`">
+            <!-- DEBUGGING -->
+            <!-- <p>
+              scrollPosition: <code>{{ scrollPosition }} px</code><br>
+              scrollPosAndMargin: <code>{{ scrollPosAndMargin }} px</code><br>
+            </p> -->
+
             <b-menu-item
               v-for="(section, idx) in currentRoute.sections"
               v-show="!section.options['not-in-menu']"
-              :key="`sidebar-${idx}-${section.name}`"
+              :key="`section-${idx + 1}-${section.name}`"
+              :active="isSectionActive(`#section-${idx + 1}-${section.name}`)"
               :class="`floating-menu-item pb-0 ${section.options.depth ? 'ml-2' : ''}`"
-              @click="scrollTo(`#${currentRoute.name}-${idx}-${section.name}`)">
+              @click="scrollTo(`#section-${idx + 1}-${section.name}`)">
               <template #label>
                 <span
                   :class="`is-size-7 ${section.options.depth ? '' : 'has-text-weight-bold'}`">
                   {{ getSectionName(section) }}
+                  <!-- DEBUGGING -->
+                  <!-- <p>
+                    isSectionActive : <code>{{ isSectionActive(`#section-${idx + 1}-${section.name}`) }}</code></br>
+                    <pre><code>{{ getElementBoundingBox(`#section-${idx + 1}-${section.name}`) }}</code></pre>
+                  </p> -->
                 </span>
               </template>
             </b-menu-item>
@@ -32,22 +45,31 @@
         </b-menu>
       </div>
 
+      <!-- CONTENT SECTION -->
       <div class="content-component">
         <div
           v-for="(section, idx) in currentRoute.sections"
-          :id="`${currentRoute.name}-${idx}-${section.name}`"
-          :key="`${idx}-${section.name}`"
+          :id="`section-${idx + 1}-${section.name}`"
+          :key="`section-${idx + 1}-${section.name}`"
           :class="``">
+
           <ContentsSkeleton
             :section="section"
             :section-index="idx"
             :contrib="routeHasContrib || sectionHasContrib(section)"
             :debug="false"
           />
+
+          <!-- DEBUGGING -->
+          <!-- <p>
+            <code>{{ `#${idx}-${section.name}` }}</code><br>
+            <pre><code>{{ getElementBoundingBox(`#${idx}-${section.name}`) }}</code></pre>
+          </p> -->
         </div>
       </div>
     </div>
 
+    <!-- CONTENT SECTION (NO SUMMARY) -->
     <div
       v-else 
       :class="`content-container ${isHero ? 'hero-body is-flex-direction-column is-justify-content-center' : ''}`">
@@ -171,7 +193,12 @@ export default {
   data () {
     return {
       sidebarOpen: true,
-      debug: false
+      debug: false,
+      activeSection: undefined,
+      isAutoScrolling: false,
+      scrollPositionY: 0,
+      scrollMarginTop: 46,
+      interMarginY: 11
     }
   },
   head () { 
@@ -219,6 +246,23 @@ export default {
     // menuSections () {
     //   return this.currentRoute.sections.filter(section => !(section.options && section.options['not-in-menu']) )
     // }
+    scrollPosAndMargin () {
+      return this.scrollMarginTop + this.scrollPositionY
+    }
+  },
+  mounted () {
+    console.log('\n-C- IndexPage > mounted > ... ')
+    window.addEventListener('scroll', this.handleScroll)
+    const route = this.$route
+    if (route.hash !== '') {
+      setTimeout(
+        this.scrollTo(route.hash),
+        2000
+      )
+    }
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     getSectionName (section, isRoute = false) {
@@ -229,13 +273,31 @@ export default {
     sectionHasContrib (section) {
       return section.options && section.options.contrib
     },
-    scrollTo (anchorId) {
-      // console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
+    scrollTo (anchorId, updateUrl = true) {
+      console.log('\n-C- IndexPage > scrollTo > anchorId :', anchorId)
+      this.isAutoScrolling = true
       const element = document.querySelector(anchorId)
       // console.log('-C- IndexPage > scrollTo > element :', element)
-      const topPosition = element.offsetTop - 45
+      const topPosition = element.offsetTop - this.scrollMarginTop + 1
       // console.log('-C- IndexPage > scrollTo > topPosition :', topPosition)
       window.scrollTo({top: topPosition, behavior: 'smooth'})
+      this.updateUrl(anchorId, false)
+      this.isAutoScrolling = false
+    },
+    updateUrl (anchorId, isAutoScrolling) {
+      // console.log('\n-C- IndexPage > updateUrl > this.$route :', this.$route)
+      const currentHash = this.$route.hash
+      if ( currentHash !== anchorId && !isAutoScrolling) {
+        // this.$router.replace({ hash: anchorId })
+        history.pushState(
+          {},
+          null,
+          `${this.$route.path}${anchorId}`
+        )
+      }
+    },
+    handleScroll (event) {
+      this.scrollPositionY = Math.round(window.scrollY)
     },
     getContrastYIQ (hexcolor) {
       hexcolor = hexcolor.replace('#', '')
@@ -244,6 +306,40 @@ export default {
       const b = parseInt(hexcolor.substr(4, 2), 16)
       const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
       return (yiq >= 128) ? 'black' : 'white'
+    },
+    getElementBoundingBox(anchorId) {
+      const element = document.querySelector(anchorId)
+      // console.log('\n-C- IndexPage > getElementBoundingBox > element :', element)
+      const offsetTop = element && element.offsetTop
+      // console.log('-C- IndexPage > getElementBoundingBox > offsetPosition :', offsetTop)
+      const boundingRect = element && element.getBoundingClientRect()
+      // console.log('-C- IndexPage > getElementBoundingBox > boundingRect :', boundingRect)
+      const Yposition = {
+        id: anchorId,
+        scrollPosAndMargin: this.scrollPosAndMargin,
+        isActive: false
+      }
+      if (element) {
+        Yposition.top = Math.round(boundingRect.top)
+        Yposition.bottom = Math.round(boundingRect.bottom)
+        Yposition.height = Math.round(boundingRect.height)
+        Yposition.offTop = Math.round(offsetTop)
+        Yposition.offBottom = Math.round(offsetTop) + Math.round(boundingRect.height) + this.interMarginY
+        const topIn = this.scrollPosAndMargin > Yposition.offTop
+        const bottomIn = this.scrollPosAndMargin < Yposition.offBottom
+        Yposition.isActive = topIn && bottomIn
+      }
+
+      // console.log('-C- IndexPage > getElementBoundingBox > Yposition :', Yposition)
+      return Yposition
+    },
+    isSectionActive (anchorId) {
+      const box = this.getElementBoundingBox(anchorId)
+      if (box.isActive) {
+        this.activeSection = anchorId
+        this.updateUrl(anchorId, this.isAutoScrolling)
+      }
+      return box.isActive
     }
   }
 
