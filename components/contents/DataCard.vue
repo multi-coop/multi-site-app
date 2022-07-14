@@ -148,30 +148,6 @@
 
         </div>
 
-        <!-- button read more -->
-        <div
-          v-if="options['card-modal']"
-          class="content"
-          >
-          <b-button 
-            type="is-primary" 
-            size="is-small"
-            class="mt-3"
-            outlined
-            expanded
-            @click="showMore = !showMore; openModal()"
-            >
-            <span v-if="!showMore">
-              {{ $translate('readmore', defaultDict) }}
-              <b-icon icon="plus" size="is-small" class="pl-2"/>
-            </span>
-            <span v-if="showMore">
-              {{ $translate('readless', defaultDict) }}
-              <b-icon icon="minus" size="is-small" class="pl-2"/>
-            </span>
-          </b-button>
-        </div>
-
       </div>
 
 
@@ -199,7 +175,36 @@
       </div>
 
 
-      <!-- FOOTER -->
+      <!-- FOOTERS -->
+      <!-- button read more -->
+      <footer
+        v-if="options['card-modal']"
+        class="px-3 pb-3"
+        >
+        <div
+          class="content"
+          >
+          <b-button 
+            type="is-primary" 
+            size="is-small"
+            class="mt-3"
+            outlined
+            expanded
+            @click="showMore = !showMore; openModal()"
+            >
+            <span v-if="!showMore">
+              {{ $translate('readmore', defaultDict) }}
+              <b-icon icon="plus" size="is-small" class="pl-2"/>
+            </span>
+            <span v-if="showMore">
+              {{ $translate('readless', defaultDict) }}
+              <b-icon icon="minus" size="is-small" class="pl-2"/>
+            </span>
+          </b-button>
+        </div>
+      </footer>
+
+      <!-- ext links -->
       <footer
         v-if="options && options['has-socials']"
         class="card-footer"
@@ -498,3 +503,25 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  /* .no-shadow {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  } */
+  .image-wrapper {
+    min-height: 200px;
+  }
+  .image-constrained {
+    max-height: 200px;
+    width: auto !important;
+  }
+  .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-content {
+    height: 100%;
+  }
+</style>
