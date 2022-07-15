@@ -47,7 +47,7 @@
         v-html="html">
       </div>
 
-      <div
+      <!-- <div
         v-for="(js, idx) in scriptsSrcs"
         :key="`html-script-${idx}`"
         >
@@ -57,7 +57,7 @@
           type='text/javascript'
           >
         </script>
-      </div>
+      </div> -->
       
       <!-- DEBUGGING -->
       <div 
@@ -170,6 +170,25 @@ export default {
       // console.log('-C- HtmlComponent > parseHtml > dataScripts :', dataScripts)
       this.scriptsSrcs = dataScripts.map(m => m.src)
       this.html = dataContent
+
+      this.appendScripts()
+    },
+    appendScripts () {
+      const scripts = this.scriptsSrcs
+      scripts.forEach(src => {
+        const scriptId = src.split('//')[1]
+        const existingScript = document.getElementById(scriptId)
+        if (!existingScript) {
+          const script = document.createElement('script')
+          script.src = src
+          script.id = scriptId
+          document.head.appendChild(script)
+
+          script.onload = () => {
+            console.log('-C- HtmlComponent > appendScripts > scriptId >  :', scriptId)
+          }
+        }
+      })
     }
   }
 }
