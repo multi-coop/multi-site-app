@@ -159,12 +159,12 @@ export default {
       }
     }
   },
-  head () {
-    return {
-      link: [],
-      script: []
-    }
-  },
+  // head () {
+  //   return {
+  //     link: [],
+  //     script: []
+  //   }
+  // },
   computed: {
     ...mapState({
       log: (state) => state.log,

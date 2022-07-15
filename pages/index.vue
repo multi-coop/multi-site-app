@@ -15,7 +15,7 @@
       <div class="floating-menu">
         <b-menu>
           <b-menu-list
-            :label="getSectionName(currentRoute, true) || `menu`">
+            :label="getSectionName(currentRoute) || `menu`">
             <!-- DEBUGGING -->
             <!-- <p>
               scrollPosition: <code>{{ scrollPosition }} px</code><br>
@@ -203,11 +203,11 @@ export default {
   },
   head () { 
     return {
-      title: this.config.data.app_name,
+      title: `${this.config.data.app_name}${this.currentRoute.name ? ' - ' + this.getSectionName(this.currentRoute) : ''}`,
       lang: this.locale,
       link: [
         { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
-      ],
+      ]
     }
   },
   computed: {
@@ -265,9 +265,8 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    getSectionName (section, isRoute = false) {
-      let sectionName = (section.options.name && section.options.name[this.locale])
-      sectionName = isRoute ? sectionName : sectionName || section.name
+    getSectionName (section) {
+      const sectionName = (section.options && section.options.name && section.options.name[this.locale]) || section.name
       return sectionName
     },
     sectionHasContrib (section) {

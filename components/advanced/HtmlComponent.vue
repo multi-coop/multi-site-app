@@ -182,6 +182,7 @@ export default {
           const script = document.createElement('script')
           script.src = src
           script.id = scriptId
+          script.type = 'text/javascript'
           document.head.appendChild(script)
 
           script.onload = () => {
