@@ -118,34 +118,6 @@
       :debug="false"
     />
 
-    <!-- <section
-      v-show="contrib"
-      class="has-text-centered mt-0 mb-6">
-      <b-tooltip
-        multilined
-        type="is-dark"
-        size="is-medium"
-        position="is-right"
-        >
-        <template v-slot:content>
-          {{ $translate('sourceFile', dict) }} :
-          <br>
-          <b>{{ fileName }}</b>
-        </template>
-        <b-button
-          size="is-small"
-          type="is-text"
-          tag="a"
-          :href="convertUrl"
-          target="_blank">
-          <b-icon
-            icon="git"
-            type="is-grey-lighter"
-          />
-        </b-button>
-      </b-tooltip>
-    </section> -->
-
   </div>
 </template>
 
@@ -225,7 +197,8 @@ export default {
       const editableComponents = [
         'TextComponent',
         'DataGrid',
-        'TextDataComponent'
+        'TextDataComponent',
+        'HtmlComponent'
       ]
       return editableComponents.includes(this.section.component)
     },

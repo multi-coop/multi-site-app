@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     parseContent (data) {
-      console.log('\n-C- HtmlComponent > parseHtml > data :', data)
+      // console.log('\n-C- HtmlComponent > parseHtml > data :', data)
       const scriptStart = '<script'
       const scriptEnd = 'script>'
       const srcStart = 'src='
@@ -149,25 +149,25 @@ export default {
       const regexSrc = new RegExp(`(?<=${srcStart}).*(?<=${srcEnd})`, 'g')
 
       const splitStr = [...data.content.matchAll(regexScript)].map(m => m[0])
-      console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
+      // console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
 
       const dataScripts = splitStr.map( scriptTag => {
         dataContent = dataContent.replace(scriptTag, '')
         const scriptObj = [...scriptTag.matchAll(regexSrc)]
           .map(m => {
             const rawStr = m[0]
-            console.log('-C- HtmlComponent > parseHtml > rawStr :', rawStr)
+            // console.log('-C- HtmlComponent > parseHtml > rawStr :', rawStr)
             const srcStr = rawStr.replace(/['"]+/g, '').replaceAll('\\', '')
-            console.log('-C- HtmlComponent > parseHtml > srcStr :', srcStr)
+            // console.log('-C- HtmlComponent > parseHtml > srcStr :', srcStr)
             return {
               tag: scriptTag,
               src: srcStr
             }
           })
-          console.log('-C- HtmlComponent > parseHtml > scriptObj :', scriptObj)
+          // console.log('-C- HtmlComponent > parseHtml > scriptObj :', scriptObj)
           return scriptObj[0]
       })
-      console.log('-C- HtmlComponent > parseHtml > dataScripts :', dataScripts)
+      // console.log('-C- HtmlComponent > parseHtml > dataScripts :', dataScripts)
       this.scriptsSrcs = dataScripts.map(m => m.src)
       this.html = dataContent
     }
