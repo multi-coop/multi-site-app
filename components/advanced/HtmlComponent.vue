@@ -120,20 +120,25 @@ export default {
       rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
     }),
-    hasOptions() {
+    hasOptions () {
       return !!this.sectionOptions
     },
-    hasColumnsOptions() {
+    hasColumnsOptions () {
       const hasOptions = this.hasOptions
       const hasColOptions = !!this.sectionOptions['columns-divider'] || !!this.sectionOptions['columns-size']
       return hasOptions && hasColOptions
     },
-    content() {
+    content () {
       return this.sectionData.content
     },
-    columnsSize() {
+    columnsSize () {
       const colSize = this.sectionOptions['columns-size'] || 'half'
       return `is-${colSize}`
+    },
+    getBrowser () {
+      const browserClient = navigator && navigator.userAgent
+      // console.log('\n-C- HtmlComponent > getBrowser > browserClient :', browserClient)
+      return browserClient || 'unknown'
     }
   },
   methods: {
@@ -145,8 +150,11 @@ export default {
       const srcEnd = '.js'
       let dataContent = data.content.slice()
 
+      // const browserClient = this.getBrowser
+      // console.log('-C- HtmlComponent > parseHtml > browserClient :', browserClient)
+
       const regexScript = new RegExp(`(?:${scriptStart}).*(?:${scriptEnd})`, 'gs')
-      const regexSrc = new RegExp(`(?<=${srcStart}).*(?<=${srcEnd})`, 'g')
+      const regexSrc = new RegExp(`(?:${srcStart}).*(?:${srcEnd})`, 'g')
 
       const splitStr = [...data.content.matchAll(regexScript)].map(m => m[0])
       // console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
@@ -157,7 +165,7 @@ export default {
           .map(m => {
             const rawStr = m[0]
             // console.log('-C- HtmlComponent > parseHtml > rawStr :', rawStr)
-            const srcStr = rawStr.replace(/['"]+/g, '').replaceAll('\\', '')
+            const srcStr = rawStr.replace(srcStart, '').replace(/['"]+/g, '').replaceAll('\\', '')
             // console.log('-C- HtmlComponent > parseHtml > srcStr :', srcStr)
             return {
               tag: scriptTag,
@@ -183,7 +191,7 @@ export default {
           script.src = src
           script.id = scriptId
           script.type = 'text/javascript'
-          document.head.appendChild(script)
+          document.body.appendChild(script)
 
           script.onload = () => {
             console.log('-C- HtmlComponent > appendScripts > scriptId >  :', scriptId)
