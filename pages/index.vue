@@ -347,6 +347,11 @@ export default {
 
 <style scoped>
 
+.multi-site-app {
+  padding-left: .1em;
+  padding-right: .1em;
+}
+
 .content-container {
   padding-top: 5em;
   padding-bottom: 5em;
