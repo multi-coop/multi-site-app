@@ -1,0 +1,176 @@
+
+<template>
+  <div class="container">
+
+    <!-- DEBUG -->
+    <div 
+      v-if="debug"
+      class="content"
+      >
+      <h1>
+        HtmlComponent - {{ sectionIndex }}
+      </h1>
+      <div 
+        v-if="sectionData"
+        class="columns is-multiline " 
+        >
+        <div class="column is-half">
+          sectionOptions: <br><code>
+            <pre>
+              {{ sectionOptions }}
+            </pre>
+          </code>
+        </div>
+        <div class="column is-half">
+          sectionData.data: <br><code>
+            <pre>
+              {{ sectionData.data }}
+            </pre>
+          </code>
+        </div>
+        <div class="column is-half">
+          sectionData.content: <br><code>
+            <pre>
+              {{ sectionData.content }}
+            </pre>
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <!-- HTML CONTENTS -->
+    <div
+      v-if="sectionData"
+      class="content">
+      <div
+        v-if="html"
+        v-html="html">
+      </div>
+
+      <div
+        v-for="(js, idx) in scriptsSrcs"
+        :key="`html-script-${idx}`"
+        >
+        <script
+          v-if="js"
+          :src="js"
+          type='text/javascript'
+          >
+        </script>
+      </div>
+      
+      <!-- DEBUGGING -->
+      <div 
+        v-if="debug"
+        class="columns is-multiline">
+        <div class="column is-6">
+          sectionOptions: <pre></code>{{ sectionOptions }}</code></pre>
+        </div>
+        <div class="column is-6">
+          scriptsSrcs : <br>
+          <pre></code>{{ scriptsSrcs }}</code></pre>
+        </div>
+        <div class="column is-6">
+          html : <br>
+          <pre></code>{{ html }}</code></pre>
+        </div>
+        <div class="column is-6">
+          sectionData.content : <br>
+          <pre></code>{{ sectionData.content }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+
+<script>
+
+import { mapState, mapGetters } from 'vuex' 
+
+export default {
+  name: 'HtmlComponent',
+  props: [
+    'sectionIndex',
+    'sectionData',
+    'sectionOptions',
+    'debug'
+  ],
+  data() {
+    return {
+      html: '',
+      scriptsSrcs: [],
+      css: []
+    }
+  },
+  watch: {
+    sectionData (next) {
+      if (next) {
+        this.parseContent(next)
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      log: (state) => state.log,
+      locale: (state) => state.locale,
+    }),
+    ...mapGetters({
+      rawRoot : 'getGitRawRoot',
+      showdownOptions: 'getShowdownOptions',
+    }),
+    hasOptions() {
+      return !!this.sectionOptions
+    },
+    hasColumnsOptions() {
+      const hasOptions = this.hasOptions
+      const hasColOptions = !!this.sectionOptions['columns-divider'] || !!this.sectionOptions['columns-size']
+      return hasOptions && hasColOptions
+    },
+    content() {
+      return this.sectionData.content
+    },
+    columnsSize() {
+      const colSize = this.sectionOptions['columns-size'] || 'half'
+      return `is-${colSize}`
+    }
+  },
+  methods: {
+    parseContent (data) {
+      console.log('\n-C- HtmlComponent > parseHtml > data :', data)
+      const scriptStart = '<script'
+      const scriptEnd = 'script>'
+      const srcStart = 'src='
+      const srcEnd = '.js'
+      let dataContent = data.content.slice()
+
+      const regexScript = new RegExp(`(?:${scriptStart}).*(?:${scriptEnd})`, 'gs')
+      const regexSrc = new RegExp(`(?<=${srcStart}).*(?<=${srcEnd})`, 'g')
+
+      const splitStr = [...data.content.matchAll(regexScript)].map(m => m[0])
+      console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
+
+      const dataScripts = splitStr.map( scriptTag => {
+        dataContent = dataContent.replace(scriptTag, '')
+        const scriptObj = [...scriptTag.matchAll(regexSrc)]
+          .map(m => {
+            const rawStr = m[0]
+            console.log('-C- HtmlComponent > parseHtml > rawStr :', rawStr)
+            const srcStr = rawStr.replace(/['"]+/g, '').replaceAll('\\', '')
+            console.log('-C- HtmlComponent > parseHtml > srcStr :', srcStr)
+            return {
+              tag: scriptTag,
+              src: srcStr
+            }
+          })
+          console.log('-C- HtmlComponent > parseHtml > scriptObj :', scriptObj)
+          return scriptObj[0]
+      })
+      console.log('-C- HtmlComponent > parseHtml > dataScripts :', dataScripts)
+      this.scriptsSrcs = dataScripts.map(m => m.src)
+      this.html = dataContent
+    }
+  }
+}
+</script>

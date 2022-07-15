@@ -107,23 +107,16 @@
       v-if="section.component === 'WidgetComponent'"
       :section-index="sectionIndex"
       :section-options="sectionOptions"
-      :debug="true"
+      :debug="false"
     />
 
-    <div
-      v-if="section.component === 'HtmlComponent' && sectionData">
-      <!-- <pre></code>{{ section }}</code></pre> -->
-      <!-- <hr> -->
-      <div
-        v-if="sectionData.content"
-        v-html="sectionData.content"/>
-      <!-- <hr> -->
-      <!-- <div class="columns">
-        <div class="column content">
-          <pre></code>{{ sectionData.content }}</code></pre>
-        </div>
-      </div> -->
-    </div>
+    <HtmlComponent
+      v-if="section.component === 'HtmlComponent'"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
+      :debug="false"
+    />
 
     <!-- <section
       v-show="contrib"
@@ -171,6 +164,7 @@ export default {
     DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
     ButtonsComponent: () => import(/* webpackChunkName: "ButtonsComponent" */ '~/components/buttons/ButtonsComponent.vue'),
     WidgetComponent: () => import(/* webpackChunkName: "WidgetComponent" */ '~/components/advanced/WidgetComponent.vue'),
+    HtmlComponent: () => import(/* webpackChunkName: "HtmlComponent" */ '~/components/advanced/HtmlComponent.vue'),
   },
   props: [
     'section',
