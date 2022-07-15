@@ -107,51 +107,16 @@
       v-if="section.component === 'WidgetComponent'"
       :section-index="sectionIndex"
       :section-options="sectionOptions"
-      :debug="true"
+      :debug="false"
     />
 
-    <div
-      v-if="section.component === 'HtmlComponent' && sectionData">
-      <!-- <pre></code>{{ section }}</code></pre> -->
-      <!-- <hr> -->
-      <div
-        v-if="sectionData.content"
-        v-html="sectionData.content"/>
-      <!-- <hr> -->
-      <!-- <div class="columns">
-        <div class="column content">
-          <pre></code>{{ sectionData.content }}</code></pre>
-        </div>
-      </div> -->
-    </div>
-
-    <!-- <section
-      v-show="contrib"
-      class="has-text-centered mt-0 mb-6">
-      <b-tooltip
-        multilined
-        type="is-dark"
-        size="is-medium"
-        position="is-right"
-        >
-        <template v-slot:content>
-          {{ $translate('sourceFile', dict) }} :
-          <br>
-          <b>{{ fileName }}</b>
-        </template>
-        <b-button
-          size="is-small"
-          type="is-text"
-          tag="a"
-          :href="convertUrl"
-          target="_blank">
-          <b-icon
-            icon="git"
-            type="is-grey-lighter"
-          />
-        </b-button>
-      </b-tooltip>
-    </section> -->
+    <HtmlComponent
+      v-if="section.component === 'HtmlComponent'"
+      :section-index="sectionIndex"
+      :section-data="sectionData"
+      :section-options="sectionOptions"
+      :debug="false"
+    />
 
   </div>
 </template>
@@ -171,6 +136,7 @@ export default {
     DataGrid: () => import(/* webpackChunkName: "DataGrid" */ '~/components/contents/DataGrid.vue'),
     ButtonsComponent: () => import(/* webpackChunkName: "ButtonsComponent" */ '~/components/buttons/ButtonsComponent.vue'),
     WidgetComponent: () => import(/* webpackChunkName: "WidgetComponent" */ '~/components/advanced/WidgetComponent.vue'),
+    HtmlComponent: () => import(/* webpackChunkName: "HtmlComponent" */ '~/components/advanced/HtmlComponent.vue'),
   },
   props: [
     'section',
@@ -231,7 +197,8 @@ export default {
       const editableComponents = [
         'TextComponent',
         'DataGrid',
-        'TextDataComponent'
+        'TextDataComponent',
+        'HtmlComponent'
       ]
       return editableComponents.includes(this.section.component)
     },
