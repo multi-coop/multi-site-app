@@ -253,6 +253,7 @@ export default {
   watch: {
     locale () {
       const hash = this.$route.hash
+      // console.log('\n-C- IndexPage > watch > locale > hash :', hash)
       this.updateUrl(hash, false, true)
     }
   },
@@ -292,8 +293,9 @@ export default {
     },
     updateUrl (anchorId, isAutoScrolling, forceUpdate = false) {
       // console.log('\n-C- IndexPage > updateUrl > this.$route :', this.$route)
+      // console.log('-C- IndexPage > updateUrl > anchorId :', anchorId)
       const currentHash = this.$route.hash
-      // console.log('\n-C- IndexPage > updateUrl > currentHash :', currentHash)
+      // console.log('-C- IndexPage > updateUrl > currentHash :', currentHash)
       const newHash = anchorId
       let hashStr = ''
       if (newHash) {
@@ -301,8 +303,9 @@ export default {
       } else if (currentHash) {
         hashStr = currentHash
       }
-      const currentQuery = { ...this.$route.query, locale: this.locale}
-      // console.log('\n-C- IndexPage > updateUrl > currentQuery :', currentQuery)
+      const currentQuery = { ...this.$route.query }
+      currentQuery.locale = this.locale
+      // console.log('-C- IndexPage > updateUrl > currentQuery :', currentQuery)
       const queryStr = 
         '?' +
         Object.keys(currentQuery)
@@ -310,19 +313,20 @@ export default {
             return `${key}=${encodeURIComponent(currentQuery[key])}`
           })
           .join('&')
+      // console.log('-C- IndexPage > updateUrl > queryStr :', queryStr)
       if ( currentHash !== newHash && !isAutoScrolling) {
         // this.$router.replace({ hash: hashStr })
         history.pushState(
           {},
           null,
-          `${this.$route.path}${hashStr}${currentQuery && queryStr}`
+          `${this.$route.path}${queryStr}${hashStr}`
         )
       }
       if (forceUpdate) {
         history.pushState(
           {},
           null,
-          `${this.$route.path}${hashStr}${currentQuery && queryStr}`
+          `${this.$route.path}${queryStr}${hashStr}`
         )
       }
     },
