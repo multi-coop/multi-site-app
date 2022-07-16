@@ -216,6 +216,15 @@ export default {
     changeLocale(loc) {
       console.log('-C- NavbarItems > changeLocale > loc :', loc)
       this.updateLocale(loc)
+      const route  = {
+        path: this.$route.path,
+        hash: this.$route.hash,
+        query: {
+          ...this.$route.query,
+          locale: loc
+        }
+      }
+      this.$router.push(route)
     }
   }
 }
