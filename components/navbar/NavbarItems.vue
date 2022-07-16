@@ -217,15 +217,6 @@ export default {
       // console.log('\n-C- NavbarItems > changeLocale > loc :', loc)
       // console.log('-C- NavbarItems > changeLocale > this.$route :', this.$route)
       this.updateLocale(loc)
-      // const route  = {
-      //   path: this.$route.path,
-      //   hash: this.$route.hash,
-      //   query: {
-      //     ...this.$route.query,
-      //     locale: loc
-      //   }
-      // }
-      // this.$router.push(route)
     }
   }
 }

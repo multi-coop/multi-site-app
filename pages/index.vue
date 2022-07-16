@@ -255,32 +255,6 @@ export default {
       const hash = this.$route.hash
       this.updateUrl(hash, false, true)
     }
-    // '$route.path' () {
-    //   // const queryLocale = this.$route.query.locale
-    //   // if (queryLocale) {
-    //   //   console.log('-C- IndexPage / queryLocale : ', queryLocale)
-    //   //   this.$store.dispatch('updateLocale', queryLocale)
-    //   // }
-    //   console.log('\n-C- IndexPage / watch > currentRoute > this.$route.path : ', this.$route.path)
-    //   const hash = this.$route.hash
-    //   console.log('-C- IndexPage / watch > currentRoute > hash : ', hash)
-    //   this.updateUrl(hash, false)
-    //   // const query = { ...this.$route.query, locale: this.$store.state.locale }
-    //   // console.log('-C- IndexPage / query : ', query)
-    //   // const queryStr = 
-    //   //   '?' +
-    //   //   Object.keys(query)
-    //   //     .map(key => {
-    //   //       return `${key}=${encodeURIComponent(query[key])}`
-    //   //     })
-    //   //     .join('&')
-    //   // console.log('-C- IndexPage / queryStr : ', queryStr)
-    //   // history.pushState(
-    //   //   {},
-    //   //   null,
-    //   //   `${this.$route.path}${hash ?? ''}${queryStr}`
-    //   // )
-    // }
   },
   mounted () {
     // console.log('\n-C- IndexPage > mounted > ... ')
@@ -293,7 +267,6 @@ export default {
     //   )
     // }
     this.updateUrl(undefined, false, true)
-
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
