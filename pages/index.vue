@@ -250,34 +250,38 @@ export default {
       return this.scrollMarginTop + this.scrollPositionY
     }
   },
-  // watch: {
-  //   '$route.path' () {
-  //     // const queryLocale = this.$route.query.locale
-  //     // if (queryLocale) {
-  //     //   console.log('-C- IndexPage / queryLocale : ', queryLocale)
-  //     //   this.$store.dispatch('updateLocale', queryLocale)
-  //     // }
-  //     console.log('\n-C- IndexPage / watch > currentRoute > this.$route.path : ', this.$route.path)
-  //     const hash = this.$route.hash
-  //     console.log('-C- IndexPage / watch > currentRoute > hash : ', hash)
-  //     this.updateUrl(hash, false)
-  //     // const query = { ...this.$route.query, locale: this.$store.state.locale }
-  //     // console.log('-C- IndexPage / query : ', query)
-  //     // const queryStr = 
-  //     //   '?' +
-  //     //   Object.keys(query)
-  //     //     .map(key => {
-  //     //       return `${key}=${encodeURIComponent(query[key])}`
-  //     //     })
-  //     //     .join('&')
-  //     // console.log('-C- IndexPage / queryStr : ', queryStr)
-  //     // history.pushState(
-  //     //   {},
-  //     //   null,
-  //     //   `${this.$route.path}${hash ?? ''}${queryStr}`
-  //     // )
-  //   }
-  // },
+  watch: {
+    locale () {
+      const hash = this.$route.hash
+      this.updateUrl(hash, false, true)
+    }
+    // '$route.path' () {
+    //   // const queryLocale = this.$route.query.locale
+    //   // if (queryLocale) {
+    //   //   console.log('-C- IndexPage / queryLocale : ', queryLocale)
+    //   //   this.$store.dispatch('updateLocale', queryLocale)
+    //   // }
+    //   console.log('\n-C- IndexPage / watch > currentRoute > this.$route.path : ', this.$route.path)
+    //   const hash = this.$route.hash
+    //   console.log('-C- IndexPage / watch > currentRoute > hash : ', hash)
+    //   this.updateUrl(hash, false)
+    //   // const query = { ...this.$route.query, locale: this.$store.state.locale }
+    //   // console.log('-C- IndexPage / query : ', query)
+    //   // const queryStr = 
+    //   //   '?' +
+    //   //   Object.keys(query)
+    //   //     .map(key => {
+    //   //       return `${key}=${encodeURIComponent(query[key])}`
+    //   //     })
+    //   //     .join('&')
+    //   // console.log('-C- IndexPage / queryStr : ', queryStr)
+    //   // history.pushState(
+    //   //   {},
+    //   //   null,
+    //   //   `${this.$route.path}${hash ?? ''}${queryStr}`
+    //   // )
+    // }
+  },
   mounted () {
     // console.log('\n-C- IndexPage > mounted > ... ')
     window.addEventListener('scroll', this.handleScroll)
@@ -288,7 +292,7 @@ export default {
     //     2000
     //   )
     // }
-    this.updateUrl(undefined, false)
+    this.updateUrl(undefined, false, true)
 
   },
   destroyed () {
@@ -313,7 +317,7 @@ export default {
       this.updateUrl(anchorId, false)
       this.isAutoScrolling = false
     },
-    updateUrl (anchorId, isAutoScrolling) {
+    updateUrl (anchorId, isAutoScrolling, forceUpdate = false) {
       // console.log('\n-C- IndexPage > updateUrl > this.$route :', this.$route)
       const currentHash = this.$route.hash
       // console.log('\n-C- IndexPage > updateUrl > currentHash :', currentHash)
@@ -341,13 +345,13 @@ export default {
           `${this.$route.path}${hashStr}${currentQuery && queryStr}`
         )
       }
-      // else if (isAutoScrolling) {
-      //   history.pushState(
-      //     {},
-      //     null,
-      //     `${this.$route.path}${hashStr}${currentQuery && queryStr}`
-      //   )
-      // }
+      if (forceUpdate) {
+        history.pushState(
+          {},
+          null,
+          `${this.$route.path}${hashStr}${currentQuery && queryStr}`
+        )
+      }
     },
     handleScroll (event) {
       this.scrollPositionY = Math.round(window.scrollY)
