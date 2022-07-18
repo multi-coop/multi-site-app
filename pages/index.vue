@@ -156,7 +156,7 @@
         a:not(.navbar-link, .navbar-item, .credit-text), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
           color: {{ configPrimaryColor }} !important;
         }
-        a:not(.navbar-link, .navbar-item, .button) {
+        a:not(.navbar-link, .navbar-item, .button, .navbar-mobile-item) {
           text-decoration: underline;
         }
         .floating-menu-item > a, nav.tabs  > ul > li > a {
