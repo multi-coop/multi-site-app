@@ -87,7 +87,8 @@
               :src="item.image"
               />
             <span
-              v-if="!item.image">
+              v-if="!item.image"
+              :class="isCurrentRoute(item) ? 'has-text-weight-bold' : ''">
               {{ $translate('label', item) }}
             </span>
           </div>
