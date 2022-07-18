@@ -59,7 +59,7 @@
     <div 
       v-show="showMobileMenu"
       class="navbar-mobile-menu is-fixed-top is-hidden-desktop has-background-white-ter mt-0 px-6">
-      <div class="navbar-mobile-menu-content columns is-centered pb-4">
+      <div class="navbar-mobile-menu-content columns is-centered py-4">
         <!-- LEFT -->
         <div 
           v-if="navbar.data['buttons-left']"
