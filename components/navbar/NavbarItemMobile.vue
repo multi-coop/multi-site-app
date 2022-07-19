@@ -166,7 +166,7 @@ export default {
       // console.log('-C- NavbarItemMobile > clickMenu > this.isLocaleSwitch :', this.isLocaleSwitch)
       this.$emit('updateMenu', this.itemId)
       if (item.component !== 'dropdownLink' ) {
-        this.$emit('closeMenu', this.isLocaleSwitch || !!item.submenu)
+        this.$emit('updateShowMenu', this.isLocaleSwitch || !!item.submenu)
       }
     },
     isCurrentRoute (item) {

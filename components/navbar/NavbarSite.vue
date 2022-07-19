@@ -73,7 +73,7 @@
                 :item-id="`${idx}-${item.name}`"
                 :active-item="activeItemMobile"
                 @updateMenu="updateMobileMenu"
-                @closeMenu="updateShowMobileMenu"/>
+                @updateShowMenu="updateShowMobileMenu"/>
             </b-menu-list>
           </b-menu>
         </div>
@@ -90,7 +90,7 @@
                 :item-id="`${idx}-${item.name}`"
                 :active-item="activeItemMobile"
                 @updateMenu="updateMobileMenu"
-                @closeMenu="updateShowMobileMenu"/>
+                @updateShowMenu="updateShowMobileMenu"/>
             </b-menu-list>
           </b-menu>
         </div>
