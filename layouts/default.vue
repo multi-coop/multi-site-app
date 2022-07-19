@@ -3,8 +3,9 @@
     class=""
     >
 
-    <!-- navbar -->
-    <NavbarComponent/>
+    <!-- NAVBAR -->
+    <!-- <NavbarComponent/> -->
+    <NavbarSite/>
 
     <!-- menu left -->
     <section class="main-content columns">
@@ -27,7 +28,7 @@
 
     </section>
 
-    <!-- footers -->
+    <!-- FOOTERS -->
     <FooterComponent/>
     <CreditsFooter/>
 
@@ -40,7 +41,8 @@ import { mapState } from 'vuex'
 export default {
   name: 'DefaultLayout',
   components: {
-    NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
+    // NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
+    NavbarSite: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarSite.vue'),
     FooterComponent: () => import(/* webpackChunkName: "FooterComponent" */ '~/components/footer/FooterComponent.vue'),
     CreditsFooter: () => import(/* webpackChunkName: "CreditsFooter" */ '~/components/footer/CreditsFooter.vue')
   },
