@@ -2,16 +2,21 @@
 
   <b-menu-item
     v-if="!item.disabled"
-    :active="isActive"
     class="navbar-mobile-item"
+    :active="isExpanded"
+    :expanded="isExpanded"
     :tag="itemTag"
     :to="isSimpleLink && { path: item.link, query: { locale: locale } }"
     :href="isExtLink && item.link"
     :target="isExtLink && '_blank'"
-    @click="clickMenu(isDropdown || isLocaleSwitch)"
+    @click.native="clickMenu(item)"
     >
 
     <template #label>
+      <!-- DEBUGGING -->
+      <!-- <div>
+        activeItem: <code>{{ activeItem }}</code>
+      </div> -->
       <b-icon
         v-if="item.icon && !item.image"
         class="mr-2"
@@ -53,7 +58,7 @@
           :to="sub.component === 'simpleLink' && { path: sub.link, query: { locale: locale } }"
           :href="sub.component === 'extLink' && sub.link"
           :target="sub.component === 'extLink' && '_blank'"
-          @click="clickMenu(false)"
+          @click.native="clickMenu(sub)"
           @mouseover="hover = `sub-${idx}-${sub.name}`"
           @mouseleave="hover = undefined"
           >
@@ -97,11 +102,12 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'NavbarItemMobile',
   props: [
-    'item'
+    'item',
+    'itemId',
+    'activeItem'
   ],
   data () {
     return {
-      isActive: false,
       hover: undefined
     }
   },
@@ -141,6 +147,9 @@ export default {
     },
     submenuItems () {
       return this.item.submenu.filter(i => !i.separator)
+    },
+    isExpanded () {
+      return this.itemId === this.activeItem
     }
   },
   methods: {
@@ -152,10 +161,12 @@ export default {
       // console.log('-C- NavbarItemMobile > changeLocale > this.$route :', this.$route)
       this.updateLocale(loc)
     },
-    clickMenu (ignore=false) {
-      this.isActive = !this.isActive
-      if (!ignore) {
-        this.$emit('closeMenu')
+    clickMenu (item) {
+      // console.log('\n-C- NavbarItemMobile > clickMenu > item :', item)
+      // console.log('-C- NavbarItemMobile > clickMenu > this.isLocaleSwitch :', this.isLocaleSwitch)
+      this.$emit('updateMenu', this.itemId)
+      if (item.component !== 'dropdownLink' ) {
+        this.$emit('closeMenu', this.isLocaleSwitch || !!item.submenu)
       }
     },
     isCurrentRoute (item) {

@@ -70,7 +70,10 @@
                 v-for="(item, idx) in navbar.data['buttons-left']"
                 :key="`nabar-item-right-${idx}-${item.name}`"
                 :item="item"
-                @closeMenu="showMobileMenu = false"/>
+                :item-id="`${idx}-${item.name}`"
+                :active-item="activeItemMobile"
+                @updateMenu="updateMobileMenu"
+                @closeMenu="updateShowMobileMenu"/>
             </b-menu-list>
           </b-menu>
         </div>
@@ -84,7 +87,10 @@
                 v-for="(item, idx) in navbar.data['buttons-right']"
                 :key="`nabar-item-right-${idx}-${item.name}`"
                 :item="item"
-                @closeMenu="showMobileMenu = false"/>
+                :item-id="`${idx}-${item.name}`"
+                :active-item="activeItemMobile"
+                @updateMenu="updateMobileMenu"
+                @closeMenu="updateShowMobileMenu"/>
             </b-menu-list>
           </b-menu>
         </div>
@@ -106,7 +112,8 @@ export default {
   },
   data () {
     return {
-      showMobileMenu: false
+      showMobileMenu: false,
+      activeItemMobile: undefined
     }
   },
   computed: {
@@ -124,6 +131,14 @@ export default {
     getLink (link) {
       const srcLink = link && link.startsWith('./') ? `${this.rawRoot}${link}` : link
       return srcLink
+    },
+    updateMobileMenu (ev) {
+      // console.log('\n-C- NavbarSite > updateMobileMenu > ev :', ev)
+      this.activeItemMobile = ev
+    },
+    updateShowMobileMenu (ev) {
+      // console.log('\n-C- NavbarSite > updateShowMobileMenu > ev :', ev)
+      this.showMobileMenu = ev
     }
   }
 }
@@ -131,7 +146,8 @@ export default {
 
 <style scoped>
   .navbar-mobile-menu {
-    box-shadow: 0 15px 10px 2px white;
+    /* box-shadow: 0 15px 10px 2px lightgrey; */
+    box-shadow: 0 8px 16px hsla(0,0%,4%,.2);
     max-height: 75%;
     overflow: hidden;
   }
@@ -140,7 +156,7 @@ export default {
     left: 0;
     position: fixed;
     right: 0;
-    z-index: 30;
+    z-index: 90;
   }
   .navbar-mobile-menu-content {
     overflow-y: auto;
