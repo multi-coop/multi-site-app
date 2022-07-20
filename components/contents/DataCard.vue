@@ -233,23 +233,23 @@
       scroll="keep"
       >
       <DataCardModal
-        :modalReady="modalReady"
-        :sectionIndex="sectionIndex"
+        :modal-ready="modalReady"
+        :section-index="sectionIndex"
         :index="index"
-        :sourceFile="convertUrlPublic(file)"
-        :itemData="data"
-        :itemContent="content"
-        :dataTexts="dataTexts"
-        :dataLinks="dataLinks"
+        :source-file="convertUrlPublic(file)"
+        :item-data="data"
+        :item-content="content"
+        :data-texts="dataTexts"
+        :data-links="dataLinks"
         :options="options"
-        :itemDict="itemDict"
-        :titleKey="titleKey"
-        :imagesKey="imagesKey"
-        :tagsKeys="tagsKeys"
-        :imagesRatio="imagesRatio"
-        :imagesList="imagesList"
-        :imagesRounded="imagesRounded"
-        :fullScreen="modalConfig['full-screen']"
+        :item-dict="itemDict"
+        :title-key="titleKey"
+        :images-key="imagesKey"
+        :tags-keys="tagsKeys"
+        :images-ratio="imagesRatio"
+        :images-list="imagesList"
+        :images-rounded="imagesRounded"
+        :full-screen="modalConfig['full-screen']"
         :debug="false"
         @close="openModal(true); showMore = false"
       />
@@ -313,6 +313,7 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
+      locale: (state) => state.locale
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -488,7 +489,10 @@ export default {
       // console.log('\n-C- DataCard > openModal > reset :', reset)
       // console.log('-C- DataCard > openModal > this.file :', this.file)
       // console.log('-C- DataCard > openModal > this.$route :', this.$route)
-      const queryItem = reset ? {} : { item: this.file }
+      const queryItem = { locale: this.locale }
+      if (!reset) {
+        queryItem.item = this.file
+      }
       this.$router.push({path: this.$route.path, query: queryItem})
       // const newPath = `${this.$route.path}${query}`
       // console.log('-C- DataCard > openModal > newPath :', newPath)
