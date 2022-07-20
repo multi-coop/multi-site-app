@@ -371,7 +371,7 @@ export default {
       const box = this.getElementBoundingBox(anchorId)
       if (box.isActive) {
         this.activeSection = anchorId
-        this.updateUrl(anchorId, this.isAutoScrolling)
+        // this.updateUrl(anchorId, this.isAutoScrolling)
       }
       return box.isActive
     }
