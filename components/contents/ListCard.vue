@@ -138,6 +138,7 @@
             >
             <a 
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToExtLink', 'Content')"
               >
               <b-icon
                 icon="link-variant"
@@ -193,10 +194,13 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'ListCard',
   components: {
   },
+  mixins: [matomo],
   props: [
     'sectionIndex',
     'file',

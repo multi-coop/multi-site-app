@@ -265,11 +265,14 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'DataCard',
   components: {
     DataCardModal: () => import(/* webpackChunkName: "DataCardModal" */ '~/components/contents/DataCardModal.vue'),
   },
+  mixins: [matomo],
   props: [
     'sectionIndex',
     'file',
@@ -501,6 +504,7 @@ export default {
       if (this.options['card-modal']) {
         this.showModal = forceClose ? false : !this.showModal
       }
+      this.trackEvent(this.data[this.titleKey], 'OpenModal', 'Content')
     }
 
   }
