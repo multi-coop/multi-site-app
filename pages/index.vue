@@ -180,6 +180,8 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 import Card from '~/components/Card'
 import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
 
@@ -190,6 +192,7 @@ export default {
     ContentsSkeleton,
     // ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
   },
+  mixins: [matomo],
   data () {
     return {
       sidebarOpen: true,
@@ -255,6 +258,9 @@ export default {
       const hash = this.$route.hash
       // console.log('\n-C- IndexPage > watch > locale > hash :', hash)
       this.updateUrl(hash, false, true)
+    },
+    currentRoute (next) {
+      this.trackEvent(next.url, 'ChangePage', 'Site')
     }
   },
   mounted () {
