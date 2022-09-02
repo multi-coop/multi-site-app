@@ -30,6 +30,7 @@
             :href="link.url"
             target="_blank"
             class="px-2"
+            @click="trackEvent(link.url, 'GoToExtPage', 'Footer'); trackLink(link.url)"
             >
             <b-icon
               v-if="link.icon"
@@ -56,7 +57,7 @@
                 v-else
                 :href="link.url"
                 target="_blank"
-                @click="trackEvent(link.url, 'GoToExtPage', 'Footer')"
+                @click="trackEvent(link.url, 'GoToExtPage', 'Footer'); trackLink(link.url)"
                 >
                 {{ $translate('label', link) }}
               </a>

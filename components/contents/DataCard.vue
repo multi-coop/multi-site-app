@@ -214,6 +214,7 @@
           :key="social"
           :href="`${ social === 'email' ? 'mailto:' : '' }${ data[social] }`" 
           class="card-footer-item"
+          @click="trackEvent(social, 'CardFooterExtLink', 'Content')"
           >
           <b-icon :icon="social"/>
         </a>

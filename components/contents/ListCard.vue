@@ -67,6 +67,7 @@
             >
             <a 
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToPage', 'Content')"
               >
               <figure class="image is-justify-content-center">
                 <img
@@ -88,6 +89,7 @@
             <a
               class="is-size-5 has-text-weight-bold"
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToPage', 'Content')"
               >
               {{ data[titleKey] }}
             </a>

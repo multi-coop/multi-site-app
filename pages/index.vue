@@ -28,7 +28,7 @@
               :key="`section-${idx + 1}-${section.name}`"
               :active="isSectionActive(`#section-${idx + 1}-${section.name}`)"
               :class="`floating-menu-item pb-0 ${section.options.depth ? 'ml-2' : ''}`"
-              @click="scrollTo(`#section-${idx + 1}-${section.name}`)">
+              @click="scrollTo(`#section-${idx + 1}-${section.name}`); trackEvent(section.name, 'ScrollTo', 'Content')">
               <template #label>
                 <span
                   :class="`is-size-7 ${section.options.depth ? '' : 'has-text-weight-bold'}`">

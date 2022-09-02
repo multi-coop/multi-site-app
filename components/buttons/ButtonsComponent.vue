@@ -55,7 +55,7 @@
             type="button"
             :class="`button is-fullwidth ${btn.rounded ? 'is-rounded' : ''} ${btn.outlined ? 'is-outlined' : ''}  is-${ btn.color || 'primary' }`" 
             :href="btn.link"
-            @click="trackEvent(btn.link, 'BtnToExtPage', 'Content')"
+            @click="trackEvent(btn.link, 'BtnToExtPage', 'Content'); trackLink(btn.link)"
             >
             <b-icon
               :icon="btn['icon-left']"

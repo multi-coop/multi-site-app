@@ -55,7 +55,7 @@
           tag="a"
           :href="convertPublicUrl"
           target="_blank"
-          @click="trackEvent(convertPublicUrl, 'ContribBtnToExtPage', 'Content')">
+          @click="trackEvent(convertPublicUrl, 'ContribBtnToExtPage', 'Content'); trackLink(convertPublicUrl)">
           <b-icon
             icon="git"
             type="is-grey-lighter"

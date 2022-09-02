@@ -9,7 +9,7 @@
     :to="isSimpleLink && { path: item.link, query: { locale: locale } }"
     :href="isExtLink && item.link"
     :target="isExtLink && '_blank'"
-    @click.native="clickMenu(item)"
+    @click.native="clickMenu(item); trackEvent(isExpanded, 'clickBurger', 'Navbar')"
     >
 
     <template #label>
@@ -58,7 +58,7 @@
           :to="sub.component === 'simpleLink' && { path: sub.link, query: { locale: locale } }"
           :href="sub.component === 'extLink' && sub.link"
           :target="sub.component === 'extLink' && '_blank'"
-          @click.native="clickMenu(sub)"
+          @click.native="clickMenu(sub); trackEvent(sub.link, sub.component === 'extLink' ? 'GoToExtPage' : 'GoToPage', 'Navbar')"
           @mouseover="hover = `sub-${idx}-${sub.name}`"
           @mouseleave="hover = undefined"
           >
@@ -78,7 +78,7 @@
           :class="`has-text-left my-0 py-0 px-1 submenu ${loc === locale ? 'has-text-weight-bold' : ''}`"
           type="is-text"
           tag="a"
-          @click="changeLocale(loc)"
+          @click="changeLocale(loc); trackEvent(loc, 'changeLocale', 'Navbar')"
           @mouseover="hover = loc"
           @mouseleave="hover = undefined"
           >

@@ -55,15 +55,15 @@ export const matomoScript = (matomoServer, siteId, domain, hasTrackAllOutlinks =
 export const setMatomoScript = ( appTitle, matomoServer, matomoSiteId, hasTrackAllOutlinks ) => {
   const scriptUniqueId = 'multi-site-app-matomo-script'
 
-  console.log('\nU > setMatomoScript > ...')
+  // console.log('\nU > setMatomoScript > ...')
 
-  console.log('U > setMatomoScript > matomoServer : ', matomoServer)
-  console.log('U > setMatomoScript > matomoSiteId : ', matomoSiteId)
-  console.log('U > setMatomoScript > hasTrackAllOutlinks : ', hasTrackAllOutlinks)
+  // console.log('U > setMatomoScript > matomoServer : ', matomoServer)
+  // console.log('U > setMatomoScript > matomoSiteId : ', matomoSiteId)
+  // console.log('U > setMatomoScript > hasTrackAllOutlinks : ', hasTrackAllOutlinks)
 
   let domain = document.domain === 'localhost' ? 'localhost (dev)' : document.domain
   domain = `${appTitle} - ${domain}`
-  console.log('U > setMatomoScript > domain : ', domain)
+  // console.log('U > setMatomoScript > domain : ', domain)
 
   let matomoScriptElem = document.getElementById(scriptUniqueId)
 

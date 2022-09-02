@@ -62,6 +62,7 @@
                 <a 
                   :href="dataTxtLi.link"
                   target="_blank"
+                  @click="trackEvent(dataTxtLi.link, 'DataTextFileExtLink', 'Content')"
                   >
                   {{ dataTxtLi[locale] }}
                 </a>

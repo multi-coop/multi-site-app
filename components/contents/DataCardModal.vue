@@ -125,9 +125,9 @@
                     class=""
                     >
                     <DataTextsMd
-                      :dataText="dataText"
-                      :itemDict="itemDict"
-                      :sectionIndex="sectionIndex"
+                      :data-text="dataText"
+                      :item-dict="itemDict"
+                      :section-index="sectionIndex"
                       :index="index"
                       :idx="idx"
                     />
@@ -140,6 +140,7 @@
                     tag="a"
                     :href="sourceFile"
                     target="_blank"
+                    @click="trackEvent(sourceFile, 'CardSourceFileExtLink', 'Content')"
                     >
                     {{ $translate('sourceFile', dict) }}
                   </b-button>
@@ -177,9 +178,9 @@
 
               <DataTextsMd
                 v-if="defaultDataText"
-                :dataText="defaultDataText"
-                :itemDict="itemDict"
-                :sectionIndex="sectionIndex"
+                :data-text="defaultDataText"
+                :item-dict="itemDict"
+                :section-index="sectionIndex"
                 :index="index"
                 :idx="'dft'"
               />
@@ -209,7 +210,7 @@
                     class="column is-8 is-10-tablet is-full-mobile content"
                     >
                     <DataGallery
-                      :imagesListUrls="imagesListUrls"
+                      :images-list-urls="imagesListUrls"
                     />
                   </div>
                 </div>
@@ -228,9 +229,9 @@
                     :key="`${sectionIndex}-${index}-data-text-${idx}-${dataText.key}`"
                     >
                     <DataTextsMd
-                      :dataText="dataText"
-                      :itemDict="itemDict"
-                      :sectionIndex="sectionIndex"
+                      :data-text="dataText"
+                      :item-dict="itemDict"
+                      :section-index="sectionIndex"
                       :index="index"
                       :idx="idx"
                     />
@@ -251,12 +252,12 @@
                     :key="`${sectionIndex}-${index}-data-text-${idx}-${dataLink.key}`"
                     >
                     <DataTextsMd
-                      :dataText="dataLink"
-                      :itemDict="itemDict"
-                      :sectionIndex="sectionIndex"
+                      :data-text="dataLink"
+                      :item-dict="itemDict"
+                      :section-index="sectionIndex"
                       :index="index"
                       :idx="idx"
-                      :asLink="true"
+                      :as-link="true"
                     />
                   </div>
                 </div>

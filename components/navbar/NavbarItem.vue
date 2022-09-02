@@ -11,7 +11,7 @@
         :to="{ path: item.link }"
         tag="router-link"
         class="is-size-7-touch navbar-multi"
-        @click="trackEvent(item.link, 'GoToPage', 'Navbar')"
+        @click.native="trackEvent(item.link, 'GoToPage', 'Navbar')"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -45,7 +45,7 @@
         target="_blank"
         tag="a"
         class="is-size-7-touch navbar-multi"
-        @click="trackEvent(item.link, 'GoToExtPage', 'Navbar')"
+        @click="trackEvent(item.link, 'GoToExtPage', 'Navbar'); trackLink(item.link)"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -104,7 +104,7 @@
           :tag="subItem.separator ? 'hr' : 'router-link'"
           :class="`${subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'} ${isCurrentRoute(subItem) ? 'has-text-weight-bold' : ''}`"
           :active="!subItem.separator && subItem.link === $route.path"
-          @click="trackEvent(subItem.link, 'GoToPage', 'Navbar')"
+          @click.native="trackEvent(subItem.link, 'GoToPage', 'Navbar')"
           >
           <span
             v-if="!subItem.separator"

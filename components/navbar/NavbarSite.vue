@@ -8,7 +8,9 @@
     <div class="navbar-brand">
       <router-link
         class="navbar-item"
-        :to="{ path: '/?locale=' + locale }">
+        :to="{ path: '/?locale=' + locale }"
+        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')"
+        >
         <img
           :src="getLink(navbar.data['logo-left'])"
           width="auto"
@@ -22,7 +24,7 @@
         aria-label="menu"
         aria-expanded="false"
         data-target="multiSiteAppNavbar"
-        @click="showMobileMenu = !showMobileMenu">
+        @click="showMobileMenu = !showMobileMenu; trackEvent(showMobileMenu, 'ToggleBurger', 'Navbar')">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -104,12 +106,15 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarSite',
   components: {
     NavbarItem: () => import(/* webpackChunkName: "NavbarItem" */ '~/components/navbar/NavbarItem.vue'),
     NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue'),
   },
+  mixins: [matomo],
   data () {
     return {
       showMobileMenu: false,

@@ -13,7 +13,7 @@
           target="_blank"
           :href="gitInfos.gitRepoUrl"
           class="credit-text"
-          @click="trackEvent(gitInfos.gitRepoUrl, 'GoToExtPage', 'Credits')"
+          @click="trackEvent(gitInfos.gitRepoUrl, 'GoToExtPage', 'Credits'); trackLink(gitInfos.gitRepoUrl)"
           >
           {{ $translate('sourceContents', dict) }}
         </a>
@@ -22,7 +22,7 @@
           target="_blank"
           :href="source"
           class="credit-text"
-          @click="trackEvent(source, 'GoToExtPage', 'Credits')"
+          @click="trackEvent(source, 'GoToExtPage', 'Credits'); trackLink(source)"
           >
           {{ $translate('sourceCode', dict) }}
         </a>
@@ -33,7 +33,7 @@
           target="_blank"
           :href="multiUrl"
           class="has-text-weight-semibold credit-text"
-          @click="trackEvent(multiUrl, 'GoToExtPage', 'Credits')"
+          @click="trackEvent(multiUrl, 'GoToExtPage', 'Credits'); trackLink(multiUrl)"
           >
           Multi
         </a>
