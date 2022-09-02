@@ -62,6 +62,7 @@ export default {
     prefetchLinks: false,
     middleware: [
       'getConfig',
+      'setMatomo',
       'buildNavbar',
       'buildFooter',
       'buildRoutes',

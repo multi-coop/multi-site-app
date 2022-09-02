@@ -46,6 +46,7 @@
             :outlined="btn.outlined"
             tag="router-link"
             expanded
+            @click="trackEvent(btn.link, 'BtnToIntPage', 'Content')"
             >
             {{ $translate('label', btn) }}
           </b-button>
@@ -54,6 +55,7 @@
             type="button"
             :class="`button is-fullwidth ${btn.rounded ? 'is-rounded' : ''} ${btn.outlined ? 'is-outlined' : ''}  is-${ btn.color || 'primary' }`" 
             :href="btn.link"
+            @click="trackEvent(btn.link, 'BtnToExtPage', 'Content')"
             >
             <b-icon
               :icon="btn['icon-left']"
@@ -75,8 +77,11 @@
 <script>
 import { mapState } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'ButtonsComponent',
+  mixins: [matomo],
   props: [
     'sectionIndex',
     'sectionOptions',

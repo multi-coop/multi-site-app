@@ -48,6 +48,7 @@
               <nuxt-link 
                 v-if="link.url.startsWith('/')"
                 :to="{ path: link.url }"
+                @click="trackEvent(link.url, 'GoToPage', 'Footer')"
                 >
                 {{ $translate('label', link) }}
               </nuxt-link>
@@ -55,6 +56,7 @@
                 v-else
                 :href="link.url"
                 target="_blank"
+                @click="trackEvent(link.url, 'GoToExtPage', 'Footer')"
                 >
                 {{ $translate('label', link) }}
               </a>
@@ -72,8 +74,11 @@
 <script>
 import { mapState } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'FooterComponent',
+  mixins: [matomo],
   computed: {
     ...mapState({
       log: (state) => state.log,

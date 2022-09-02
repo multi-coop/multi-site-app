@@ -11,6 +11,7 @@
         :to="{ path: item.link }"
         tag="router-link"
         class="is-size-7-touch navbar-multi"
+        @click="trackEvent(item.link, 'GoToPage', 'Navbar')"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -44,6 +45,7 @@
         target="_blank"
         tag="a"
         class="is-size-7-touch navbar-multi"
+        @click="trackEvent(item.link, 'GoToExtPage', 'Navbar')"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -102,6 +104,7 @@
           :tag="subItem.separator ? 'hr' : 'router-link'"
           :class="`${subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'} ${isCurrentRoute(subItem) ? 'has-text-weight-bold' : ''}`"
           :active="!subItem.separator && subItem.link === $route.path"
+          @click="trackEvent(subItem.link, 'GoToPage', 'Navbar')"
           >
           <span
             v-if="!subItem.separator"
@@ -133,7 +136,7 @@
           :value="loc === locale"
           aria-role="listitem"
           :class="`is-size-7-touch ${loc === locale ? 'has-text-weight-bold' : ''}`"
-          @click="changeLocale(loc)"
+          @click="changeLocale(loc); trackEvent(loc, 'changeLocale', 'Navbar')"
           >
           {{ localesDict[loc] }}
         </b-navbar-item>
@@ -150,8 +153,11 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarItem',
+  mixins: [matomo],
   props: [
     'item',
     'isRight',

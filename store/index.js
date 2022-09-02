@@ -9,6 +9,13 @@ export const state = () => ({
   appRunMode: process.env.MODE_APP,
   log: process.env.LOG,
 
+  // MATOMO ANALYTICS
+  isMatomoSet: false,
+  isMatomo: false,
+  matomoServer: undefined,
+  matomoSiteId: undefined,
+  matomoTrackOutlinks: false,
+
   // LOCALES FOR i18n
   locale: undefined,
   locales: undefined,
@@ -70,6 +77,24 @@ export const mutations = {
   setConfig (state, { space, obj }) {
     state[space] = obj
   },
+  setMatomo (state, matomoConfig) {
+    console.log('\n-S- setMatomo > matomoConfig : ', matomoConfig)
+    const hasMatomoConfig = !!matomoConfig
+    console.log('-S- setMatomo > hasMatomoConfig : ', hasMatomoConfig)
+    const isMatomoActivated = hasMatomoConfig && matomoConfig.matomo_active
+    console.log('-S- setMatomo > isMatomoActivated : ', isMatomoActivated)
+
+    state.isMatomo = isMatomoActivated
+    state.matomoServer = isMatomoActivated && matomoConfig.matomo_server
+    state.matomoSiteId = isMatomoActivated && matomoConfig.matomo_site_id
+    state.matomoTrackOutlinks = isMatomoActivated && matomoConfig.matomo_track_outlinks
+
+    console.log('-S- setMatomo > state.matomoServer  : ', state.matomoServer )
+    console.log('-S- setMatomo > state.matomoSiteId  : ', state.matomoSiteId )
+    console.log('-S- setMatomo > state.matomoTrackOutlinks  : ', state.matomoTrackOutlinks )
+
+    state.isMatomoSet = true
+  }
 }
 
 export const actions = {
@@ -108,4 +133,8 @@ export const actions = {
   async updateCurrentRoute ({commit}, route) {
     return await commit('setConfig', {space: 'currentRoute', obj: route})
   },
+
+  setMatomoConfig ({commit}, matomoConfig) {
+    commit('setMatomo', matomoConfig)
+  }
 }

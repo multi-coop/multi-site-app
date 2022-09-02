@@ -54,7 +54,8 @@
           type="is-text"
           tag="a"
           :href="convertPublicUrl"
-          target="_blank">
+          target="_blank"
+          @click="trackEvent(convertPublicUrl, 'ContribBtnToExtPage', 'Content')">
           <b-icon
             icon="git"
             type="is-grey-lighter"
@@ -127,6 +128,8 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'ContentsSkeleton',
   components: {
@@ -138,6 +141,7 @@ export default {
     WidgetComponent: () => import(/* webpackChunkName: "WidgetComponent" */ '~/components/advanced/WidgetComponent.vue'),
     HtmlComponent: () => import(/* webpackChunkName: "HtmlComponent" */ '~/components/advanced/HtmlComponent.vue'),
   },
+  mixins: [matomo],
   props: [
     'section',
     'sectionIndex',
