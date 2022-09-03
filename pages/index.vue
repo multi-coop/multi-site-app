@@ -204,7 +204,8 @@ export default {
       scrollMarginTop: 46,
       interMarginY: 11,
       defaultKeywords: [
-        'multi', 'coop', 'open',
+        'multi', 'coop', 'multi.coop',
+        'open', 'open source',
         'multi-site-app'
       ]
     }
@@ -213,7 +214,8 @@ export default {
     const siteTitle = this.config.data.app_name
     const routeName = this.routeName
     const pageKeywords = this.routeKeywords
-    const pageDescription = this.routeDescription ?? pageKeywords
+    const pageDescription = this.routeDescription ?? `${siteTitle} | ${routeName}`
+
     // cf : https://developers.google.com/search/docs/advanced/crawling/special-tags?hl=fr
     return {
       title: `${siteTitle} | ${ routeName }`,
@@ -226,19 +228,37 @@ export default {
       meta: [
         {
           name: 'description',
-          hid: 'description',
+          // hid: 'description',
           vmid: 'description',
           content: pageDescription.slice(0, 119)
+        },
+        {
+          name: 'description',
+          // hid: 'og:description',
+          vmid: 'description',
+          content: pageKeywords
+        },
+        {
+          name: 'description',
+          // hid: 'og:description',
+          vmid: 'description',
+          content: this.appKeywords
         },
         {
           name: 'keywords',
           // hid: 'keywords',
           content: pageKeywords
+        },
+        {
+          name: 'keywords',
+          // hid: 'keywords',
+          content: this.appKeywords
         }
       ]
     }
   },
   // metaInfo() {
+  //   // metaInfo is not working properly...
   //   return {
   //     title: this.config && this.config.data.app_name,
   //     titleTemplate: `%s | ${ this.getSectionName(this.currentRoute) }`,
@@ -305,9 +325,14 @@ export default {
       const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
       const keywords = [
         ...routeKeywords,
-        ...siteKeywords,
-        this.config.data.app_name,
-        this.appTitle,
+        ...siteKeywords
+        // this.config.data.app_name,
+        // this.appTitle,
+      ]
+      return keywords.join(', ')
+    },
+    appKeywords () {
+      const keywords = [
         ...this.defaultKeywords
       ]
       return keywords.join(', ')
