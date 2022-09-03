@@ -204,18 +204,19 @@ export default {
       scrollMarginTop: 46,
       interMarginY: 11,
       defaultKeywords: [
-        'multi', 'multi.coop', 'cooperative', 'open source',
+        'multi', 'coop', 'open',
         'multi-site-app'
       ]
     }
   },
   head () { 
     const siteTitle = this.config.data.app_name
-    const sectionName = this.routeName
-    const pageDescription = this.routeDescription
-    const pageTags = this.routeKeywords
+    const routeName = this.routeName
+    const pageKeywords = this.routeKeywords
+    const pageDescription = this.routeDescription ?? pageKeywords
+    // cf : https://developers.google.com/search/docs/advanced/crawling/special-tags?hl=fr
     return {
-      title: `${siteTitle}${this.currentRoute.name ? ' | ' + sectionName : ''}`,
+      title: `${siteTitle} | ${ routeName }`,
       htmlAttrs: {
         lang: `${ this.locale }-${ this.locale.toUpperCase() }`
       },
@@ -227,12 +228,12 @@ export default {
           name: 'description',
           hid: 'description',
           vmid: 'description',
-          content: `multi-site-app | ${siteTitle} | ${pageDescription} | ${pageTags.join(', ')}`
+          content: pageDescription.slice(0, 119)
         },
         {
           name: 'keywords',
           // hid: 'keywords',
-          content: pageTags.join(', ')
+          content: pageKeywords
         }
       ]
     }
@@ -290,12 +291,12 @@ export default {
     },
     routeName () {
       const route = this.currentRoute
-      const routeName = (route.options && route.options.description && route.options.description[this.locale]) || route.name
+      const routeName = (route.options && route.options.name && route.options.name[this.locale]) || route.name
       return routeName
     },
     routeDescription () {
       const route = this.currentRoute
-      const routeDescription = (route.options && route.options.description && route.options.description[this.locale]) || route.name
+      const routeDescription = route.options && route.options.description && route.options.description[this.locale]
       return routeDescription
     },
     routeKeywords () {
@@ -303,13 +304,13 @@ export default {
       const siteKeywords = this.config.data.seo_keywords
       const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
       const keywords = [
-        ...this.defaultKeywords,
-        this.appTitle,
-        this.config.data.app_name,
+        ...routeKeywords,
         ...siteKeywords,
-        ...routeKeywords
+        this.config.data.app_name,
+        this.appTitle,
+        ...this.defaultKeywords
       ]
-      return keywords
+      return keywords.join(', ')
     }
   },
   watch: {
