@@ -78,20 +78,20 @@ export const mutations = {
     state[space] = obj
   },
   setMatomo (state, matomoConfig) {
-    console.log('\n-S- setMatomo > matomoConfig : ', matomoConfig)
+    // console.log('\n-S- setMatomo > matomoConfig : ', matomoConfig)
     const hasMatomoConfig = !!matomoConfig
-    console.log('-S- setMatomo > hasMatomoConfig : ', hasMatomoConfig)
+    // console.log('-S- setMatomo > hasMatomoConfig : ', hasMatomoConfig)
     const isMatomoActivated = hasMatomoConfig && matomoConfig.matomo_active
-    console.log('-S- setMatomo > isMatomoActivated : ', isMatomoActivated)
+    // console.log('-S- setMatomo > isMatomoActivated : ', isMatomoActivated)
 
     state.isMatomo = isMatomoActivated
     state.matomoServer = isMatomoActivated && matomoConfig.matomo_server
     state.matomoSiteId = isMatomoActivated && matomoConfig.matomo_site_id
     state.matomoTrackOutlinks = isMatomoActivated && matomoConfig.matomo_track_outlinks
 
-    console.log('-S- setMatomo > state.matomoServer  : ', state.matomoServer )
-    console.log('-S- setMatomo > state.matomoSiteId  : ', state.matomoSiteId )
-    console.log('-S- setMatomo > state.matomoTrackOutlinks  : ', state.matomoTrackOutlinks )
+    // console.log('-S- setMatomo > state.matomoServer  : ', state.matomoServer )
+    // console.log('-S- setMatomo > state.matomoSiteId  : ', state.matomoSiteId )
+    // console.log('-S- setMatomo > state.matomoTrackOutlinks  : ', state.matomoTrackOutlinks )
 
     state.isMatomoSet = true
   }

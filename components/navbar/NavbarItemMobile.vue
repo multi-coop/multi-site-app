@@ -101,11 +101,25 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'NavbarItemMobile',
-  props: [
-    'item',
-    'itemId',
-    'activeItem'
-  ],
+  // props: [
+  //   'item',
+  //   'itemId',
+  //   'activeItem'
+  // ],
+  props: {
+    item: {
+      default: undefined,
+      type: Object
+    },
+    itemId: {
+      default: null,
+      type: String
+    },
+    activeItem: {
+      default: undefined,
+      type: String
+    }
+  },
   data () {
     return {
       hover: undefined

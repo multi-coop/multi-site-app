@@ -62,9 +62,9 @@ export default {
   mounted () {
     // console.log('C > DefaultLayout > mounted > this.config : ', this.config)
     if (this.isMatomo) {
-      console.log('\nC > DefaultLayout > mounted > this.matomoServer : ', this.matomoServer)
-      console.log('C > DefaultLayout > mounted > this.matomoSiteId : ', this.matomoSiteId)
-      console.log('C > DefaultLayout > mounted > this.matomoTrackOutlinks : ', this.matomoTrackOutlinks)
+      // console.log('\nC > DefaultLayout > mounted > this.matomoServer : ', this.matomoServer)
+      // console.log('C > DefaultLayout > mounted > this.matomoSiteId : ', this.matomoSiteId)
+      // console.log('C > DefaultLayout > mounted > this.matomoTrackOutlinks : ', this.matomoTrackOutlinks)
       setMatomoScript( this.appTitle, this.matomoServer, this.matomoSiteId, this.matomoTrackOutlinks)
     }
   }

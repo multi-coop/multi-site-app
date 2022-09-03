@@ -158,19 +158,33 @@ import matomo from '~/mixins/matomo'
 export default {
   name: 'NavbarItem',
   mixins: [matomo],
-  props: [
-    'item',
-    'isRight',
-    'isMobile'
-  ],
+  // props: [
+  //   'item',
+  //   'isRight',
+  //   'isMobile'
+  // ],
+  props: {
+    item: {
+      default: undefined,
+      type: Object
+    },
+    isRight: {
+      default: false,
+      type: Boolean
+    },
+    isMobile: {
+      default: false,
+      type: Boolean
+    }
+  },
   computed: {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
       locales: (state) => state.locales,
       localesDict: (state) => state.localesDict,
-      navbar: (state) =>  state.navbar,
-    }),
+      navbar: (state) =>  state.navbar
+    })
   },
   methods: {
     ...mapActions({

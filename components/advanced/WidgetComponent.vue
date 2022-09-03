@@ -66,11 +66,29 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'ButtonsComponent',
-  props: [
-    'sectionIndex',
-    'sectionOptions',
-    'debug'
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'sectionOptions',
+  //   'debug'
+  // ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    // sectionData: {
+    //   default: undefined,
+    //   type: Object
+    // },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data () {
     return {
       // tagScript: undefined,
@@ -82,6 +100,11 @@ export default {
       script: [],
       style: []
     }
+  },
+  computed: {
+    ...mapState({
+      log: (state) => state.log,
+    }),
   },
   beforeMount () {
     
@@ -115,12 +138,7 @@ export default {
     //   // this.tagCss = document.head.appendChild(tagCss)
     // }
 
-  },
-  computed: {
-    ...mapState({
-      log: (state) => state.log,
-    }),
-  },
+  }
   // beforeDestroy () {
   //   document.head.removeChild(this.tagScript)
   //   document.head.removeChild(this.tagCss)

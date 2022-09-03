@@ -86,9 +86,9 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      gitInfos: (state) => state.gitInfos,
-    }),
-  },
+      gitInfos: (state) => state.gitInfos
+    })
+  }
 }
 </script>
 

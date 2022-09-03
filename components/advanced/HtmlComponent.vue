@@ -91,24 +91,35 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'HtmlComponent',
-  props: [
-    'sectionIndex',
-    'sectionData',
-    'sectionOptions',
-    'debug'
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'sectionData',
+  //   'sectionOptions',
+  //   'debug'
+  // ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    sectionData: {
+      default: undefined,
+      type: Object
+    },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data() {
     return {
       html: '',
       scriptsSrcs: [],
       css: []
-    }
-  },
-  watch: {
-    sectionData (next) {
-      if (next) {
-        this.parseContent(next)
-      }
     }
   },
   computed: {
@@ -139,6 +150,13 @@ export default {
       const browserClient = navigator && navigator.userAgent
       // console.log('\n-C- HtmlComponent > getBrowser > browserClient :', browserClient)
       return browserClient || 'unknown'
+    }
+  },
+  watch: {
+    sectionData (next) {
+      if (next) {
+        this.parseContent(next)
+      }
     }
   },
   methods: {

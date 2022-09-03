@@ -199,10 +199,20 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'NavbarItems',
-  props: [
-    'items',
-    'isRight'
-  ],
+  // props: [
+  //   'items',
+  //   'isRight'
+  // ],
+  props: {
+    items: {
+      default: null,
+      type: Array
+    },
+    isRight: {
+      default: false,
+      type: Boolean
+    }
+  },
   computed: {
     ...mapState({
       log: (state) => state.log,

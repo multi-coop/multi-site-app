@@ -112,7 +112,7 @@ export default {
   name: 'NavbarSite',
   components: {
     NavbarItem: () => import(/* webpackChunkName: "NavbarItem" */ '~/components/navbar/NavbarItem.vue'),
-    NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue'),
+    NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue')
   },
   mixins: [matomo],
   data () {
@@ -126,10 +126,10 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       navbar: (state) =>  state.navbar,
-      gitInfos: (state) =>  state.gitInfos,
+      gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
-      rawRoot: 'getGitRawRoot',
+      rawRoot: 'getGitRawRoot'
     })
   },
   methods: {

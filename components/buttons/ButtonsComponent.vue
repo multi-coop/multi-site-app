@@ -82,11 +82,29 @@ import matomo from '~/mixins/matomo'
 export default {
   name: 'ButtonsComponent',
   mixins: [matomo],
-  props: [
-    'sectionIndex',
-    'sectionOptions',
-    'debug'
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'sectionOptions',
+  //   'debug'
+  // ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    // sectionData: {
+    //   default: undefined,
+    //   type: Object
+    // },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data() {
     return {
     }

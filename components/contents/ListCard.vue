@@ -203,16 +203,50 @@ export default {
   components: {
   },
   mixins: [matomo],
-  props: [
-    'sectionIndex',
-    'file',
-    'options',
-    'itemDict',
-    'colSize',
-    'index',
-    'preOpenItem',
-    'debug',
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'file',
+  //   'options',
+  //   'itemDict',
+  //   'colSize',
+  //   'index',
+  //   'preOpenItem',
+  //   'debug',
+  // ],
+  props: {
+    sectionIndex: {
+      default: undefined,
+      type: Number
+    },
+    file: {
+      default: undefined,
+      type: String
+    },
+    options: {
+      default: undefined,
+      type: Object
+    },
+    itemDict: {
+      default: undefined,
+      type: Object
+    },
+    colSize: {
+      default: null,
+      type: String
+    },
+    index: {
+      default: null,
+      type: Number
+    },
+    preOpenItem: {
+      default: null,
+      type: Object
+    },
+    debug: {
+      default: false,
+      type: Boolean
+    },
+  },
   data() {
     return {
       // images: undefined,

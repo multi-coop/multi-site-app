@@ -182,15 +182,16 @@ import { mapState, mapGetters } from 'vuex'
 
 import matomo from '~/mixins/matomo'
 
-import Card from '~/components/Card'
-import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
+// import Card from '~/components/Card'
+// import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
 
 export default {
   name: 'IndexPage',
   components: {
-    Card,
-    ContentsSkeleton,
-    // ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
+    // Card,
+    // ContentsSkeleton,
+    Card: () => import(/* webpackChunkName: "Card" */ '~/components/Card.vue'),
+    ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue')
   },
   mixins: [matomo],
   data () {
@@ -201,18 +202,53 @@ export default {
       isAutoScrolling: false,
       scrollPositionY: 0,
       scrollMarginTop: 46,
-      interMarginY: 11
-    }
-  },
-  head () { 
-    return {
-      title: `${this.config.data.app_name}${this.currentRoute.name ? ' - ' + this.getSectionName(this.currentRoute) : ''}`,
-      lang: this.locale,
-      link: [
-        { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+      interMarginY: 11,
+      defaultKeywords: [
+        'multi', 'multi.coop', 'cooperative', 'open source',
+        'multi-site-app'
       ]
     }
   },
+  head () { 
+    const siteTitle = this.config.data.app_name
+    const sectionName = this.routeName
+    const pageDescription = this.routeDescription
+    const pageTags = this.routeKeywords
+    return {
+      title: `${siteTitle}${this.currentRoute.name ? ' | ' + sectionName : ''}`,
+      htmlAttrs: {
+        lang: `${ this.locale }-${ this.locale.toUpperCase() }`
+      },
+      link: [
+        { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+      ],
+      meta: [
+        {
+          name: 'description',
+          hid: 'description',
+          vmid: 'description',
+          content: `multi-site-app | ${siteTitle} | ${pageDescription} | ${pageTags.join(', ')}`
+        },
+        {
+          name: 'keywords',
+          // hid: 'keywords',
+          content: pageTags.join(', ')
+        }
+      ]
+    }
+  },
+  // metaInfo() {
+  //   return {
+  //     title: this.config && this.config.data.app_name,
+  //     titleTemplate: `%s | ${ this.getSectionName(this.currentRoute) }`,
+  //     htmlAttrs: {
+  //       lang: `${ this.locale }-${ this.locale.toUpperCase() }`
+  //     },
+  //     link: [
+  //       { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+  //     ]
+  //   }
+  // },
   computed: {
     ...mapState({
       log: (state) => state.log,
@@ -251,6 +287,29 @@ export default {
     // }
     scrollPosAndMargin () {
       return this.scrollMarginTop + this.scrollPositionY
+    },
+    routeName () {
+      const route = this.currentRoute
+      const routeName = (route.options && route.options.description && route.options.description[this.locale]) || route.name
+      return routeName
+    },
+    routeDescription () {
+      const route = this.currentRoute
+      const routeDescription = (route.options && route.options.description && route.options.description[this.locale]) || route.name
+      return routeDescription
+    },
+    routeKeywords () {
+      const route = this.currentRoute
+      const siteKeywords = this.config.data.seo_keywords
+      const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
+      const keywords = [
+        ...this.defaultKeywords,
+        this.appTitle,
+        this.config.data.app_name,
+        ...siteKeywords,
+        ...routeKeywords
+      ]
+      return keywords
     }
   },
   watch: {
@@ -263,6 +322,13 @@ export default {
       this.trackEvent(next.url, 'ChangePage', 'Site')
     }
   },
+  // beforeMount () {
+  //   console.log('\n-C- IndexPage > beforeMount > ... ')
+  //   console.log('-C- IndexPage > beforeMount > this.config : ', this.config)
+  //   console.log('-C- IndexPage > beforeMount > this.locale : ', this.locale)
+  //   console.log('-C- IndexPage > beforeMount > this.appTitle : ', this.appTitle)
+  //   console.log('-C- IndexPage > beforeMount > this.currentRoute : ', this.currentRoute)
+  // },
   mounted () {
     // console.log('\n-C- IndexPage > mounted > ... ')
     window.addEventListener('scroll', this.handleScroll)

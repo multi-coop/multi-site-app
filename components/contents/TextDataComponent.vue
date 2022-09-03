@@ -62,9 +62,9 @@
     </div>
 
     <div 
-      class="content"
       v-for="(dataContent, index) in dataContents"
       :key="`text-data-component-${sectionIndex}-col-${index}`"
+      class="content"
       >
 
       <!-- TITLES -->
@@ -110,12 +110,30 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'TextDataComponent',
-  props: [
-    'sectionIndex',
-    'sectionData',
-    'sectionOptions',
-    'debug'
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'sectionData',
+  //   'sectionOptions',
+  //   'debug'
+  // ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    sectionData: {
+      default: undefined,
+      type: Object
+    },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data() {
     return {
       classesDict: {

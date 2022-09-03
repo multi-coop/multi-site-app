@@ -274,16 +274,50 @@ export default {
     DataCardModal: () => import(/* webpackChunkName: "DataCardModal" */ '~/components/contents/DataCardModal.vue'),
   },
   mixins: [matomo],
-  props: [
-    'sectionIndex',
-    'file',
-    'options',
-    'itemDict',
-    'colSize',
-    'index',
-    'preOpenItem',
-    'debug',
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'file',
+  //   'options',
+  //   'itemDict',
+  //   'colSize',
+  //   'index',
+  //   'preOpenItem',
+  //   'debug',
+  // ],
+  props: {
+    sectionIndex: {
+      default: undefined,
+      type: Number
+    },
+    file: {
+      default: undefined,
+      type: String
+    },
+    options: {
+      default: undefined,
+      type: Object
+    },
+    itemDict: {
+      default: undefined,
+      type: Object
+    },
+    colSize: {
+      default: undefined,
+      type: String
+    },
+    index: {
+      default: undefined,
+      type: Number
+    },
+    preOpenItem: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: false,
+      type: Boolean
+    },
+  },
   data() {
     return {
       // images: undefined,

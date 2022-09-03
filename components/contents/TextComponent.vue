@@ -90,12 +90,30 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'TextComponent',
-  props: [
-    'sectionIndex',
-    'sectionData',
-    'sectionOptions',
-    'debug'
-  ],
+  // props: [
+  //   'sectionIndex',
+  //   'sectionData',
+  //   'sectionOptions',
+  //   'debug'
+  // ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    sectionData: {
+      default: undefined,
+      type: Object
+    },
+    sectionOptions: {
+      default: undefined,
+      type: [Object, Array]
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data() {
     return {
       splittersDict: {

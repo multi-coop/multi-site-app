@@ -84,7 +84,7 @@ export default {
     ...mapState({
       log: (state) => state.log,
       footer: (state) => state.footer
-    }),
-  },
+    })
+  }
 }
 </script>
