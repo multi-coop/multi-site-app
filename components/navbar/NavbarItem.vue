@@ -183,10 +183,11 @@
 import { mapState, mapActions } from 'vuex' 
 
 import matomo from '~/mixins/matomo'
+import navbar from '~/mixins/navbar'
 
 export default {
   name: 'NavbarItem',
-  mixins: [matomo],
+  mixins: [matomo, navbar],
   // props: [
   //   'item',
   //   'isRight',
@@ -230,18 +231,6 @@ export default {
       const subLinks = item.submenu && item.submenu.map(sl => sl.link)
       const isPathSubLink = subLinks && subLinks.includes(currentPath)
       return isPathLink || isPathSubLink
-    },
-    buildTo (item) {
-      const queryObj = {
-        locale: this.locale
-      }
-      if (item.scrollTo) { queryObj.scrollto = item.scrollTo }
-      const toObj = {
-        path: item.link,
-        hash: item.hash,
-        query: queryObj
-      }
-      return toObj
     }
   }
 }

@@ -6,7 +6,7 @@
     :active="isExpanded"
     :expanded="isExpanded"
     :tag="itemTag"
-    :to="isSimpleLink && { path: item.link, query: { locale: locale } }"
+    :to="isSimpleLink && buildTo(item)"
     :href="isExtLink && item.link"
     :target="isExtLink && '_blank'"
     @click.native="clickMenu(item); trackEvent(isExpanded, 'clickBurger', 'Navbar')"
@@ -55,7 +55,7 @@
           :class="`has-text-left my-0 py-0 px-1 submenu ${isCurrentRoute(sub) ? 'has-text-weight-bold' : ''}`"
           type="is-text"
           :tag="sub.component === 'simpleLink' ? 'router-link' : 'a'"
-          :to="sub.component === 'simpleLink' && { path: sub.link, query: { locale: locale } }"
+          :to="sub.component === 'simpleLink' && buildTo(sub)"
           :href="sub.component === 'extLink' && sub.link"
           :target="sub.component === 'extLink' && '_blank'"
           @click.native="clickMenu(sub); trackEvent(sub.link, sub.component === 'extLink' ? 'GoToExtPage' : 'GoToPage', 'Navbar')"
@@ -100,10 +100,11 @@
 import { mapState, mapActions } from 'vuex' 
 
 import matomo from '~/mixins/matomo'
+import navbar from '~/mixins/navbar'
 
 export default {
   name: 'NavbarItemMobile',
-  mixins: [matomo],
+  mixins: [matomo, navbar],
   // props: [
   //   'item',
   //   'itemId',
