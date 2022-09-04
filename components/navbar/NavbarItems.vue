@@ -68,6 +68,9 @@
               class="navbar-multi-img"
               :src="item.image"
               />
+            <span v-if="item.append_label_to_icon">
+              {{ $translate('label', item) }}
+            </span>
           </b-tooltip>
           <span v-else>
             {{ $translate('label', item) }}

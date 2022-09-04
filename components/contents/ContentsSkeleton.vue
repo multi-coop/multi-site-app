@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="`section-${section.name}`"
     :class="`content-skeleton ${sectionCustomClass}`">
 
     <!-- DEBUG -->

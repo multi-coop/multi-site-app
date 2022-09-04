@@ -99,8 +99,11 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarItemMobile',
+  mixins: [matomo],
   // props: [
   //   'item',
   //   'itemId',

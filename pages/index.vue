@@ -2,6 +2,7 @@
 
   <div 
     v-if="currentRoute"
+    id="multi-site-app-top"
     :class="`multi-site-app ${isHero ? 'hero is-fullheight' : ''}`"
     >
 
@@ -279,7 +280,7 @@ export default {
       routes: (state) =>  state.routes,
       footer: (state) =>  state.footer,
       locale: (state) => state.locale,
-      currentRoute: (state) =>  state.currentRoute,
+      currentRoute: (state) =>  state.currentRoute
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -308,6 +309,9 @@ export default {
     // }
     scrollPosAndMargin () {
       return this.scrollMarginTop + this.scrollPositionY
+    },
+    routeBrowser () {
+      return this.$route
     },
     routeName () {
       const route = this.currentRoute
@@ -345,7 +349,18 @@ export default {
       this.updateUrl(hash, false, true)
     },
     currentRoute (next) {
+      // console.log('\n-C- IndexPage > watch > currentRoute > next :', next)
       this.trackEvent(next.url, 'ChangePage', 'Site')
+    },
+    routeBrowser (next) {
+      // console.log('\n-C- IndexPage > watch > routeBrowser > next.path :', next.path)
+      // console.log('-C- IndexPage > watch > routeBrowser > next.hash :', next.hash)
+      // console.log('-C- IndexPage > watch > routeBrowser > next.query :', next.query)
+      if (next.query.scrollto) {
+        this.scrollTo(`#section-${next.query.scrollto}`, false)
+      } else {
+        this.scrollTo('#multi-site-app-top', false)
+      }
     }
   },
   // beforeMount () {
@@ -386,7 +401,7 @@ export default {
       const topPosition = element.offsetTop - this.scrollMarginTop + 1
       // console.log('-C- IndexPage > scrollTo > topPosition :', topPosition)
       window.scrollTo({top: topPosition, behavior: 'smooth'})
-      this.updateUrl(anchorId, false)
+      updateUrl && this.updateUrl(anchorId, false)
       this.isAutoScrolling = false
     },
     updateUrl (anchorId, isAutoScrolling, forceUpdate = false) {
