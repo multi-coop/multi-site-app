@@ -15,6 +15,11 @@
           :src="getLink(navbar.data['logo-left'])"
           width="auto"
           height=".9em">
+        <span
+          v-if="config.data.show_app_name"
+          class="ml-2">
+          {{ config.data.app_name }}
+        </span>
       </router-link>
 
       <!-- BURGER -->
@@ -125,6 +130,7 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+      config: (state) => state.config,
       navbar: (state) =>  state.navbar,
       gitInfos: (state) =>  state.gitInfos
     }),
