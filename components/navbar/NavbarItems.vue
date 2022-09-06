@@ -202,10 +202,6 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'NavbarItems',
-  // props: [
-  //   'items',
-  //   'isRight'
-  // ],
   props: {
     items: {
       default: null,

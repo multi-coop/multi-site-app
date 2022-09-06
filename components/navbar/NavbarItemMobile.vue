@@ -105,11 +105,6 @@ import navbar from '~/mixins/navbar'
 export default {
   name: 'NavbarItemMobile',
   mixins: [matomo, navbar],
-  // props: [
-  //   'item',
-  //   'itemId',
-  //   'activeItem'
-  // ],
   props: {
     item: {
       default: undefined,

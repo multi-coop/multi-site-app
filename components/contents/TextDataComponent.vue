@@ -110,12 +110,6 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'TextDataComponent',
-  // props: [
-  //   'sectionIndex',
-  //   'sectionData',
-  //   'sectionOptions',
-  //   'debug'
-  // ],
   props: {
     sectionIndex: {
       default: null,

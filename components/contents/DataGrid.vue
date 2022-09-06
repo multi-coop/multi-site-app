@@ -120,11 +120,6 @@ export default {
     DataCard: () => import(/* webpackChunkName: "DataCard" */ '~/components/contents/DataCard.vue'),
     ListCard: () => import(/* webpackChunkName: "ListCard" */ '~/components/contents/ListCard.vue'),
   },
-  // props: [
-  //   'sectionIndex',
-  //   'sectionData',
-  //   'debug',
-  // ],
   props: {
     sectionIndex: {
       default: null,

@@ -91,12 +91,6 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'HtmlComponent',
-  // props: [
-  //   'sectionIndex',
-  //   'sectionData',
-  //   'sectionOptions',
-  //   'debug'
-  // ],
   props: {
     sectionIndex: {
       default: null,

@@ -188,11 +188,6 @@ import navbar from '~/mixins/navbar'
 export default {
   name: 'NavbarItem',
   mixins: [matomo, navbar],
-  // props: [
-  //   'item',
-  //   'isRight',
-  //   'isMobile'
-  // ],
   props: {
     item: {
       default: undefined,

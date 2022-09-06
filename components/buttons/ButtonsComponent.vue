@@ -44,6 +44,7 @@
             :icon-left="btn['icon-left']"
             :rounded="btn.rounded"
             :size="btn.size"
+            :style="btn.style"
             :outlined="btn.outlined"
             tag="router-link"
             expanded
@@ -56,6 +57,7 @@
             type="button"
             :class="`button is-fullwidth ${btn.rounded ? 'is-rounded' : ''} ${btn.outlined ? 'is-outlined' : ''}  is-${ btn.color || 'primary' } ${btn.size || ''}`" 
             :href="btn.link"
+            :style="btn.style"
             @click="trackEvent(btn.link, 'BtnToExtPage', 'Content'); trackLink(btn.link)"
             >
             <b-icon
@@ -83,11 +85,6 @@ import matomo from '~/mixins/matomo'
 export default {
   name: 'ButtonsComponent',
   mixins: [matomo],
-  // props: [
-  //   'sectionIndex',
-  //   'sectionOptions',
-  //   'debug'
-  // ],
   props: {
     sectionIndex: {
       default: null,

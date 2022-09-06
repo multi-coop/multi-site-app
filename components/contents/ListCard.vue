@@ -203,16 +203,6 @@ export default {
   components: {
   },
   mixins: [matomo],
-  // props: [
-  //   'sectionIndex',
-  //   'file',
-  //   'options',
-  //   'itemDict',
-  //   'colSize',
-  //   'index',
-  //   'preOpenItem',
-  //   'debug',
-  // ],
   props: {
     sectionIndex: {
       default: undefined,

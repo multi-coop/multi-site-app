@@ -143,12 +143,6 @@ export default {
     HtmlComponent: () => import(/* webpackChunkName: "HtmlComponent" */ '~/components/advanced/HtmlComponent.vue'),
   },
   mixins: [matomo],
-  // props: [
-  //   'section',
-  //   'sectionIndex',
-  //   'contrib',
-  //   'debug'
-  // ],
   props: {
     section: {
       default: undefined,

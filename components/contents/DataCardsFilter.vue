@@ -71,12 +71,6 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DataCardsFilter',
-  // props: [
-  //   'label',
-  //   'itemDict',
-  //   'tags',
-  //   'debug',
-  // ],
   props: {
     label: {
       default: undefined,

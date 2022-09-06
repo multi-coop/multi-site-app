@@ -66,11 +66,6 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'ButtonsComponent',
-  // props: [
-  //   'sectionIndex',
-  //   'sectionOptions',
-  //   'debug'
-  // ],
   props: {
     sectionIndex: {
       default: null,
