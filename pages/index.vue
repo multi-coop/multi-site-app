@@ -291,11 +291,11 @@ export default {
       rawRoot : 'getGitRawRoot',
     }),
     faviconUrl () {
-      console.log('\n-C- IndexPage > faviconUrl > this.config.data :', this.config.data)
-      console.log('-C- IndexPage > faviconUrl > this.rawRoot :', this.rawRoot)
+      // console.log('\n-C- IndexPage > faviconUrl > this.config.data :', this.config.data)
+      // console.log('-C- IndexPage > faviconUrl > this.rawRoot :', this.rawRoot)
       // const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
       const faviconUrl = this.config.data.app_favicon
-      console.log('-C- IndexPage > faviconUrl > faviconUrl :', faviconUrl)
+      // console.log('-C- IndexPage > faviconUrl > faviconUrl :', faviconUrl)
       return  faviconUrl || '/favicon_multi.io'
     },
     isHero () {
