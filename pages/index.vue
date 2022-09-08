@@ -224,7 +224,12 @@ export default {
         lang: `${ this.locale }-${ this.locale.toUpperCase() }`
       },
       link: [
-        { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+        {
+          hid: 'icon',
+          rel: 'icon',
+          href: this.faviconUrl,
+          type: 'image/x-icon'
+        },
       ],
       meta: [
         {
@@ -285,10 +290,12 @@ export default {
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
-    iconUrl () {
-      // console.log('-C- IndexPage > iconUrl > this.config.data :', this.config.data)
-      const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
-      // console.log('-C- IndexPage > iconUrl > faviconUrl :', faviconUrl)
+    faviconUrl () {
+      console.log('\n-C- IndexPage > faviconUrl > this.config.data :', this.config.data)
+      console.log('-C- IndexPage > faviconUrl > this.rawRoot :', this.rawRoot)
+      // const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
+      const faviconUrl = this.config.data.app_favicon
+      console.log('-C- IndexPage > faviconUrl > faviconUrl :', faviconUrl)
       return  faviconUrl || '/favicon_multi.io'
     },
     isHero () {
