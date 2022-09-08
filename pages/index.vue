@@ -2,6 +2,7 @@
 
   <div 
     v-if="currentRoute"
+    id="multi-site-app-top"
     :class="`multi-site-app ${isHero ? 'hero is-fullheight' : ''}`"
     >
 
@@ -28,7 +29,7 @@
               :key="`section-${idx + 1}-${section.name}`"
               :active="isSectionActive(`#section-${idx + 1}-${section.name}`)"
               :class="`floating-menu-item pb-0 ${section.options.depth ? 'ml-2' : ''}`"
-              @click="scrollTo(`#section-${idx + 1}-${section.name}`)">
+              @click="scrollTo(`#section-${idx + 1}-${section.name}`); trackEvent(section.name, 'ScrollTo', 'Content')">
               <template #label>
                 <span
                   :class="`is-size-7 ${section.options.depth ? '' : 'has-text-weight-bold'}`">
@@ -180,16 +181,20 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
-import Card from '~/components/Card'
-import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
+import matomo from '~/mixins/matomo'
+
+// import Card from '~/components/Card'
+// import ContentsSkeleton from '~/components/contents/ContentsSkeleton'
 
 export default {
   name: 'IndexPage',
   components: {
-    Card,
-    ContentsSkeleton,
-    // ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue'),
+    // Card,
+    // ContentsSkeleton,
+    Card: () => import(/* webpackChunkName: "Card" */ '~/components/Card.vue'),
+    ContentsSkeleton: () => import(/* webpackChunkName: "ContentsSkeleton" */ '~/components/contents/ContentsSkeleton.vue')
   },
+  mixins: [matomo],
   data () {
     return {
       sidebarOpen: true,
@@ -198,18 +203,79 @@ export default {
       isAutoScrolling: false,
       scrollPositionY: 0,
       scrollMarginTop: 46,
-      interMarginY: 11
-    }
-  },
-  head () { 
-    return {
-      title: `${this.config.data.app_name}${this.currentRoute.name ? ' - ' + this.getSectionName(this.currentRoute) : ''}`,
-      lang: this.locale,
-      link: [
-        { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+      interMarginY: 11,
+      defaultKeywords: [
+        'multi', 'coop', 'multi.coop',
+        'open', 'open source',
+        'multi-site-app'
       ]
     }
   },
+  head () { 
+    const siteTitle = this.config.data.app_name
+    const routeName = this.routeName
+    const pageKeywords = this.routeKeywords
+    const pageDescription = this.routeDescription ?? `${siteTitle} | ${routeName}`
+
+    // cf : https://developers.google.com/search/docs/advanced/crawling/special-tags?hl=fr
+    return {
+      title: `${siteTitle} | ${ routeName }`,
+      htmlAttrs: {
+        lang: `${ this.locale }-${ this.locale.toUpperCase() }`
+      },
+      link: [
+        {
+          hid: 'icon',
+          rel: 'icon',
+          href: this.faviconUrl,
+          type: 'image/x-icon'
+        },
+      ],
+      meta: [
+        {
+          name: 'description',
+          // hid: 'description',
+          vmid: 'description',
+          content: pageDescription.slice(0, 119)
+        },
+        {
+          name: 'description',
+          // hid: 'og:description',
+          vmid: 'description',
+          content: pageKeywords
+        },
+        {
+          name: 'description',
+          // hid: 'og:description',
+          vmid: 'description',
+          content: this.appKeywords
+        },
+        {
+          name: 'keywords',
+          // hid: 'keywords',
+          content: pageKeywords
+        },
+        {
+          name: 'keywords',
+          // hid: 'keywords',
+          content: this.appKeywords
+        }
+      ]
+    }
+  },
+  // metaInfo() {
+  //   // metaInfo is not working properly...
+  //   return {
+  //     title: this.config && this.config.data.app_name,
+  //     titleTemplate: `%s | ${ this.getSectionName(this.currentRoute) }`,
+  //     htmlAttrs: {
+  //       lang: `${ this.locale }-${ this.locale.toUpperCase() }`
+  //     },
+  //     link: [
+  //       { hid: 'icon', rel: 'icon', href: this.iconUrl, type: 'image/x-icon', },
+  //     ]
+  //   }
+  // },
   computed: {
     ...mapState({
       log: (state) => state.log,
@@ -219,15 +285,17 @@ export default {
       routes: (state) =>  state.routes,
       footer: (state) =>  state.footer,
       locale: (state) => state.locale,
-      currentRoute: (state) =>  state.currentRoute,
+      currentRoute: (state) =>  state.currentRoute
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
     }),
-    iconUrl () {
-      // console.log('-C- IndexPage > iconUrl > this.config.data :', this.config.data)
-      const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
-      // console.log('-C- IndexPage > iconUrl > faviconUrl :', faviconUrl)
+    faviconUrl () {
+      // console.log('\n-C- IndexPage > faviconUrl > this.config.data :', this.config.data)
+      // console.log('-C- IndexPage > faviconUrl > this.rawRoot :', this.rawRoot)
+      // const faviconUrl = `${this.rawRoot}${this.config.data.app_favicon}`
+      const faviconUrl = this.config.data.app_favicon
+      // console.log('-C- IndexPage > faviconUrl > faviconUrl :', faviconUrl)
       return  faviconUrl || '/favicon_multi.io'
     },
     isHero () {
@@ -248,6 +316,37 @@ export default {
     // }
     scrollPosAndMargin () {
       return this.scrollMarginTop + this.scrollPositionY
+    },
+    routeBrowser () {
+      return this.$route
+    },
+    routeName () {
+      const route = this.currentRoute
+      const routeName = (route.options && route.options.name && route.options.name[this.locale]) || route.name
+      return routeName
+    },
+    routeDescription () {
+      const route = this.currentRoute
+      const routeDescription = route.options && route.options.description && route.options.description[this.locale]
+      return routeDescription
+    },
+    routeKeywords () {
+      const route = this.currentRoute
+      const siteKeywords = this.config.data.seo_keywords
+      const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
+      const keywords = [
+        ...routeKeywords,
+        ...siteKeywords
+        // this.config.data.app_name,
+        // this.appTitle,
+      ]
+      return keywords.join(', ')
+    },
+    appKeywords () {
+      const keywords = [
+        ...this.defaultKeywords
+      ]
+      return keywords.join(', ')
     }
   },
   watch: {
@@ -255,8 +354,29 @@ export default {
       const hash = this.$route.hash
       // console.log('\n-C- IndexPage > watch > locale > hash :', hash)
       this.updateUrl(hash, false, true)
+    },
+    currentRoute (next) {
+      // console.log('\n-C- IndexPage > watch > currentRoute > next :', next)
+      this.trackEvent(next.url, 'ChangePage', 'Site')
+    },
+    routeBrowser (next) {
+      // console.log('\n-C- IndexPage > watch > routeBrowser > next.path :', next.path)
+      // console.log('-C- IndexPage > watch > routeBrowser > next.hash :', next.hash)
+      // console.log('-C- IndexPage > watch > routeBrowser > next.query :', next.query)
+      if (next.query.scrollto) {
+        this.scrollTo(`#section-${next.query.scrollto}`, false)
+      } else {
+        this.scrollTo('#multi-site-app-top', false)
+      }
     }
   },
+  // beforeMount () {
+  //   console.log('\n-C- IndexPage > beforeMount > ... ')
+  //   console.log('-C- IndexPage > beforeMount > this.config : ', this.config)
+  //   console.log('-C- IndexPage > beforeMount > this.locale : ', this.locale)
+  //   console.log('-C- IndexPage > beforeMount > this.appTitle : ', this.appTitle)
+  //   console.log('-C- IndexPage > beforeMount > this.currentRoute : ', this.currentRoute)
+  // },
   mounted () {
     // console.log('\n-C- IndexPage > mounted > ... ')
     window.addEventListener('scroll', this.handleScroll)
@@ -288,7 +408,7 @@ export default {
       const topPosition = element.offsetTop - this.scrollMarginTop + 1
       // console.log('-C- IndexPage > scrollTo > topPosition :', topPosition)
       window.scrollTo({top: topPosition, behavior: 'smooth'})
-      this.updateUrl(anchorId, false)
+      updateUrl && this.updateUrl(anchorId, false)
       this.isAutoScrolling = false
     },
     updateUrl (anchorId, isAutoScrolling, forceUpdate = false) {

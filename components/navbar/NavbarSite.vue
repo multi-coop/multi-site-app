@@ -8,11 +8,18 @@
     <div class="navbar-brand">
       <router-link
         class="navbar-item"
-        :to="{ path: '/?locale=' + locale }">
+        :to="{ path: '/?locale=' + locale }"
+        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')"
+        >
         <img
           :src="getLink(navbar.data['logo-left'])"
           width="auto"
           height=".9em">
+        <span
+          v-if="config.data.show_app_name"
+          class="ml-3 is-size-5 has-text-weight-bold">
+          {{ config.data.app_name }}
+        </span>
       </router-link>
 
       <!-- BURGER -->
@@ -22,7 +29,7 @@
         aria-label="menu"
         aria-expanded="false"
         data-target="multiSiteAppNavbar"
-        @click="showMobileMenu = !showMobileMenu">
+        @click="showMobileMenu = !showMobileMenu; trackEvent(showMobileMenu, 'ToggleBurger', 'Navbar')">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -104,12 +111,15 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarSite',
   components: {
     NavbarItem: () => import(/* webpackChunkName: "NavbarItem" */ '~/components/navbar/NavbarItem.vue'),
-    NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue'),
+    NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue')
   },
+  mixins: [matomo],
   data () {
     return {
       showMobileMenu: false,
@@ -120,11 +130,12 @@ export default {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
+      config: (state) => state.config,
       navbar: (state) =>  state.navbar,
-      gitInfos: (state) =>  state.gitInfos,
+      gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
-      rawRoot: 'getGitRawRoot',
+      rawRoot: 'getGitRawRoot'
     })
   },
   methods: {

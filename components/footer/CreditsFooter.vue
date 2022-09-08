@@ -13,6 +13,7 @@
           target="_blank"
           :href="gitInfos.gitRepoUrl"
           class="credit-text"
+          @click="trackEvent(gitInfos.gitRepoUrl, 'GoToExtPage', 'Credits'); trackLink(gitInfos.gitRepoUrl)"
           >
           {{ $translate('sourceContents', dict) }}
         </a>
@@ -21,6 +22,7 @@
           target="_blank"
           :href="source"
           class="credit-text"
+          @click="trackEvent(source, 'GoToExtPage', 'Credits'); trackLink(source)"
           >
           {{ $translate('sourceCode', dict) }}
         </a>
@@ -31,6 +33,7 @@
           target="_blank"
           :href="multiUrl"
           class="has-text-weight-semibold credit-text"
+          @click="trackEvent(multiUrl, 'GoToExtPage', 'Credits'); trackLink(multiUrl)"
           >
           Multi
         </a>
@@ -46,8 +49,11 @@
 <script>
 import { mapState } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'CreditsFooter',
+  mixins: [matomo],
   data() {
     return {
       multiUrl: 'https://multi.coop',
@@ -80,9 +86,9 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      gitInfos: (state) => state.gitInfos,
-    }),
-  },
+      gitInfos: (state) => state.gitInfos
+    })
+  }
 }
 </script>
 

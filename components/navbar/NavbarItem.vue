@@ -8,9 +8,10 @@
       <!-- ITEMS - INTERNAL LINK -->
       <b-navbar-item 
         v-if="item.component === 'simpleLink'"
-        :to="{ path: item.link }"
+        :to="buildTo(item)"
         tag="router-link"
         class="is-size-7-touch navbar-multi"
+        @click.native="trackEvent(item.link, 'GoToPage', 'Navbar')"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -28,6 +29,11 @@
             class="navbar-multi-img"
             :src="item.image"
             />
+          <span
+            v-if="item.label_after_icon"
+            :class="isCurrentRoute(item) ? 'has-text-weight-bold' : ''">
+            {{ $translate('label', item) }}
+          </span>
         </b-tooltip>
         <span
           v-if="!item.image"
@@ -44,6 +50,7 @@
         target="_blank"
         tag="a"
         class="is-size-7-touch navbar-multi"
+        @click="trackEvent(item.link, 'GoToExtPage', 'Navbar'); trackLink(item.link)"
         >
         <b-tooltip
           v-if="item.icon || item.image"
@@ -53,12 +60,18 @@
           <b-icon
             v-if="item.icon && !item.image"
             :icon="item.icon"
+            :class="item.label_after_icon ? 'mr-1' : ''"
+            :size="item.label_after_icon ? 'is-small' : ''"
             />
           <img
             v-if="item.image"
             class="navbar-multi-img"
             :src="item.image"
             />
+          <span
+            v-if="item.label_after_icon">
+            {{ $translate('label', item) }}
+          </span>
         </b-tooltip>
         <span v-else>
           {{ $translate('label', item) }}
@@ -94,21 +107,40 @@
           </div>
         </template>
 
-        <b-navbar-item
+        <div
           v-for="(subItem, idx) in item.submenu"
           :key="`${idx}-${subItem.name}`"
-          :to="!subItem.separator && { path: subItem.link }"
-          :separator="subItem.separator"
-          :tag="subItem.separator ? 'hr' : 'router-link'"
-          :class="`${subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'} ${isCurrentRoute(subItem) ? 'has-text-weight-bold' : ''}`"
-          :active="!subItem.separator && subItem.link === $route.path"
           >
-          <span
-            v-if="!subItem.separator"
-            :class="`${ subItem.link === $route.path ? 'has-text-weight-bold' : '' }`">
-            {{ $translate('label', subItem) }}
-          </span>
-        </b-navbar-item>
+          <!-- ANY LINK EXCEPT SEPARATOR -->
+          <b-navbar-item
+            v-if="subItem.component !== 'extLink'"
+            :to="!subItem.separator && buildTo(subItem)"
+            :separator="subItem.separator"
+            :tag="subItem.separator ? 'hr' : 'router-link'"
+            :class="`${subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'} ${isCurrentRoute(subItem) ? 'has-text-weight-bold' : ''}`"
+            :active="!subItem.separator && subItem.link === $route.path"
+            @click.native="trackEvent(subItem.link, 'GoToPage', 'Navbar')"
+            >
+            <span
+              v-if="!subItem.separator"
+              :class="`${ subItem.link === $route.path ? 'has-text-weight-bold' : '' }`">
+              {{ $translate('label', subItem) }}
+            </span>
+          </b-navbar-item>
+
+          <!-- EXT LINK -->
+          <b-navbar-item
+            v-if="subItem.component === 'extLink'"
+            :href="subItem.link"
+            tag="a"
+            :class="`${subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'}`"
+            @click.native="trackLink(subItem.link)"
+            >
+            <span>
+              {{ $translate('label', subItem) }}
+            </span>
+          </b-navbar-item>
+        </div>
 
       </b-navbar-dropdown>
 
@@ -133,7 +165,7 @@
           :value="loc === locale"
           aria-role="listitem"
           :class="`is-size-7-touch ${loc === locale ? 'has-text-weight-bold' : ''}`"
-          @click="changeLocale(loc)"
+          @click="changeLocale(loc); trackEvent(loc, 'changeLocale', 'Navbar')"
           >
           {{ localesDict[loc] }}
         </b-navbar-item>
@@ -150,21 +182,34 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+import navbar from '~/mixins/navbar'
+
 export default {
   name: 'NavbarItem',
-  props: [
-    'item',
-    'isRight',
-    'isMobile'
-  ],
+  mixins: [matomo, navbar],
+  props: {
+    item: {
+      default: undefined,
+      type: Object
+    },
+    isRight: {
+      default: false,
+      type: Boolean
+    },
+    isMobile: {
+      default: false,
+      type: Boolean
+    }
+  },
   computed: {
     ...mapState({
       log: (state) => state.log,
       locale: (state) => state.locale,
       locales: (state) => state.locales,
       localesDict: (state) => state.localesDict,
-      navbar: (state) =>  state.navbar,
-    }),
+      navbar: (state) =>  state.navbar
+    })
   },
   methods: {
     ...mapActions({

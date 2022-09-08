@@ -61,11 +61,24 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'LogoAnimated',
-  props: [
-    'sectionData',
-    'sectionOptions',
-    'debug'
-  ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    sectionData: {
+      default: undefined,
+      type: Object
+    },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   data() {
     return {
     }

@@ -62,6 +62,7 @@
                 <a 
                   :href="dataTxtLi.link"
                   target="_blank"
+                  @click="trackEvent(dataTxtLi.link, 'DataTextFileExtLink', 'Content')"
                   >
                   {{ dataTxtLi[locale] }}
                 </a>
@@ -83,8 +84,11 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'DataTextsMd',
+  mixins: [matomo],
   props: [
     'sectionIndex',
     'index',

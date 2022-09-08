@@ -55,13 +55,13 @@
       class="columns mb-5 is-centered is-multiline"
       >
       <div
-        class="column is-one-third"
         v-for="filter in options.filters.items"
         :key="filter.name"
+        class="column is-one-third"
         >
         <DataCardsFilter
           :label="filter.name"
-          :itemDict="itemDict"
+          :item-dict="itemDict"
           :tags="usableTags.find( e => e.key === filter.name)"
           :debug="false"
         />
@@ -77,13 +77,13 @@
       <ListCard
         v-for="(cardFile, idx) in itemsArray"
         :key="`${cardFile.file}-${idx}`"
-        :sectionIndex="sectionIndex"
+        :section-index="sectionIndex"
         :file="cardFile.file"
         :options="options"
-        :colSize="colSize"
-        :itemDict="sectionData.data.dict"
+        :col-size="colSize"
+        :item-dict="sectionData.data.dict"
         :index="idx"
-        :preOpenItem="preOpenItem"
+        :pre-open-item="preOpenItem"
         :debug="false"
       />
     </div>
@@ -94,13 +94,13 @@
       <DataCard
         v-for="(cardFile, idx) in itemsArray"
         :key="`${cardFile.file}-${idx}`"
-        :sectionIndex="sectionIndex"
+        :section-index="sectionIndex"
         :file="cardFile.file"
         :options="options"
-        :colSize="colSize"
-        :itemDict="sectionData.data.dict"
+        :col-size="colSize"
+        :item-dict="sectionData.data.dict"
         :index="idx"
-        :preOpenItem="preOpenItem"
+        :pre-open-item="preOpenItem"
         :debug="false"
       />
     </div>
@@ -120,21 +120,27 @@ export default {
     DataCard: () => import(/* webpackChunkName: "DataCard" */ '~/components/contents/DataCard.vue'),
     ListCard: () => import(/* webpackChunkName: "ListCard" */ '~/components/contents/ListCard.vue'),
   },
-  props: [
-    'sectionIndex',
-    'sectionData',
-    'debug',
-  ],
+  props: {
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    sectionData: {
+      default: undefined,
+      type: Object
+    },
+    sectionOptions: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: undefined,
+      type: Boolean
+    }
+  },
   // beforeDestroy() {
   //   this.resetAvailableTags()
   // },
-  beforeMount() {
-    const preOpenItem = this.$route.query && this.$route.query.item
-    this.preOpenItem = preOpenItem
-  },
-  created() {
-    this.setAvailableTagsKeys(this.tagsKeys)
-  },
   data() {
     return {
       preOpenItem: undefined,
@@ -187,6 +193,13 @@ export default {
       const tags = this.tagsAvailable.filter( obj => this.tagsKeys.includes(obj.key) )
       return tags
     }
+  },
+  beforeMount() {
+    const preOpenItem = this.$route.query && this.$route.query.item
+    this.preOpenItem = preOpenItem
+  },
+  created() {
+    this.setAvailableTagsKeys(this.tagsKeys)
   },
   methods: {
     ...mapActions({

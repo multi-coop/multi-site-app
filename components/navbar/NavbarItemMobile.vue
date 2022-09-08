@@ -6,10 +6,10 @@
     :active="isExpanded"
     :expanded="isExpanded"
     :tag="itemTag"
-    :to="isSimpleLink && { path: item.link, query: { locale: locale } }"
+    :to="isSimpleLink && buildTo(item)"
     :href="isExtLink && item.link"
     :target="isExtLink && '_blank'"
-    @click.native="clickMenu(item)"
+    @click.native="clickMenu(item); trackEvent(isExpanded, 'clickBurger', 'Navbar')"
     >
 
     <template #label>
@@ -55,10 +55,10 @@
           :class="`has-text-left my-0 py-0 px-1 submenu ${isCurrentRoute(sub) ? 'has-text-weight-bold' : ''}`"
           type="is-text"
           :tag="sub.component === 'simpleLink' ? 'router-link' : 'a'"
-          :to="sub.component === 'simpleLink' && { path: sub.link, query: { locale: locale } }"
+          :to="sub.component === 'simpleLink' && buildTo(sub)"
           :href="sub.component === 'extLink' && sub.link"
           :target="sub.component === 'extLink' && '_blank'"
-          @click.native="clickMenu(sub)"
+          @click.native="clickMenu(sub); trackEvent(sub.link, sub.component === 'extLink' ? 'GoToExtPage' : 'GoToPage', 'Navbar')"
           @mouseover="hover = `sub-${idx}-${sub.name}`"
           @mouseleave="hover = undefined"
           >
@@ -78,7 +78,7 @@
           :class="`has-text-left my-0 py-0 px-1 submenu ${loc === locale ? 'has-text-weight-bold' : ''}`"
           type="is-text"
           tag="a"
-          @click="changeLocale(loc)"
+          @click="changeLocale(loc); trackEvent(loc, 'changeLocale', 'Navbar')"
           @mouseover="hover = loc"
           @mouseleave="hover = undefined"
           >
@@ -99,13 +99,26 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+import navbar from '~/mixins/navbar'
+
 export default {
   name: 'NavbarItemMobile',
-  props: [
-    'item',
-    'itemId',
-    'activeItem'
-  ],
+  mixins: [matomo, navbar],
+  props: {
+    item: {
+      default: undefined,
+      type: Object
+    },
+    itemId: {
+      default: null,
+      type: String
+    },
+    activeItem: {
+      default: undefined,
+      type: String
+    }
+  },
   data () {
     return {
       hover: undefined

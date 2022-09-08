@@ -214,6 +214,7 @@
           :key="social"
           :href="`${ social === 'email' ? 'mailto:' : '' }${ data[social] }`" 
           class="card-footer-item"
+          @click="trackEvent(social, 'CardFooterExtLink', 'Content')"
           >
           <b-icon :icon="social"/>
         </a>
@@ -265,21 +266,48 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'DataCard',
   components: {
     DataCardModal: () => import(/* webpackChunkName: "DataCardModal" */ '~/components/contents/DataCardModal.vue'),
   },
-  props: [
-    'sectionIndex',
-    'file',
-    'options',
-    'itemDict',
-    'colSize',
-    'index',
-    'preOpenItem',
-    'debug',
-  ],
+  mixins: [matomo],
+  props: {
+    sectionIndex: {
+      default: undefined,
+      type: Number
+    },
+    file: {
+      default: undefined,
+      type: String
+    },
+    options: {
+      default: undefined,
+      type: Object
+    },
+    itemDict: {
+      default: undefined,
+      type: Object
+    },
+    colSize: {
+      default: undefined,
+      type: String
+    },
+    index: {
+      default: undefined,
+      type: Number
+    },
+    preOpenItem: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: false,
+      type: Boolean
+    },
+  },
   data() {
     return {
       // images: undefined,
@@ -501,6 +529,7 @@ export default {
       if (this.options['card-modal']) {
         this.showModal = forceClose ? false : !this.showModal
       }
+      this.trackEvent(this.data[this.titleKey], 'OpenModal', 'Content')
     }
 
   }

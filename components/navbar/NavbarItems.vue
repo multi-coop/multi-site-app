@@ -19,6 +19,7 @@
           :to="{ path: item.link }"
           tag="router-link"
           class="is-size-7-touch navbar-multi"
+          @click="trackEvent(item.link, 'GoToPage', 'Navbar')"
           >
           <b-tooltip
             v-if="item.icon || item.image"
@@ -51,6 +52,7 @@
           target="_blank"
           tag="a"
           class="is-size-7-touch navbar-multi"
+          @click="trackEvent(item.link, 'GoToExtPage', 'Navbar'); trackLink(item.url)"
           >
           <b-tooltip
             v-if="item.icon || item.image"
@@ -66,6 +68,9 @@
               class="navbar-multi-img"
               :src="item.image"
               />
+            <span v-if="item.append_label_to_icon">
+              {{ $translate('label', item) }}
+            </span>
           </b-tooltip>
           <span v-else>
             {{ $translate('label', item) }}
@@ -108,6 +113,7 @@
             :tag="subItem.separator ? 'hr' : 'router-link'"
             :class="subItem.separator ? 'navbar-divider py-0' : 'is-size-7-touch'"
             :active="!subItem.separator && subItem.link === $route.path"
+            @click="subItem.separator && trackEvent(subItem.link, 'GoToExtPage', 'Navbar')"
             >
             <span
               v-if="!subItem.separator"
@@ -194,12 +200,21 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarItems',
-  props: [
-    'items',
-    'isRight'
-  ],
+  mixins: [matomo],
+  props: {
+    items: {
+      default: null,
+      type: Array
+    },
+    isRight: {
+      default: false,
+      type: Boolean
+    }
+  },
   computed: {
     ...mapState({
       log: (state) => state.log,

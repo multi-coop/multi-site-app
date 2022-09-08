@@ -71,23 +71,23 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DataCardsFilter',
-  props: [
-    'label',
-    'itemDict',
-    'tags',
-    'debug',
-  ],
-  watch: {
-    tagsArray(next) {
-      const tagsKey = this.tags.key
-      // console.log('-C- DataCardsFilter > watch > tagsArray > tagsKey :', tagsKey)
-      // console.log('-C- DataCardsFilter > watch > tagsArray > next :', next)
-      const tagsObj = { key: tagsKey, tags: next  }
-      this.updateSelectedTags( tagsObj )
+  props: {
+    label: {
+      default: undefined,
+      type: String
     },
-  },
-  mounted () {
-    this.filteredTags = this.tags && this.tags.tags || []
+    itemDict: {
+      default: undefined,
+      type: Object
+    },
+    tags: {
+      default: undefined,
+      type: Object
+    },
+    debug: {
+      default: false,
+      type: Boolean
+    }
   },
   data() {
     return {
@@ -118,6 +118,18 @@ export default {
         )
       return orderedTags
     }
+  },
+  watch: {
+    tagsArray(next) {
+      const tagsKey = this.tags.key
+      // console.log('-C- DataCardsFilter > watch > tagsArray > tagsKey :', tagsKey)
+      // console.log('-C- DataCardsFilter > watch > tagsArray > next :', next)
+      const tagsObj = { key: tagsKey, tags: next  }
+      this.updateSelectedTags( tagsObj )
+    },
+  },
+  mounted () {
+    this.filteredTags = this.tags && this.tags.tags || []
   },
   methods: {
     ...mapActions({

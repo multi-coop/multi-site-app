@@ -30,6 +30,7 @@
             :href="link.url"
             target="_blank"
             class="px-2"
+            @click="trackEvent(link.url, 'GoToExtPage', 'Footer'); trackLink(link.url)"
             >
             <b-icon
               v-if="link.icon"
@@ -48,6 +49,7 @@
               <nuxt-link 
                 v-if="link.url.startsWith('/')"
                 :to="{ path: link.url }"
+                @click="trackEvent(link.url, 'GoToPage', 'Footer')"
                 >
                 {{ $translate('label', link) }}
               </nuxt-link>
@@ -55,6 +57,7 @@
                 v-else
                 :href="link.url"
                 target="_blank"
+                @click="trackEvent(link.url, 'GoToExtPage', 'Footer'); trackLink(link.url)"
                 >
                 {{ $translate('label', link) }}
               </a>
@@ -72,13 +75,16 @@
 <script>
 import { mapState } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'FooterComponent',
+  mixins: [matomo],
   computed: {
     ...mapState({
       log: (state) => state.log,
       footer: (state) => state.footer
-    }),
-  },
+    })
+  }
 }
 </script>

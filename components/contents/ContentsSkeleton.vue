@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="`section-${section.name}`"
     :class="`content-skeleton ${sectionCustomClass}`">
 
     <!-- DEBUG -->
@@ -54,7 +55,8 @@
           type="is-text"
           tag="a"
           :href="convertPublicUrl"
-          target="_blank">
+          target="_blank"
+          @click="trackEvent(convertPublicUrl, 'ContribBtnToExtPage', 'Content'); trackLink(convertPublicUrl)">
           <b-icon
             icon="git"
             type="is-grey-lighter"
@@ -127,6 +129,8 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'ContentsSkeleton',
   components: {
@@ -138,12 +142,25 @@ export default {
     WidgetComponent: () => import(/* webpackChunkName: "WidgetComponent" */ '~/components/advanced/WidgetComponent.vue'),
     HtmlComponent: () => import(/* webpackChunkName: "HtmlComponent" */ '~/components/advanced/HtmlComponent.vue'),
   },
-  props: [
-    'section',
-    'sectionIndex',
-    'contrib',
-    'debug'
-  ],
+  mixins: [matomo],
+  props: {
+    section: {
+      default: undefined,
+      type: Object
+    },
+    sectionIndex: {
+      default: null,
+      type: Number
+    },
+    contrib: {
+      default: null,
+      type: Boolean
+    },
+    debug: {
+      default: null,
+      type: Boolean
+    }
+  },
   data() {
     return {
       sectionData: undefined,

@@ -67,6 +67,7 @@
             >
             <a 
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToPage', 'Content')"
               >
               <figure class="image is-justify-content-center">
                 <img
@@ -88,6 +89,7 @@
             <a
               class="is-size-5 has-text-weight-bold"
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToPage', 'Content')"
               >
               {{ data[titleKey] }}
             </a>
@@ -138,6 +140,7 @@
             >
             <a 
               :href="data.link"
+              @click="trackEvent(data.link, 'GoToExtLink', 'Content')"
               >
               <b-icon
                 icon="link-variant"
@@ -193,20 +196,47 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'ListCard',
   components: {
   },
-  props: [
-    'sectionIndex',
-    'file',
-    'options',
-    'itemDict',
-    'colSize',
-    'index',
-    'preOpenItem',
-    'debug',
-  ],
+  mixins: [matomo],
+  props: {
+    sectionIndex: {
+      default: undefined,
+      type: Number
+    },
+    file: {
+      default: undefined,
+      type: String
+    },
+    options: {
+      default: undefined,
+      type: Object
+    },
+    itemDict: {
+      default: undefined,
+      type: Object
+    },
+    colSize: {
+      default: null,
+      type: String
+    },
+    index: {
+      default: null,
+      type: Number
+    },
+    preOpenItem: {
+      default: null,
+      type: Object
+    },
+    debug: {
+      default: false,
+      type: Boolean
+    },
+  },
   data() {
     return {
       // images: undefined,
