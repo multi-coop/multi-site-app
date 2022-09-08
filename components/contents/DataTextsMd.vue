@@ -84,8 +84,11 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'DataTextsMd',
+  mixins: [matomo],
   props: [
     'sectionIndex',
     'index',

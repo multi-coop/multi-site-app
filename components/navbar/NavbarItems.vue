@@ -200,8 +200,11 @@
 <script>
 import { mapState, mapActions } from 'vuex' 
 
+import matomo from '~/mixins/matomo'
+
 export default {
   name: 'NavbarItems',
+  mixins: [matomo],
   props: {
     items: {
       default: null,

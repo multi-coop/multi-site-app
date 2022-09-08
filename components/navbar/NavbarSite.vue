@@ -17,7 +17,7 @@
           height=".9em">
         <span
           v-if="config.data.show_app_name"
-          class="ml-2">
+          class="ml-3 is-size-5 has-text-weight-bold">
           {{ config.data.app_name }}
         </span>
       </router-link>
