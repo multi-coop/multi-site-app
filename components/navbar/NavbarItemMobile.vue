@@ -31,6 +31,7 @@
       <span
         v-if="!isLocaleSwitch"
         :class="isCurrentRoute(item) ? 'has-text-weight-bold' : ''">
+        <NavbarItemTag :item="item"/>
         {{ $translate('label', item) }}
       </span>
       <span v-else>
@@ -62,6 +63,7 @@
           @mouseover="hover = `sub-${idx}-${sub.name}`"
           @mouseleave="hover = undefined"
           >
+          <NavbarItemTag :item="sub"/>
           {{ $translate('label', sub) }}
         </b-button>
       </li>
@@ -104,6 +106,9 @@ import navbar from '~/mixins/navbar'
 
 export default {
   name: 'NavbarItemMobile',
+  components: {
+    NavbarItemTag: () => import(/* webpackChunkName: "NavbarItemTag" */ '~/components/navbar/NavbarItemTag.vue')
+  },
   mixins: [matomo, navbar],
   props: {
     item: {
