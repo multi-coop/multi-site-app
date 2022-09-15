@@ -216,10 +216,6 @@ export default {
     const routeName = this.routeName
     const pageKeywords = this.routeKeywords
     const pageDescription = this.routeDescription ?? `${siteTitle} | ${routeName}`
-    // console.log('\n-C- IndexPage > head > siteTitle :', siteTitle)
-    // console.log('-C- IndexPage > head > routeName :', routeName)
-    // console.log('-C- IndexPage > head > pageKeywords :', pageKeywords)
-    // console.log('-C- IndexPage > head > pageDescription :', pageDescription)
 
     // cf : https://developers.google.com/search/docs/advanced/crawling/special-tags?hl=fr
     return {
@@ -336,18 +332,14 @@ export default {
     },
     routeKeywords () {
       const route = this.currentRoute
-      // console.log('\n-C- IndexPage > routeKeywords > route :', route)
       const siteKeywords = this.config.data.seo_keywords || ['multi', 'multi.coop']
-      // console.log('-C- IndexPage > routeKeywords > siteKeywords :', siteKeywords)
       const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
-      // console.log('-C- IndexPage > routeKeywords > routeKeywords :', routeKeywords)
       const keywords = [
         ...routeKeywords,
         ...siteKeywords
         // this.config.data.app_name,
         // this.appTitle,
       ]
-      // console.log('-C- IndexPage > routeKeywords > keywords :', keywords)
       return keywords.join(', ')
     },
     appKeywords () {
