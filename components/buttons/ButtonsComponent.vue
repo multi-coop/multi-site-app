@@ -61,6 +61,7 @@
             @click="trackEvent(btn.link, 'BtnToExtPage', 'Content'); trackLink(btn.link)"
             >
             <b-icon
+              v-if="btn['icon-left']"
               :icon="btn['icon-left']"
               size="is-small"
               class="mr-2"
