@@ -11,8 +11,7 @@
         :to="buildTo(item)"
         tag="router-link"
         class="is-size-7-touch navbar-multi"
-        @click.native="trackEvent(item.link, 'GoToPage', 'Navbar')"
-        >
+        @click.native="trackEvent(item.link, 'GoToPage', 'Navbar')">
         <b-tooltip
           v-if="item.icon || item.image"
           :label="$translate('label', item)"
@@ -38,6 +37,7 @@
         <span
           v-if="!item.image"
           :class="isCurrentRoute(item) ? 'has-text-weight-bold' : ''">
+          <NavbarItemTag :item="item"/>
           {{ $translate('label', item) }}
         </span>
       </b-navbar-item>
@@ -74,6 +74,7 @@
           </span>
         </b-tooltip>
         <span v-else>
+          <NavbarItemTag :item="item"/>
           {{ $translate('label', item) }}
         </span>
       </b-navbar-item>
@@ -102,6 +103,7 @@
             <span
               v-if="!item.image"
               :class="isCurrentRoute(item) ? 'has-text-weight-bold' : ''">
+              <NavbarItemTag :item="item"/>
               {{ $translate('label', item) }}
             </span>
           </div>
@@ -124,6 +126,7 @@
             <span
               v-if="!subItem.separator"
               :class="`${ subItem.link === $route.path ? 'has-text-weight-bold' : '' }`">
+              <NavbarItemTag :item="subItem"/>
               {{ $translate('label', subItem) }}
             </span>
           </b-navbar-item>
@@ -137,6 +140,7 @@
             @click.native="trackLink(subItem.link)"
             >
             <span>
+              <NavbarItemTag :item="subItem"/>
               {{ $translate('label', subItem) }}
             </span>
           </b-navbar-item>
@@ -187,6 +191,9 @@ import navbar from '~/mixins/navbar'
 
 export default {
   name: 'NavbarItem',
+  components: {
+    NavbarItemTag: () => import(/* webpackChunkName: "NavbarItemTag" */ '~/components/navbar/NavbarItemTag.vue')
+  },
   mixins: [matomo, navbar],
   props: {
     item: {
