@@ -332,7 +332,7 @@ export default {
     },
     routeKeywords () {
       const route = this.currentRoute
-      const siteKeywords = this.config.data.seo_keywords
+      const siteKeywords = this.config.data.seo_keywords || ['multi', 'multi.coop']
       const routeKeywords = (route.options && route.options.keywords && route.options.keywords[this.locale]) || [route.name]
       const keywords = [
         ...routeKeywords,
