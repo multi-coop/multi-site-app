@@ -107,10 +107,10 @@
       :debug="false"/>
 
     <HtmlComponent
-      v-if="section.component === 'HtmlComponent'"
+      v-if="section.component === 'HtmlComponent' && sectionData"
       class="HtmlComponent"
       :section-index="sectionIndex"
-      :section-data="sectionData"
+      :raw-html="sectionData"
       :section-options="sectionOptions"
       :debug="false"/>
 
@@ -235,27 +235,24 @@ export default {
     async getFileData() {
       const urlRaw = this.convertUrl
       const isHtmlComponent = this.section.component === 'HtmlComponent'
-      isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      // isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > isHtmlComponent :', isHtmlComponent)
+      // isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      this.htmlReady = false
       const req = await this.$axios.get(urlRaw)
-      isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
-      let sectionData
       if (isHtmlComponent) {
-        sectionData = {
-          content: String(req.data)
-        }
+        // console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
+        this.sectionData = req.data
+        // console.log('-C- ContentsSkeleton > getFileData > this.sectionData :', this.sectionData)
       } else {
         const fileData = matter(req.data)
         // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData :', fileData)
         // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData.content :', fileData.content)
         // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData.data :', fileData.data)
-        sectionData = {
+        this.sectionData = {
           data: fileData.data,
           content: fileData.content
         }
-
       }
-      isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > sectionData :', sectionData)
-      this.sectionData = sectionData
     }
   }
 

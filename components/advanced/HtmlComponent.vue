@@ -2,69 +2,13 @@
 <template>
   <div class="container">
 
-    <!-- DEBUG -->
-    <div 
-      v-if="debug"
-      class="content">
-      <h1>
-        HtmlComponent - {{ sectionIndex }}
-      </h1>
-      <div 
-        v-if="sectionData"
-        class="columns is-multiline " 
-        >
-        <div class="column is-half">
-          sectionOptions: <br><code>
-            <pre>
-              {{ sectionOptions }}
-            </pre>
-          </code>
-        </div>
-        <div class="column is-half">
-          sectionData.data: <br><code>
-            <pre>
-              {{ sectionData.data }}
-            </pre>
-          </code>
-        </div>
-        <div class="column is-half">
-          sectionData.content: <br><code>
-            <pre>
-              {{ sectionData.content }}
-            </pre>
-          </code>
-        </div>
-      </div>
-    </div>
-
     <!-- HTML CONTENTS -->
     <div
-      v-if="sectionData"
+      v-if="html"
       class="content">
       <div
         v-if="html"
         v-html="html">
-      </div>
-      
-      <!-- DEBUGGING -->
-      <div 
-        v-if="debug"
-        class="columns is-multiline">
-        <div class="column is-6">
-          sectionOptions: <pre></code>{{ sectionOptions }}</code></pre>
-        </div>
-        <div class="column is-6">
-          scriptsSrcs : <br>
-          <pre></code>{{ scriptsSrcs }}</code></pre>
-        </div>
-        <div class="column is-6">
-          html : <br>
-          <pre></code>{{ html }}</code></pre>
-        </div>
-        <div class="column is-6">
-          sectionData.content : <br>
-          <pre></code>{{ sectionData.content }}</code></pre>
-        </div>
       </div>
     </div>
 
@@ -83,10 +27,14 @@ export default {
       default: null,
       type: Number
     },
-    sectionData: {
+    rawHtml: {
       default: undefined,
-      type: Object
+      type: String
     },
+    // sectionData: {
+    //   default: undefined,
+    //   type: Object
+    // },
     sectionOptions: {
       default: undefined,
       type: Object
@@ -122,7 +70,7 @@ export default {
       return hasOptions && hasColOptions
     },
     content () {
-      return this.sectionData.content
+      return this.rawHtml
     },
     columnsSize () {
       const colSize = this.sectionOptions['columns-size'] || 'half'
@@ -135,21 +83,25 @@ export default {
     }
   },
   watch: {
-    sectionData (next) {
-      // console.log('\n-C- HtmlComponent > sectionData > next :', next)
+    rawHtml (next) {
       if (next) {
         this.parseContent(next)
       }
     }
   },
+  beforeMount () {
+    if (this.rawHtml) {
+      this.parseContent(this.rawHtml)
+    }
+  },
   methods: {
-    parseContent (data) {
-      // console.log('\n-C- HtmlComponent > parseHtml > data :', data)
+    parseContent (rawHtml) {
+      // console.log('\n-C- HtmlComponent > parseHtml > rawHtml :', rawHtml)
       const scriptStart = '<script'
       const scriptEnd = 'script>'
       const srcStart = 'src='
       const srcEnd = '.js'
-      let dataContent = data.content.slice()
+      let dataContent = rawHtml.slice()
 
       // const browserClient = this.getBrowser
       // console.log('-C- HtmlComponent > parseHtml > browserClient :', browserClient)
@@ -157,7 +109,7 @@ export default {
       const regexScript = new RegExp(`(?:${scriptStart}).*(?:${scriptEnd})`, 'gs')
       const regexSrc = new RegExp(`(?:${srcStart}).*(?:${srcEnd})`, 'g')
 
-      const splitStr = [...data.content.matchAll(regexScript)].map(m => m[0])
+      const splitStr = [...rawHtml.matchAll(regexScript)].map(m => m[0])
       // console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
 
       const dataScripts = splitStr.map( scriptTag => {
@@ -179,6 +131,7 @@ export default {
       // console.log('-C- HtmlComponent > parseHtml > dataScripts :', dataScripts)
       this.scriptsSrcs = dataScripts.map(m => m.src)
       this.html = dataContent
+      // console.log('-C- HtmlComponent > parseHtml > this.html :', this.html)
 
       this.appendScripts()
     },
@@ -195,7 +148,7 @@ export default {
           document.body.appendChild(script)
 
           script.onload = () => {
-            console.log('-C- HtmlComponent > appendScripts > scriptId >  :', scriptId)
+            this.debug && console.log('-C- HtmlComponent > appendScripts > scriptId >  :', scriptId)
           }
         }
       })
