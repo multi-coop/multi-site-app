@@ -70,8 +70,7 @@
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <TextComponent
       v-if="section.component === 'TextComponent' && sectionData"
@@ -79,38 +78,33 @@
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <DataGrid
       v-if="section.component === 'DataGrid' && sectionData"
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <TextDataComponent
       v-if="section.component === 'TextDataComponent' && sectionData"
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <ButtonsComponent
       v-if="section.component === 'ButtonsComponent'"
       :section-index="sectionIndex"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <WidgetComponent
       v-if="section.component === 'WidgetComponent'"
       :section-index="sectionIndex"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
     <HtmlComponent
       v-if="section.component === 'HtmlComponent'"
@@ -118,8 +112,7 @@
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
-      :debug="false"
-    />
+      :debug="false"/>
 
   </div>
 </template>
@@ -242,13 +235,13 @@ export default {
     async getFileData() {
       const urlRaw = this.convertUrl
       const isHtmlComponent = this.section.component === 'HtmlComponent'
-      // isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
-      // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
+      isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
       let sectionData
       if (isHtmlComponent) {
         sectionData = {
-          content: req.data
+          content: String(req.data)
         }
       } else {
         const fileData = matter(req.data)
@@ -261,7 +254,7 @@ export default {
         }
 
       }
-      // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > sectionData :', sectionData)
+      isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > sectionData :', sectionData)
       this.sectionData = sectionData
     }
   }

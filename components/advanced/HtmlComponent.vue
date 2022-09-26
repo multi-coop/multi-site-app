@@ -98,7 +98,8 @@ export default {
   },
   data() {
     return {
-      html: '<p class="has-text-centered">html is loading</p>',
+      // html: '<p class="has-text-centered">html is loading</p>',
+      html: '',
       scriptsSrcs: [],
       css: []
     }
@@ -135,7 +136,7 @@ export default {
   },
   watch: {
     sectionData (next) {
-      console.log('\n-C- HtmlComponent > sectionData > next :', next)
+      // console.log('\n-C- HtmlComponent > sectionData > next :', next)
       if (next) {
         this.parseContent(next)
       }
@@ -143,7 +144,7 @@ export default {
   },
   methods: {
     parseContent (data) {
-      console.log('\n-C- HtmlComponent > parseHtml > data :', data)
+      // console.log('\n-C- HtmlComponent > parseHtml > data :', data)
       const scriptStart = '<script'
       const scriptEnd = 'script>'
       const srcStart = 'src='
@@ -157,7 +158,7 @@ export default {
       const regexSrc = new RegExp(`(?:${srcStart}).*(?:${srcEnd})`, 'g')
 
       const splitStr = [...data.content.matchAll(regexScript)].map(m => m[0])
-      console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
+      // console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
 
       const dataScripts = splitStr.map( scriptTag => {
         dataContent = dataContent.replace(scriptTag, '')
