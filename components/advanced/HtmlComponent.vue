@@ -46,18 +46,6 @@
         v-if="html"
         v-html="html">
       </div>
-
-      <!-- <div
-        v-for="(js, idx) in scriptsSrcs"
-        :key="`html-script-${idx}`"
-        >
-        <script
-          v-if="js"
-          :src="js"
-          type='text/javascript'
-          >
-        </script>
-      </div> -->
       
       <!-- DEBUGGING -->
       <div 
