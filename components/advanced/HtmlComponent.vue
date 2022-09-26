@@ -7,7 +7,6 @@
       v-if="html"
       class="content">
       <div
-        v-if="html"
         v-html="html">
       </div>
     </div>
@@ -31,10 +30,6 @@ export default {
       default: undefined,
       type: String
     },
-    // sectionData: {
-    //   default: undefined,
-    //   type: Object
-    // },
     sectionOptions: {
       default: undefined,
       type: Object
