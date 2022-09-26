@@ -114,6 +114,7 @@
 
     <HtmlComponent
       v-if="section.component === 'HtmlComponent'"
+      class="HtmlComponent"
       :section-index="sectionIndex"
       :section-data="sectionData"
       :section-options="sectionOptions"
@@ -240,14 +241,28 @@ export default {
   methods: {
     async getFileData() {
       const urlRaw = this.convertUrl
-      // console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
+      const isHtmlComponent = this.section.component === 'HtmlComponent'
+      // isHtmlComponent && console.log('\n-C- ContentsSkeleton > getFileData > urlRaw :', urlRaw)
       const req = await this.$axios.get(urlRaw)
-      // console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
-      const fileData = matter(req.data)
-      this.sectionData = {
-        data: fileData.data,
-        content: fileData.content
+      // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > req.data :', req.data)
+      let sectionData
+      if (isHtmlComponent) {
+        sectionData = {
+          content: req.data
+        }
+      } else {
+        const fileData = matter(req.data)
+        // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData :', fileData)
+        // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData.content :', fileData.content)
+        // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > fileData.data :', fileData.data)
+        sectionData = {
+          data: fileData.data,
+          content: fileData.content
+        }
+
       }
+      // isHtmlComponent && console.log('-C- ContentsSkeleton > getFileData > sectionData :', sectionData)
+      this.sectionData = sectionData
     }
   }
 
