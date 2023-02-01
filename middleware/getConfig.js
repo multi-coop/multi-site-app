@@ -32,7 +32,7 @@ export default async function ({
 
         // convert string to json object
         const configObject = matter(resp.data)
-        // console.log( '-MW- getConfig > configObject : \n', configObject ) 
+        console.log( '-MW- getConfig > configObject : \n', configObject ) 
         
         // save to store
         return store.dispatch('updateConfig', configObject)
