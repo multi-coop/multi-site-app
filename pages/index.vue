@@ -198,10 +198,10 @@ export default {
       colorTypes: [
         { type: 'primary', default: '#7957d5' },
         { type: 'link', default: '#7957d5' },
-        { type: 'info', default: '#7957d5' },
-        { type: 'success', default: '#7957d5' },
-        { type: 'warning', default: '#7957d5' },
-        { type: 'danger', default: '#7957d5' }
+        { type: 'info', default: '#6fdcbf' },
+        { type: 'success', default: '#03BD5B' },
+        { type: 'warning', default: '#ff9947' },
+        { type: 'danger', default: '#D1335B' }
         // primary: '#037988'
         // loading_color: '#6fdcbf'
         // accent: '#572a99'
