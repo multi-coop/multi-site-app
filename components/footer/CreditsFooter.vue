@@ -38,7 +38,7 @@
           Multi
         </a>
         - 
-        {{ years }} 
+        {{ years }}-{{ currentYear }}
       </p>
     </div>
   </footer>
@@ -58,7 +58,7 @@ export default {
     return {
       multiUrl: 'https://multi.coop',
       source: 'https://github.com/multi-coop/multi-site-app',
-      years: '2021-2022',
+      years: '2021',
       dict: {
         credits: {
           fr: 'Crédits',
@@ -87,7 +87,10 @@ export default {
     ...mapState({
       log: (state) => state.log,
       gitInfos: (state) => state.gitInfos
-    })
+    }),
+    currentYear () {
+      return new Date().getFullYear()
+    }
   }
 }
 </script>

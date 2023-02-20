@@ -328,7 +328,7 @@ export default {
               color: ${ this.getContrastYIQ(customColor) } !important;
             }
           `
-          if (t === 'primary') {
+          if (t.type === 'primary') {
             customStyle += `
             a:not(.navbar-link, .navbar-item, .credit-text), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
               color: ${ customColor } !important;
