@@ -105,9 +105,11 @@
             :class="`column ${fullScreen ? 'is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile' : ''}`">
             
             <!-- TITLE -->
-            <h1 class="mt-4 mb-5 pb-1 has-text-centered">
-              {{ itemData[titleKey] }}
-            </h1>
+            <div style="display: flex; justify-content: center;">
+              <h1 class="mt-4 mb-5 pb-1 has-text-centered">
+                {{ itemData[titleKey] }}
+              </h1>
+            </div>
 
             <!-- INFO TEXT MD DATA CONTENTS -->
             <div 

@@ -58,9 +58,11 @@
         class="card-header"
         @click="openModal()"
         >
-        <h2 class="card-header-title is-size-5">
-          {{ data[titleKey] }}
-        </h2>
+        <div style="display: flex; justify-content: center;">
+          <h2 class="card-header-title is-size-5">
+            {{ data[titleKey] }}
+          </h2>
+        </div>
       </header>
       
       <!-- COVER -->
