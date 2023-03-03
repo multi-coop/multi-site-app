@@ -14,7 +14,7 @@
         v-if="fullScreen"
         class="content mb-6"
         >
-        <NavbarComponent/>
+        <NavbarSite/>
       </div>
 
       <div 
@@ -290,7 +290,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'DataCardModal',
   components: {
-    NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
+    NavbarSite: () => import(/* webpackChunkName: "NavbarSite" */ '~/components/navbar/NavbarSite.vue'),
     DataTextsMd: () => import(/* webpackChunkName: "DataTextsMd" */ '~/components/contents/DataTextsMd.vue'),
     DataGallery: () => import(/* webpackChunkName: "DataGallery" */ '~/components/contents/DataGallery.vue'),
   },

@@ -1,7 +1,7 @@
 <template>
     
   <nav
-    class="navbar has-navbar-centered is-fixed-top"
+    class="NavbarSite navbar has-navbar-centered is-fixed-top"
     role="navigation"
     aria-label="main navigation">
     <!-- BRAND -->
