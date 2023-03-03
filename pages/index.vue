@@ -323,6 +323,9 @@ export default {
               background-color: ${ customColor } !important;
               color: ${ this.getContrastYIQ(customColor) } !important;
             }
+            .button.is-${t.type}.is-outlined {
+              border-color: ${ customColor } !important;
+            }
             .is-${t.type}, .is-${t.type} {
               background-color: ${ customColor } !important;
               color: ${ this.getContrastYIQ(customColor) } !important;

@@ -164,7 +164,6 @@
 
             <!-- MD CONTENTS -->
             <div class="content mt-6 px-5">
-
               <VueShowdown
                 :markdown="itemContent"
                 :flavor="showdownOptions.flavor"
@@ -179,7 +178,6 @@
                 :index="index"
                 :idx="'dft'"
               />
-
             </div>
 
             <!-- {{ modalConfigColRight.tabs }} -->
@@ -210,7 +208,6 @@
                   </div>
                 </div>
               </b-tab-item>
-
               
               <!-- CONTENTS -->
               <b-tab-item 
@@ -258,11 +255,8 @@
                 </div>
               </b-tab-item>
 
-
             </b-tabs>
-
             <br>
-            
           </div>
         </div>
       </div>
@@ -376,7 +370,7 @@ export default {
     },
     imagesListUrls() {
       const urlsArray = this.imagesList.map( path => {
-        return { title: path, image: this.convertUrl(path) } 
+        return { title: path, image: this.convertUrlImage(path) } 
       })
       return urlsArray
     },
