@@ -6,6 +6,8 @@ export const createStyleLink = (url, isFont = false) => {
   if (isFont) {
     link.type = 'font'
     link.as = 'font'
+  } else {
+    link.onload = "this.rel='stylesheet'"
   }
   link.href = url
   document.head.appendChild(link)
