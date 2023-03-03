@@ -143,9 +143,9 @@ export default {
       // console.log('-C- NavbarSite > getLink > this.gitInfos :', this.gitInfos)
       let rawRoot = this.rawRoot
       let linkClean = link
-      if (this.gitInfos.gitProvider === 'localhost' && link.startsWith('./')) {
+      if (this.gitInfos.gitProvider === 'localhost' && linkClean.startsWith('./')) {
         rawRoot = rawRoot.replace('/content', '/statics')
-        linkClean = link.replace('./', '')
+        linkClean = linkClean.replace('./', '')
       }
       const srcLink = link && link.startsWith('./') ? `${rawRoot}${linkClean}` : linkClean
       return srcLink

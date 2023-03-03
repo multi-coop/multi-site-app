@@ -7,7 +7,7 @@
     >
 
     <div
-      :class="`${fullScreen ? 'modal-card-body px-5': 'card-content'}`"
+      :class="`modal-card-body ${fullScreen ? 'px-5': ''}`"
       >
 
       <div 

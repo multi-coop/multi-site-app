@@ -500,9 +500,9 @@ export default {
     convertUrlImage (url) {
       let rawRoot = this.rawRoot
       let urlClean = url
-      if (this.gitInfos.gitProvider === 'localhost' && url.startsWith('./')) {
+      if (this.gitInfos.gitProvider === 'localhost' && urlClean.startsWith('./')) {
         rawRoot = rawRoot.replace('/content', '/statics')
-        urlClean = url.replace('./', '')
+        urlClean = urlClean.replace('./', '')
       }
       const srcLink = url && url.startsWith('./') ? `${rawRoot}${urlClean}` : urlClean
       return srcLink
