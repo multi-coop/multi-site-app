@@ -3,7 +3,7 @@
 <template>
 
   <div 
-    :class="`${fullScreen ? 'modal-card': 'card'}`"
+    :class="`DataCardModal ${fullScreen ? 'modal-card': 'card'}`"
     >
 
     <div
@@ -59,13 +59,11 @@
           <!-- COLUMN LEFT -->
           <div 
             v-if="modalConfigColLeft"
-            class="column is-one-third"
-            >
-
+            class="column is-one-third">
             <!-- COVER IMAGE -->
             <b-image
               v-if="imagesList"
-              :src='convertUrl(imagesList[0])'
+              :src='convertUrlImage(imagesList[0])'
               :alt='itemData.name'
               :ratio="imagesRatio"
               :rounded="imagesRounded"
@@ -100,7 +98,6 @@
                 </div>
               </div>
             </nav>
-
           </div>
 
           <!-- COLUMN RIGHT -->
@@ -148,7 +145,6 @@
               </div>
             </div>
 
-
             <!-- TAGS -->
             <p 
               v-for="(tagKey, idx) in options['tags-keys']"
@@ -165,7 +161,6 @@
                 {{ $translate(tag, itemDict) }}
               </b-tag>
             </p>
-
 
             <!-- MD CONTENTS -->
             <div class="content mt-6 px-5">
@@ -266,15 +261,11 @@
 
             </b-tabs>
 
-
             <br>
             
           </div>
-          
         </div>
-
       </div>
-
 
       <!-- DEBUG -->
       <div
@@ -292,9 +283,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -363,6 +352,7 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       locales: (state) => state.locales,
+      gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -415,6 +405,16 @@ export default {
   methods: {
     convertUrl(url) {
       return `${this.rawRoot}${url}`
+    },
+    convertUrlImage (url) {
+      let rawRoot = this.rawRoot
+      let urlClean = url
+      if (this.gitInfos.gitProvider === 'localhost' && url.startsWith('./')) {
+        rawRoot = rawRoot.replace('/content', '/statics')
+        urlClean = url.replace('./', '')
+      }
+      const srcLink = url && url.startsWith('./') ? `${rawRoot}${urlClean}` : urlClean
+      return srcLink
     },
     hasKey(str) {
       return Object.keys(this.itemData).includes(str)

@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="canShowCard"
-    :class="`column is-half-tablet is-${colSize}-desktop mb-5`"
+    :class="`dataCard column is-half-tablet is-${colSize}-desktop mb-5`"
     >
     <!-- :class="`column is-${showMore ? 'full' : colSize}`" -->
 
@@ -70,7 +70,7 @@
         @click="openModal()"
         >
         <b-image
-          :src='convertUrl(imagesList[0])'
+          :src='convertUrlImage(imagesList[0])'
           :alt='data.name'
           :ratio="imagesRatio"
           :rounded="imagesRounded"
@@ -341,7 +341,8 @@ export default {
   computed: {
     ...mapState({
       log: (state) => state.log,
-      locale: (state) => state.locale
+      locale: (state) => state.locale,
+      gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
       rawRoot : 'getGitRawRoot',
@@ -495,6 +496,16 @@ export default {
     },
     convertUrlPublic(url) {
       return `${this.publicRoot}${url}`
+    },
+    convertUrlImage (url) {
+      let rawRoot = this.rawRoot
+      let urlClean = url
+      if (this.gitInfos.gitProvider === 'localhost' && url.startsWith('./')) {
+        rawRoot = rawRoot.replace('/content', '/statics')
+        urlClean = url.replace('./', '')
+      }
+      const srcLink = url && url.startsWith('./') ? `${rawRoot}${urlClean}` : urlClean
+      return srcLink
     },
     async getFileData() {
       const urlRaw = this.urlFile

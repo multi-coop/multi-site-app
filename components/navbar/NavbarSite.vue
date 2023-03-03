@@ -9,10 +9,9 @@
       <router-link
         class="navbar-item"
         :to="{ path: '/?locale=' + locale }"
-        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')"
-        >
+        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')">
         <img
-          :src="getLink(navbar.data['logo-left'])"
+          :src="getLinkImage(navbar.data['logo-left'])"
           width="auto"
           height=".9em">
         <span
@@ -139,8 +138,16 @@ export default {
     })
   },
   methods: {
-    getLink (link) {
-      const srcLink = link && link.startsWith('./') ? `${this.rawRoot}${link}` : link
+    getLinkImage (link) {
+      // console.log('\n-C- NavbarSite > getLink > link :', link)
+      // console.log('-C- NavbarSite > getLink > this.gitInfos :', this.gitInfos)
+      let rawRoot = this.rawRoot
+      let linkClean = link
+      if (this.gitInfos.gitProvider === 'localhost' && link.startsWith('./')) {
+        rawRoot = rawRoot.replace('/content', '/statics')
+        linkClean = link.replace('./', '')
+      }
+      const srcLink = link && link.startsWith('./') ? `${rawRoot}${linkClean}` : linkClean
       return srcLink
     },
     updateMobileMenu (ev) {
