@@ -188,13 +188,14 @@
             <b-tabs 
               v-if="modalConfigColRight.tabs"
               position="is-centered"
-              class="block mt-5"
+              class="multiTabs block mt-5"
               >
                 
               <!-- GALLERY -->
               <b-tab-item 
                 v-if="modalConfigColRight['images-gallery'] && modalConfigColRight['tabs'].includes('gallery')"
                 :label="$translate('gallery', dict)"
+                class="tabItem"
                 >
                 <div 
                   class="columns is-centered has-background-grey-lighter mx-3 pb-4"

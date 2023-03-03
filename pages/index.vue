@@ -333,8 +333,21 @@ export default {
           `
           if (t.type === 'primary') {
             customStyle += `
-            a:not(.navbar-link, .navbar-item, .credit-text), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
+            a:not(.navbar-link, .navbar-item, .credit-text) {
+              color: ${ customColor };
+            }
+            .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
               color: ${ customColor } !important;
+            }
+            .tabs li > a {
+              color: ${ customColor } !important;
+            }
+            .tabs li > a:hover {
+              border-bottom-color : ${ customColor } !important;
+            }
+            .tabs li.is-active > a {
+              font-weight: bold;
+              border-bottom-color : ${ customColor } !important;
             }
             a:not(.navbar-link, .navbar-item, .button, .navbar-mobile-item) {
               text-decoration: underline;
@@ -345,6 +358,12 @@ export default {
             .menu-list a.is-active {
               background-color: ${ customColor } !important;
               color: ${ this.getContrastYIQ(customColor) } !important;
+            }
+            .b-slider.is-primary .b-slider-fill {
+              background: ${ customColor } !important;
+            }
+            .has-text-primary {
+              color: ${ customColor } !important;
             }
           `
           }
