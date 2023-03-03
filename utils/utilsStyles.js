@@ -6,10 +6,10 @@ export async function createStyleLink (url, isFont = false) {
   style.type = 'text/css'
 
   const req = await fetch(url)
-  console.log('-U- createStyleLink > createStyleLink > req :', req)
+  // console.log('-U- createStyleLink > createStyleLink > req :', req)
   const css = req && await req.text()
 
-  console.log('-U- createStyleLink > createStyleLink > css :', css)
+  // console.log('-U- createStyleLink > createStyleLink > css :', css)
   if (style.styleSheet){
     // This is required for IE8 and below.
     style.styleSheet.cssText = css
