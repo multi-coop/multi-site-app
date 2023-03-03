@@ -1,14 +1,19 @@
-export const createStyleLink = (url, isFont = false) => {
-  const link = document.createElement('link')
-  link.rel = 'stylesheet'
-  link.type = 'text/css'
-  link.as = 'style'
-  if (isFont) {
-    link.type = 'font'
-    link.as = 'font'
+export async function createStyleLink (url, isFont = false) {
+  const head = document.head || document.getElementsByTagName('head')[0]
+  const style = document.createElement('style')
+  head.appendChild(style)
+
+  style.type = 'text/css'
+
+  const req = await fetch(url)
+  console.log('-U- createStyleLink > createStyleLink > req :', req)
+  const css = req && await req.text()
+
+  console.log('-U- createStyleLink > createStyleLink > css :', css)
+  if (style.styleSheet){
+    // This is required for IE8 and below.
+    style.styleSheet.cssText = css
   } else {
-    link.onload = "this.rel='stylesheet'"
+    style.appendChild(document.createTextNode(css))
   }
-  link.href = url
-  document.head.appendChild(link)
 }
