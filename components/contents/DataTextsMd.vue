@@ -11,7 +11,9 @@
     </div>
 
     <div class="column is-two-thirds pb-0">
-      <div class="content">
+      <div
+        v-if="dataText && dataText.text"
+        class="content">
 
         <div 
           v-if="isString(dataText.text[locale])"

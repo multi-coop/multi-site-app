@@ -230,7 +230,7 @@ export default {
     },
     preOpenItem: {
       default: null,
-      type: Object
+      type: [Object, String]
     },
     debug: {
       default: false,
@@ -411,6 +411,7 @@ export default {
       })
       // console.log('-C- ListCard > watch > tagsToAdd :', tagsToAdd)
       this.$store.dispatch('data/setAvailableTags', tagsToAdd)
+      // console.log('-C- ListCard > watch > data > this.preOpenItem :', this.preOpenItem)
       this.showModal = this.preOpenItem === this.file
     },
     showModal(next) {
