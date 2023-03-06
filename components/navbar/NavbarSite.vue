@@ -11,7 +11,7 @@
         :to="{ path: '/?locale=' + locale }"
         @click.native="trackEvent(true, 'ClickBrand', 'Navbar')">
         <img
-          :src="getLinkImage(navbar.data['logo-left'])"
+          :src="convertUrlImage(navbar.data['logo-left'])"
           width="auto"
           height=".9em">
         <span
@@ -108,8 +108,9 @@
 
 <script>
 
-import { mapState, mapGetters } from 'vuex' 
+import { mapState } from 'vuex' 
 
+import links from '~/mixins/links'
 import matomo from '~/mixins/matomo'
 
 export default {
@@ -118,7 +119,10 @@ export default {
     NavbarItem: () => import(/* webpackChunkName: "NavbarItem" */ '~/components/navbar/NavbarItem.vue'),
     NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue')
   },
-  mixins: [matomo],
+  mixins: [
+    links,
+    matomo
+  ],
   data () {
     return {
       showMobileMenu: false,
@@ -130,26 +134,10 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       config: (state) => state.config,
-      navbar: (state) =>  state.navbar,
-      gitInfos: (state) =>  state.gitInfos
-    }),
-    ...mapGetters({
-      rawRoot: 'getGitRawRoot'
+      navbar: (state) =>  state.navbar
     })
   },
   methods: {
-    getLinkImage (link) {
-      // console.log('\n-C- NavbarSite > getLink > link :', link)
-      // console.log('-C- NavbarSite > getLink > this.gitInfos :', this.gitInfos)
-      let rawRoot = this.rawRoot
-      let linkClean = link
-      if (this.gitInfos.gitProvider === 'localhost' && linkClean.startsWith('./')) {
-        rawRoot = rawRoot.replace('/content', '/statics')
-        linkClean = linkClean.replace('./', '')
-      }
-      const srcLink = link && link.startsWith('./') ? `${rawRoot}${linkClean}` : linkClean
-      return srcLink
-    },
     updateMobileMenu (ev) {
       // console.log('\n-C- NavbarSite > updateMobileMenu > ev :', ev)
       this.activeItemMobile = ev

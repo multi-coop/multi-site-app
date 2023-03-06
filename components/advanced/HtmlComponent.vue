@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     parseContent (rawHtml) {
-      console.log('\n-C- HtmlComponent > parseHtml > rawHtml :', rawHtml)
+      // console.log('\n-C- HtmlComponent > parseHtml > rawHtml :', rawHtml)
       const scriptStart = '<script'
       const scriptEnd = 'script>'
       const srcStart = 'src='
@@ -105,7 +105,7 @@ export default {
       const regexSrc = new RegExp(`(?:${srcStart}).*(?:${srcEnd})`, 'g')
 
       const splitStr = [...rawHtml.matchAll(regexScript)].map(m => m[0])
-      console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
+      // console.log('-C- HtmlComponent > parseHtml > splitStr :', splitStr)
 
       const dataScripts = splitStr.map( scriptTag => {
         dataContent = dataContent.replace(scriptTag, '')

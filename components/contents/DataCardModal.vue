@@ -3,17 +3,14 @@
 <template>
 
   <div 
-    :class="`DataCardModal ${fullScreen ? 'modal-card': 'card'}`"
-    >
+    :class="`DataCardModal ${fullScreen ? 'modal-card': 'card'}`">
 
     <div
-      :class="`modal-card-body ${fullScreen ? 'px-5': ''}`"
-      >
+      :class="`modal-card-body ${fullScreen ? 'px-5': ''}`">
 
       <div 
         v-if="fullScreen"
-        class="content mb-6"
-        >
+        class="content mb-6">
         <NavbarSite/>
       </div>
 
@@ -49,10 +46,8 @@
         </div>
       </div>
 
-
       <div 
-        :class="`${fullScreen ? 'container' : '' } content`"
-        >
+        :class="`${fullScreen ? 'container' : '' } content`">
         <div 
           :class="`columns ${fullScreen ? 'is-centered' : '' }`">
 
@@ -114,15 +109,13 @@
             <!-- INFO TEXT MD DATA CONTENTS -->
             <div 
               v-if="infoDataTexts && infoDataTexts.length"
-              class="notification px-4 pt-4"
-              >
+              class="notification px-4 pt-4">
               <div class="columns is-centered">
                 <div class="column">
                   <div
                     v-for="(dataText, idx) in infoDataTexts"
                     :key="`${sectionIndex}-${index}-info-data-text-${idx}-${dataText.key}`"
-                    class=""
-                    >
+                    class="">
                     <DataTextsMd
                       :data-text="dataText"
                       :item-dict="itemDict"
@@ -169,8 +162,7 @@
               <VueShowdown
                 :markdown="itemContent"
                 :flavor="showdownOptions.flavor"
-                :options="showdownOptions.options"
-              />
+                :options="showdownOptions.options"/>
 
               <DataTextsMd
                 v-if="defaultDataText"
@@ -178,8 +170,7 @@
                 :item-dict="itemDict"
                 :section-index="sectionIndex"
                 :index="index"
-                :idx="'dft'"
-              />
+                :idx="'dft'"/>
             </div>
 
             <!-- {{ modalConfigColRight.tabs }} -->
@@ -190,24 +181,19 @@
             <b-tabs 
               v-if="modalConfigColRight.tabs"
               position="is-centered"
-              class="multiTabs block mt-5"
-              >
+              class="multiTabs block mt-5">
                 
               <!-- GALLERY -->
               <b-tab-item 
                 v-if="modalConfigColRight['images-gallery'] && modalConfigColRight['tabs'].includes('gallery')"
                 :label="$translate('gallery', dict)"
-                class="tabItem"
-                >
+                class="tabItem">
                 <div 
-                  class="columns is-centered has-background-grey-lighter mx-3 pb-4"
-                  >
+                  class="columns is-centered has-background-grey-lighter mx-3 pb-4">
                   <div 
-                    class="column is-8 is-10-tablet is-full-mobile content"
-                    >
+                    class="column is-8 is-10-tablet is-full-mobile content">
                     <DataGallery
-                      :images-list-urls="imagesListUrls"
-                    />
+                      :images-list-urls="imagesListUrls"/>
                   </div>
                 </div>
               </b-tab-item>
@@ -233,7 +219,6 @@
                   </div>
                 </div>
               </b-tab-item>
-
 
               <!-- LINKS -->
               <b-tab-item 
@@ -289,6 +274,8 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import links from '~/mixins/links'
+
 export default {
   name: 'DataCardModal',
   components: {
@@ -296,6 +283,9 @@ export default {
     DataTextsMd: () => import(/* webpackChunkName: "DataTextsMd" */ '~/components/contents/DataTextsMd.vue'),
     DataGallery: () => import(/* webpackChunkName: "DataGallery" */ '~/components/contents/DataGallery.vue'),
   },
+  mixins: [
+    links
+  ],
   props: [
     'modalReady',
     'sectionIndex',
@@ -349,10 +339,10 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       locales: (state) => state.locales,
-      gitInfos: (state) =>  state.gitInfos
+      // gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
-      rawRoot : 'getGitRawRoot',
+      // rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
     }),
     itemKeys() {
@@ -400,19 +390,6 @@ export default {
     }
   },
   methods: {
-    convertUrl(url) {
-      return `${this.rawRoot}${url}`
-    },
-    convertUrlImage (url) {
-      let rawRoot = this.rawRoot
-      let urlClean = url
-      if (this.gitInfos.gitProvider === 'localhost' && url.startsWith('./')) {
-        rawRoot = rawRoot.replace('/content', '/statics')
-        urlClean = url.replace('./', '')
-      }
-      const srcLink = url && url.startsWith('./') ? `${rawRoot}${urlClean}` : urlClean
-      return srcLink
-    },
     hasKey(str) {
       return Object.keys(this.itemData).includes(str)
     },
