@@ -365,6 +365,9 @@ export default {
             .has-text-primary {
               color: ${ customColor } !important;
             }
+            .button.is-ghost {
+              color: ${ customColor } !important;
+            }
           `
           }
           colors.push({
