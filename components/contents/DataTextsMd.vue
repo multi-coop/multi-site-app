@@ -1,6 +1,6 @@
 <template>
 
-  <div class="columns">
+  <div class="DataTextMd columns">
     
     <div class="column is-one-third pb-0">
       <div class="content">

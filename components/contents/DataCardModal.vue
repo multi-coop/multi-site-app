@@ -54,7 +54,7 @@
           <!-- COLUMN LEFT -->
           <div 
             v-if="modalConfigColLeft"
-            class="column is-one-third">
+            class="col-left column is-one-third">
             <!-- COVER IMAGE -->
             <b-image
               v-if="imagesList"
@@ -97,7 +97,7 @@
 
           <!-- COLUMN RIGHT -->
           <div 
-            :class="`column ${fullScreen ? 'is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile' : ''}`">
+            :class="`col-right column ${fullScreen ? 'is-9-fullhd is-9-widescreen is-10-desktop is-10-tablet is-full-mobile' : ''}`">
             
             <!-- TITLE -->
             <div style="display: flex; justify-content: center;">
@@ -158,7 +158,8 @@
             </p>
 
             <!-- MD CONTENTS -->
-            <div class="content mt-6 px-5">
+            <div
+              class="content mt-6 px-5">
               <VueShowdown
                 :markdown="itemContent"
                 :flavor="showdownOptions.flavor"
