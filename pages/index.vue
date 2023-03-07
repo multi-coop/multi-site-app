@@ -336,6 +336,9 @@ export default {
             a:not(.navbar-link, .navbar-item, .credit-text) {
               color: ${ customColor };
             }
+            .navbar-link, navbar-item {
+              color: #4a4a4a !important;
+            }
             .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
               color: ${ customColor } !important;
             }
