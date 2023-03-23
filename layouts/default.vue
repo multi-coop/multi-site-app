@@ -36,10 +36,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex' 
+import { mapState, mapGetters } from 'vuex' 
 
 import matomo from '~/mixins/matomo'
 
+import { createStyleLink } from '~/utils/utilsStyles'
 import { setMatomoScript } from '~/utils/utilsMatomo'
 
 export default {
@@ -57,10 +58,33 @@ export default {
       appTitle: (state) => state.appTitle,
       config: (state) => state.config,
       navbar: (state) =>  state.navbar,
+      gitInfos: (state) =>  state.gitInfos
+    }),
+    ...mapGetters({
+      rawRoot: 'getGitRawRoot'
     })
   },
   mounted () {
     // console.log('C > DefaultLayout > mounted > this.config : ', this.config)
+    if (this.config.data.custom_css && this.config.data.custom_css_files) {
+      const cssFiles = this.config.data.custom_css_files
+      // console.log('C > DefaultLayout > mounted > cssFiles : ', cssFiles)
+      let rawRoot = this.rawRoot
+      const isLocalhost = this.gitInfos.gitProvider === 'localhost'
+      // console.log('C > DefaultLayout > mounted > this.gitInfos.gitProvider : ', this.gitInfos.gitProvider)
+      cssFiles.forEach(url => {
+        let linkClean = url
+        const isLocalFile = url.startsWith('./')
+        if (isLocalhost && isLocalFile) {
+          rawRoot = rawRoot.replace('/content', '/statics')
+          linkClean = linkClean.replace('./', '')
+        }
+        // console.log('C > DefaultLayout > mounted > rawRoot : ', rawRoot)
+        const srcLink = url && url.startsWith('./') ? `${rawRoot}${linkClean}` : linkClean
+        // console.log('C > DefaultLayout > mounted > srcLink : ', srcLink)
+        createStyleLink(srcLink)
+      })
+    }
     if (this.isMatomo) {
       // console.log('\nC > DefaultLayout > mounted > this.matomoServer : ', this.matomoServer)
       // console.log('C > DefaultLayout > mounted > this.matomoSiteId : ', this.matomoSiteId)

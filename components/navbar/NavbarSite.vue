@@ -1,7 +1,7 @@
 <template>
     
   <nav
-    class="navbar has-navbar-centered is-fixed-top"
+    class="NavbarSite navbar has-navbar-centered is-fixed-top"
     role="navigation"
     aria-label="main navigation">
     <!-- BRAND -->
@@ -9,10 +9,9 @@
       <router-link
         class="navbar-item"
         :to="{ path: '/?locale=' + locale }"
-        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')"
-        >
+        @click.native="trackEvent(true, 'ClickBrand', 'Navbar')">
         <img
-          :src="getLink(navbar.data['logo-left'])"
+          :src="convertUrlImage(navbar.data['logo-left'])"
           width="auto"
           height=".9em">
         <span
@@ -109,8 +108,9 @@
 
 <script>
 
-import { mapState, mapGetters } from 'vuex' 
+import { mapState } from 'vuex' 
 
+import links from '~/mixins/links'
 import matomo from '~/mixins/matomo'
 
 export default {
@@ -119,7 +119,10 @@ export default {
     NavbarItem: () => import(/* webpackChunkName: "NavbarItem" */ '~/components/navbar/NavbarItem.vue'),
     NavbarItemMobile: () => import(/* webpackChunkName: "NavbarItemMobile" */ '~/components/navbar/NavbarItemMobile.vue')
   },
-  mixins: [matomo],
+  mixins: [
+    links,
+    matomo
+  ],
   data () {
     return {
       showMobileMenu: false,
@@ -131,18 +134,10 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       config: (state) => state.config,
-      navbar: (state) =>  state.navbar,
-      gitInfos: (state) =>  state.gitInfos
-    }),
-    ...mapGetters({
-      rawRoot: 'getGitRawRoot'
+      navbar: (state) =>  state.navbar
     })
   },
   methods: {
-    getLink (link) {
-      const srcLink = link && link.startsWith('./') ? `${this.rawRoot}${link}` : link
-      return srcLink
-    },
     updateMobileMenu (ev) {
       // console.log('\n-C- NavbarSite > updateMobileMenu > ev :', ev)
       this.activeItemMobile = ev

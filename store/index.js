@@ -64,6 +64,7 @@ export const getters = {
     return state.routes.data.routes.find( route => route.url === currentPath)
   },
   getGitRawRoot: (state) => {
+    // console.log('\n-G- getGitRawRoot > state.gitInfos : ', state.gitInfos)
     const root = state.gitInfos &&  state.gitInfos.gitRawRoot
     return root
   },

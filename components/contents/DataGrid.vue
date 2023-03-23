@@ -196,6 +196,7 @@ export default {
   },
   beforeMount() {
     const preOpenItem = this.$route.query && this.$route.query.item
+    // console.log('-C- DataGrid > beforeMount > preOpenItem :', preOpenItem)
     this.preOpenItem = preOpenItem
   },
   created() {

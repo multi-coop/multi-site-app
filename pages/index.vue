@@ -149,28 +149,14 @@
 
     <!-- CUSTOMM CSS STYLING FROM CONFIG -->
     <div
+      v-if="configColors"
       class="content-container">
       <!-- <pre><code>{{ config.data }}</code></pre>
       <br>{{ configPrimaryColor }} -->
       <style
-        v-if="configColors && configPrimaryColor">
-        a:not(.navbar-link, .navbar-item, .credit-text), .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
-          color: {{ configPrimaryColor }} !important;
-        }
-        a:not(.navbar-link, .navbar-item, .button, .navbar-mobile-item) {
-          text-decoration: underline;
-        }
-        .floating-menu-item > a, nav.tabs  > ul > li > a {
-          text-decoration: none !important;
-        }
-        .button.is-primary, .tag.is-primary {
-          background-color: {{ configPrimaryColor }} !important;
-          color: {{ getContrastYIQ(configPrimaryColor) }} !important;
-        }
-        .menu-list a.is-active {
-          background-color: {{ configPrimaryColor }} !important;
-          color: {{ getContrastYIQ(configPrimaryColor) }} !important;
-        }
+        v-for="(cc, i) in customColors"
+        :key="`custom-style-${i}-${cc.type}`">
+        {{ cc.style }}
       </style>
     </div>
 
@@ -208,6 +194,22 @@ export default {
         'multi', 'coop', 'multi.coop',
         'open', 'open source',
         'multi-site-app'
+      ],
+      colorTypes: [
+        { type: 'primary', default: '#7957d5' },
+        { type: 'link', default: '#7957d5' },
+        { type: 'info', default: '#6fdcbf' },
+        { type: 'success', default: '#03BD5B' },
+        { type: 'warning', default: '#ff9947' },
+        { type: 'danger', default: '#D1335B' }
+        // primary: '#037988'
+        // loading_color: '#6fdcbf'
+        // accent: '#572a99'
+        // secondary: '#6fdcbf'
+        // info: '#53657D'
+        // warning: '#ff9947'
+        // error: '#D1335B'
+        // success: '#03BD5B'
       ]
     }
   },
@@ -304,12 +306,81 @@ export default {
     routeHasContrib () {
       return this.currentRoute.options && this.currentRoute.options.contrib
     },
+    configCustomCssFiles () {
+      return this.config.data && this.config.data.custom_css_files
+    },
     configColors () {
       // return this.config.data && this.config.data.colors
       return this.config.data && this.config.data.custom_colors && this.config.data.colors
     },
-    configPrimaryColor () {
-      return (this.configColors && this.configColors.primary) || '#7957d5' 
+    customColors () {
+      const colors = []
+      this.configColors && this.colorTypes.forEach(t => {
+        if (this.configColors[t.type]) {
+          const customColor = this.configColors[t.type] || t.default
+          let customStyle = `
+            .button.is-${t.type}, .tag.is-${t.type} {
+              background-color: ${ customColor } !important;
+              color: ${ this.getContrastYIQ(customColor) } !important;
+            }
+            .button.is-${t.type}.is-outlined {
+              border-color: ${ customColor } !important;
+            }
+            .is-${t.type}, .is-${t.type} {
+              background-color: ${ customColor } !important;
+              color: ${ this.getContrastYIQ(customColor) } !important;
+            }
+          `
+          if (t.type === 'primary') {
+            customStyle += `
+            a:not(.navbar-link, .navbar-item, .credit-text) {
+              color: ${ customColor };
+            }
+            .navbar-link, navbar-item {
+              color: #4a4a4a !important;
+            }
+            .navbar-link:hover, .navbar-item:hover, a.navbar-item.is-active {
+              color: ${ customColor } !important;
+            }
+            .tabs li > a {
+              color: ${ customColor } !important;
+            }
+            .tabs li > a:hover {
+              border-bottom-color : ${ customColor } !important;
+            }
+            .tabs li.is-active > a {
+              font-weight: bold;
+              border-bottom-color : ${ customColor } !important;
+            }
+            a:not(.navbar-link, .navbar-item, .button, .navbar-mobile-item) {
+              text-decoration: underline;
+            }
+            .floating-menu-item > a, nav.tabs  > ul > li > a {
+              text-decoration: none !important;
+            }
+            .menu-list a.is-active {
+              background-color: ${ customColor } !important;
+              color: ${ this.getContrastYIQ(customColor) } !important;
+            }
+            .b-slider.is-primary .b-slider-fill {
+              background: ${ customColor } !important;
+            }
+            .has-text-primary {
+              color: ${ customColor } !important;
+            }
+            .button.is-ghost {
+              color: ${ customColor } !important;
+            }
+          `
+          }
+          colors.push({
+            type: t.type,
+            color: customColor,
+            style: customStyle
+          })
+        }
+      })
+      return colors
     },
     // menuSections () {
     //   return this.currentRoute.sections.filter(section => !(section.options && section.options['not-in-menu']) )
@@ -452,6 +523,9 @@ export default {
     },
     handleScroll (event) {
       this.scrollPositionY = Math.round(window.scrollY)
+    },
+    getCustomColor (type) {
+      return (this.configColors && this.configColors[type]) || '#7957d5' 
     },
     getContrastYIQ (hexcolor) {
       hexcolor = hexcolor.replace('#', '')

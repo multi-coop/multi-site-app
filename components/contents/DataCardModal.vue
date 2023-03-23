@@ -3,18 +3,15 @@
 <template>
 
   <div 
-    :class="`${fullScreen ? 'modal-card': 'card'}`"
-    >
+    :class="`DataCardModal ${fullScreen ? 'modal-card': 'card'}`">
 
     <div
-      :class="`${fullScreen ? 'modal-card-body px-5': 'card-content'}`"
-      >
+      :class="`modal-card-body ${fullScreen ? 'px-5': ''}`">
 
       <div 
         v-if="fullScreen"
-        class="content mb-6"
-        >
-        <NavbarComponent/>
+        class="content mb-6">
+        <NavbarSite/>
       </div>
 
       <div 
@@ -49,23 +46,19 @@
         </div>
       </div>
 
-
       <div 
-        :class="`${fullScreen ? 'container' : '' } content`"
-        >
+        :class="`${fullScreen ? 'container' : '' } content`">
         <div 
           :class="`columns ${fullScreen ? 'is-centered' : '' }`">
 
           <!-- COLUMN LEFT -->
           <div 
             v-if="modalConfigColLeft"
-            class="column is-one-third"
-            >
-
+            class="col-left column is-one-third">
             <!-- COVER IMAGE -->
             <b-image
               v-if="imagesList"
-              :src='convertUrl(imagesList[0])'
+              :src='convertUrlImage(imagesList[0])'
               :alt='itemData.name'
               :ratio="imagesRatio"
               :rounded="imagesRounded"
@@ -100,30 +93,29 @@
                 </div>
               </div>
             </nav>
-
           </div>
 
           <!-- COLUMN RIGHT -->
           <div 
-            :class="`column ${fullScreen ? 'is-7-fullhd is-8-widescreen is-9-desktop is-10-tablet is-full-mobile' : ''}`">
+            :class="`col-right column ${fullScreen ? 'is-9-fullhd is-9-widescreen is-10-desktop is-10-tablet is-full-mobile' : ''}`">
             
             <!-- TITLE -->
-            <h1 class="mt-4 mb-5 pb-1 has-text-centered">
-              {{ itemData[titleKey] }}
-            </h1>
+            <div style="display: flex; justify-content: center;">
+              <h1 class="mt-4 mb-5 pb-1 has-text-centered">
+                {{ itemData[titleKey] }}
+              </h1>
+            </div>
 
             <!-- INFO TEXT MD DATA CONTENTS -->
             <div 
               v-if="infoDataTexts && infoDataTexts.length"
-              class="notification px-4 pt-4"
-              >
+              class="notification px-4 pt-4">
               <div class="columns is-centered">
                 <div class="column">
                   <div
                     v-for="(dataText, idx) in infoDataTexts"
                     :key="`${sectionIndex}-${index}-info-data-text-${idx}-${dataText.key}`"
-                    class=""
-                    >
+                    class="">
                     <DataTextsMd
                       :data-text="dataText"
                       :item-dict="itemDict"
@@ -148,7 +140,6 @@
               </div>
             </div>
 
-
             <!-- TAGS -->
             <p 
               v-for="(tagKey, idx) in options['tags-keys']"
@@ -166,15 +157,13 @@
               </b-tag>
             </p>
 
-
             <!-- MD CONTENTS -->
-            <div class="content mt-6 px-5">
-
+            <div
+              class="content mt-6 px-5">
               <VueShowdown
                 :markdown="itemContent"
                 :flavor="showdownOptions.flavor"
-                :options="showdownOptions.options"
-              />
+                :options="showdownOptions.options"/>
 
               <DataTextsMd
                 v-if="defaultDataText"
@@ -182,9 +171,7 @@
                 :item-dict="itemDict"
                 :section-index="sectionIndex"
                 :index="index"
-                :idx="'dft'"
-              />
-
+                :idx="'dft'"/>
             </div>
 
             <!-- {{ modalConfigColRight.tabs }} -->
@@ -195,27 +182,22 @@
             <b-tabs 
               v-if="modalConfigColRight.tabs"
               position="is-centered"
-              class="block mt-5"
-              >
+              class="multiTabs block mt-5">
                 
               <!-- GALLERY -->
               <b-tab-item 
                 v-if="modalConfigColRight['images-gallery'] && modalConfigColRight['tabs'].includes('gallery')"
                 :label="$translate('gallery', dict)"
-                >
+                class="tabItem">
                 <div 
-                  class="columns is-centered has-background-grey-lighter mx-3 pb-4"
-                  >
+                  class="columns is-centered has-background-grey-lighter mx-3 pb-4">
                   <div 
-                    class="column is-8 is-10-tablet is-full-mobile content"
-                    >
+                    class="column is-8 is-10-tablet is-full-mobile content">
                     <DataGallery
-                      :images-list-urls="imagesListUrls"
-                    />
+                      :images-list-urls="imagesListUrls"/>
                   </div>
                 </div>
               </b-tab-item>
-
               
               <!-- CONTENTS -->
               <b-tab-item 
@@ -238,7 +220,6 @@
                   </div>
                 </div>
               </b-tab-item>
-
 
               <!-- LINKS -->
               <b-tab-item 
@@ -263,18 +244,11 @@
                 </div>
               </b-tab-item>
 
-
             </b-tabs>
-
-
             <br>
-            
           </div>
-          
         </div>
-
       </div>
-
 
       <!-- DEBUG -->
       <div
@@ -292,9 +266,7 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -303,13 +275,18 @@
 
 import { mapState, mapGetters } from 'vuex' 
 
+import links from '~/mixins/links'
+
 export default {
   name: 'DataCardModal',
   components: {
-    NavbarComponent: () => import(/* webpackChunkName: "NavbarComponent" */ '~/components/navbar/NavbarComponent.vue'),
+    NavbarSite: () => import(/* webpackChunkName: "NavbarSite" */ '~/components/navbar/NavbarSite.vue'),
     DataTextsMd: () => import(/* webpackChunkName: "DataTextsMd" */ '~/components/contents/DataTextsMd.vue'),
     DataGallery: () => import(/* webpackChunkName: "DataGallery" */ '~/components/contents/DataGallery.vue'),
   },
+  mixins: [
+    links
+  ],
   props: [
     'modalReady',
     'sectionIndex',
@@ -363,9 +340,10 @@ export default {
       log: (state) => state.log,
       locale: (state) => state.locale,
       locales: (state) => state.locales,
+      // gitInfos: (state) =>  state.gitInfos
     }),
     ...mapGetters({
-      rawRoot : 'getGitRawRoot',
+      // rawRoot : 'getGitRawRoot',
       showdownOptions: 'getShowdownOptions',
     }),
     itemKeys() {
@@ -386,7 +364,7 @@ export default {
     },
     imagesListUrls() {
       const urlsArray = this.imagesList.map( path => {
-        return { title: path, image: this.convertUrl(path) } 
+        return { title: path, image: this.convertUrlImage(path) } 
       })
       return urlsArray
     },
@@ -413,9 +391,6 @@ export default {
     }
   },
   methods: {
-    convertUrl(url) {
-      return `${this.rawRoot}${url}`
-    },
     hasKey(str) {
       return Object.keys(this.itemData).includes(str)
     },

@@ -1,8 +1,7 @@
 <template>
   <div
     v-show="canShowCard"
-    :class="`column is-half-tablet is-${colSize}-desktop mb-5`"
-    >
+    :class="`dataCard column is-half-tablet is-${colSize}-desktop mb-5`">
     <!-- :class="`column is-${showMore ? 'full' : colSize}`" -->
 
     <!-- DEBUG -->
@@ -50,17 +49,17 @@
 
     <div 
       v-if="data"
-      class="card"
-      >
+      class="card">
 
       <!-- TITLE -->
       <header 
         class="card-header"
-        @click="openModal()"
-        >
-        <h2 class="card-header-title is-size-5">
-          {{ data[titleKey] }}
-        </h2>
+        @click="openModal()">
+        <div style="display: flex; justify-content: center;">
+          <h2 class="card-header-title is-size-5">
+            {{ data[titleKey] }}
+          </h2>
+        </div>
       </header>
       
       <!-- COVER -->
@@ -70,7 +69,7 @@
         @click="openModal()"
         >
         <b-image
-          :src='convertUrl(imagesList[0])'
+          :src='convertUrlImage(imagesList[0])'
           :alt='data.name'
           :ratio="imagesRatio"
           :rounded="imagesRounded"
@@ -79,8 +78,7 @@
       
       <!-- CONTENT -->
       <div 
-        :class="`card-content ${miniatureKeys.length ? 'pb-0' : ''}`"
-        >
+        :class="`card-content ${miniatureKeys.length ? 'pb-0' : ''}`">
 
         <!-- TAGS -->
         <div 
@@ -107,8 +105,7 @@
 
         <hr 
           v-if="options['has-readmore']"
-          class="mt-1 mb-5"
-        >
+          class="mt-1 mb-5">
 
         <!-- TEXT -->
         <div 
@@ -147,9 +144,7 @@
           </div>
 
         </div>
-
       </div>
-
 
       <!-- MINIATURE KEYS -->
       <div 
@@ -173,7 +168,6 @@
           </li>
         </ul>
       </div>
-
 
       <!-- FOOTERS -->
       <!-- button read more -->
@@ -219,9 +213,7 @@
           <b-icon :icon="social"/>
         </a>
       </footer>
-
     </div>
-
 
     <!-- MODAL -->
     <b-modal 
@@ -255,10 +247,8 @@
         @close="openModal(true); showMore = false"
       />
     </b-modal>
-
   </div>
 </template>
-
 
 <script>
 
@@ -266,6 +256,7 @@ import matter from 'gray-matter'
 
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
+import links from '~/mixins/links'
 import matomo from '~/mixins/matomo'
 
 export default {
@@ -273,7 +264,10 @@ export default {
   components: {
     DataCardModal: () => import(/* webpackChunkName: "DataCardModal" */ '~/components/contents/DataCardModal.vue'),
   },
-  mixins: [matomo],
+  mixins: [
+    links,
+    matomo
+  ],
   props: {
     sectionIndex: {
       default: undefined,
@@ -301,7 +295,7 @@ export default {
     },
     preOpenItem: {
       default: undefined,
-      type: Object
+      type: [Object, String]
     },
     debug: {
       default: false,
@@ -344,8 +338,6 @@ export default {
       locale: (state) => state.locale
     }),
     ...mapGetters({
-      rawRoot : 'getGitRawRoot',
-      publicRoot: 'getGitPublicRoot',
       showdownOptions: 'getShowdownOptions',
       isSelectionActivated: 'data/isSelectionActivated',
       canShowItem: 'data/canShowItem',
@@ -457,7 +449,6 @@ export default {
         return true
       }
     }
-
   },
   watch: {
     data(next) {
@@ -477,6 +468,7 @@ export default {
       })
       // console.log('-C- DataCard > watch > tagsToAdd :', tagsToAdd)
       this.$store.dispatch('data/setAvailableTags', tagsToAdd)
+      // console.log('-C- DataCard > watch > data > this.preOpenItem :', this.preOpenItem)
       this.showModal = this.preOpenItem === this.file
     },
     showModal(next) {
@@ -490,12 +482,6 @@ export default {
     ...mapActions({
       setAvailableTags: 'data/setAvailableTags'
     }),
-    convertUrl(url) {
-      return `${this.rawRoot}${url}`
-    },
-    convertUrlPublic(url) {
-      return `${this.publicRoot}${url}`
-    },
     async getFileData() {
       const urlRaw = this.urlFile
       // console.log('\n-C- DataCard > getFileData > urlRaw :', urlRaw)
@@ -531,9 +517,7 @@ export default {
       }
       this.trackEvent(this.data[this.titleKey], 'OpenModal', 'Content')
     }
-
   }
-
 }
 </script>
 
