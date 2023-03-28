@@ -309,7 +309,20 @@ export default {
   ],
   data() {
     return {
-      socials: [ 'email', 'twitter', 'linkedin', 'gitlab', 'github' ],
+      socials: [ 
+        'email',
+        'twitter',
+        'linkedin',
+        'link',
+        'link-variant',
+        'open-in-new',
+        'link-box',
+        'link-box-variant',
+        'link-box-variant-outline',
+        'gitlab',
+        'github',
+        'wikipedia'
+      ],
       hoverClose: false,
       dict: {
         gallery: {
