@@ -258,6 +258,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 import links from '~/mixins/links'
 import matomo from '~/mixins/matomo'
+import { socials } from '~/utils/utilsConfig'
 
 export default {
   name: 'DataCard',
@@ -310,20 +311,6 @@ export default {
       showMore: false,
       showModal: false,
       modalReady: false,
-      socials: [ 
-        'email',
-        'twitter',
-        'linkedin',
-        'link',
-        'link-variant',
-        'open-in-new',
-        'link-box',
-        'link-box-variant',
-        'link-box-variant-outline',
-        'gitlab',
-        'github',
-        'wikipedia'
-      ],
       defaultDict: {
         readmore: {
           fr: 'Lire plus',
@@ -423,7 +410,7 @@ export default {
       return Object.keys(this.data)
     },
     itemSocials() {
-      const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
+      const itemSocials = socials.filter( soc => this.itemKeys.includes(soc) )
       return itemSocials
     },
     dataTextsKeys() {

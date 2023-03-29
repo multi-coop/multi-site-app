@@ -135,3 +135,22 @@ export class ConfigApp {
   }
 
 }
+
+// --------- //
+// CONSTANTS
+// --------- //
+
+export const socials = [ 
+  'email',
+  'twitter',
+  'linkedin',
+  'link',
+  'link-variant',
+  'open-in-new',
+  'link-box',
+  'link-box-variant',
+  'link-box-variant-outline',
+  'gitlab',
+  'github',
+  'wikipedia'
+]
