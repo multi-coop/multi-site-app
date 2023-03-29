@@ -276,6 +276,7 @@
 import { mapState, mapGetters } from 'vuex' 
 
 import links from '~/mixins/links'
+import { socials } from '~/utils/utilsConfig'
 
 export default {
   name: 'DataCardModal',
@@ -309,7 +310,6 @@ export default {
   ],
   data() {
     return {
-      socials: [ 'email', 'twitter', 'linkedin', 'gitlab', 'github' ],
       hoverClose: false,
       dict: {
         gallery: {
@@ -350,7 +350,7 @@ export default {
       return Object.keys(this.itemData)
     },
     itemSocials() {
-      const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
+      const itemSocials = socials.filter( soc => this.itemKeys.includes(soc) )
       return itemSocials
     },
     modalConfig() {

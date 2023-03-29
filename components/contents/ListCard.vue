@@ -197,6 +197,7 @@ import matter from 'gray-matter'
 import { mapState, mapGetters, mapActions } from 'vuex' 
 
 import matomo from '~/mixins/matomo'
+import { socials } from '~/utils/utilsConfig'
 
 export default {
   name: 'ListCard',
@@ -245,7 +246,6 @@ export default {
       showMore: false,
       showModal: false,
       modalReady: false,
-      socials: [ 'email', 'twitter', 'linkedin', 'github' ],
       defaultDict: {
         readmore: {
           fr: 'Lire plus',
@@ -352,7 +352,7 @@ export default {
       return Object.keys(this.data)
     },
     itemSocials() {
-      const itemSocials = this.socials.filter( soc => this.itemKeys.includes(soc) )
+      const itemSocials = socials.filter( soc => this.itemKeys.includes(soc) )
       return itemSocials
     },
     dataTextsKeys() {
