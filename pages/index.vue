@@ -458,7 +458,7 @@ export default {
     //     2000
     //   )
     // }
-    this.updateUrl(undefined, false, true)
+    // this.updateUrl(undefined, false, true)
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll)
