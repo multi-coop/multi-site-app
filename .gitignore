@@ -92,3 +92,5 @@ sw.*
 # env file
 *.env
 !example.env
+
+*.nix
