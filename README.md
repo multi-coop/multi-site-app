@@ -96,6 +96,8 @@ Then you just have to run the app :
 ```bash
 nvm use
 npm run dev
+# or
+NODE_OPTIONS=--openssl-legacy-provider npm run dev # If you have `ERR_OSSL_EVP_UNSUPPORTED` error
 ```
 
 ... and check if everything seems ok, given the settings from the `.env` file) :
