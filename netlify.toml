@@ -2,3 +2,7 @@
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+[[redirects]]
+  from = "/.well-known/matrix/*"
+  to = "https://matrix.multi.coop/.well-known/matrix/:splat"
+  status = 200
